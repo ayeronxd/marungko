@@ -8,28 +8,539 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <style>
+        /* ── Lesson 3 specific styles (copied from Lesson 1) ── */
+
+        .lesson3-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            position: relative;
+            box-sizing: border-box;
+            padding: 28px 50px 20px 50px;
+        }
+
+        /* Instruction text at the top */
+        .l1-instruction {
+            font-size: 52px;
+            font-weight: 600;
+            color: white;
+            margin: 0 0 0 0;
+            line-height: 1.3;
+            text-align: left;
+            width: 100%;
+        }
+
+        .l1-instruction .highlight-yellow {
+            color: #ffb400;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* Main content row: key + circles */
+        .l1-content-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 1;
+            width: 100%;
+            gap: 0;
+            padding-bottom: 40px;
+        }
+
+        /* Key image area */
+        .l1-key-area {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 30px;
+            margin-left: 20px;
+        }
+
+        /* Question card panel around the key image */
+        .l1-question-card {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.12);
+            border: 4px dashed rgba(255, 255, 255, 0.7);
+            border-radius: 22px;
+            padding: 22px 28px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Question mark badge in the top-right corner */
+        .l1-question-badge {
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffb400;
+            border: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            line-height: 1;
+            z-index: 5;
+        }
+
+        .l1-key-img {
+            height: 350px;
+            width: auto;
+            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
+        }
+
+        /* Pulse glow animation on answer circles (Option 3) */
+        @keyframes circlePulse {
+            0% {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0.45);
+            }
+
+            60% {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 14px rgba(255, 255, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        /* Answer circles container */
+        .l1-circles-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 50px;
+            flex: 1;
+            padding-left: 40px;
+        }
+
+        /* Individual answer circle */
+        .l1-choice {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            animation: circlePulse 2s ease-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* Stagger the pulse so all three don't pulse at once */
+        .l1-choice:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .l1-choice:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .l1-choice:hover {
+            transform: scale(1.07);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+            animation: none;
+        }
+
+        /* Color variants */
+        .l1-choice.orange {
+            background-color: #e07830;
+        }
+
+        .l1-choice.green {
+            background-color: #5da041;
+        }
+
+        .l1-choice.yellow {
+            background-color: #e6b800;
+        }
+
+        /* Letter inside circle */
+        .l1-choice-letter {
+            font-size: 110px;
+            font-weight: 600;
+            color: white;
+            line-height: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Underline bar below letter inside circle */
+        .l1-choice-letter span {
+            display: inline-block;
+            text-decoration: none;
+            border-bottom: 6px solid rgba(255, 255, 255, 0.9);
+            line-height: 0.8;
+            padding-bottom: 2px;
+        }
+
+        /* Home icon button (bottom right — house) */
+        .home-btn {
+            position: absolute;
+            bottom: 18px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));
+            z-index: 10;
+        }
+
+        .home-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Feedback panel overlay */
+        .l1-feedback-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 380px;
+            max-width: 80%;
+            border-radius: 20px;
+            padding: 28px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            z-index: 30;
+        }
+
+        .l1-feedback-panel.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: all;
+        }
+
+        .l1-feedback-panel.correct {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            border: 4px solid #1e8449;
+        }
+
+        .l1-feedback-panel.wrong {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border: 4px solid #922b21;
+        }
+
+        .l1-feedback-icon {
+            font-size: 64px;
+            line-height: 1;
+        }
+
+        .l1-feedback-title {
+            font-size: 52px;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .l1-feedback-sub {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .l1-instruction {
+                font-size: 38px;
+            }
+
+            .l1-choice {
+                width: 145px;
+                height: 145px;
+            }
+
+            .l1-choice-letter {
+                font-size: 82px;
+            }
+
+            .l1-key-img {
+                height: 190px;
+            }
+
+            .l1-question-card {
+                padding: 14px 18px;
+            }
+
+            .l1-question-badge {
+                width: 34px;
+                height: 34px;
+                font-size: 20px;
+                top: -14px;
+                right: -14px;
+            }
+
+            .l1-circles-row {
+                gap: 35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .lesson3-screen {
+                padding: 18px 24px 14px;
+            }
+
+            .l1-instruction {
+                font-size: 26px;
+            }
+
+            .l1-choice {
+                width: 100px;
+                height: 100px;
+            }
+
+            .l1-choice-letter {
+                font-size: 56px;
+            }
+
+            .l1-key-img {
+                height: 120px;
+            }
+
+            .l1-question-card {
+                padding: 10px 12px;
+                border-radius: 14px;
+            }
+
+            .l1-question-badge {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+                top: -11px;
+                right: -11px;
+            }
+
+            .l1-circles-row {
+                gap: 20px;
+                padding-left: 20px;
+            }
+
+            .l1-key-area {
+                padding-right: 10px;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .l1-instruction {
+                font-size: 18px;
+            }
+
+            .l1-choice {
+                width: 72px;
+                height: 72px;
+            }
+
+            .l1-choice-letter {
+                font-size: 38px;
+            }
+
+            .l1-key-img {
+                height: 80px;
+            }
+
+            .l1-question-card {
+                padding: 7px 9px;
+                border-radius: 10px;
+            }
+
+            .l1-question-badge {
+                width: 22px;
+                height: 22px;
+                font-size: 12px;
+                top: -9px;
+                right: -9px;
+            }
+
+            .l1-circles-row {
+                gap: 12px;
+                padding-left: 10px;
+            }
+        }
+
+        @media (max-height: 500px) and (orientation: landscape) {
+            .l1-instruction {
+                font-size: 22px;
+            }
+
+            .l1-choice {
+                width: 90px;
+                height: 90px;
+            }
+
+            .l1-choice-letter {
+                font-size: 50px;
+            }
+
+            .l1-key-img {
+                height: 110px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="frame">
         <div class="chalkboard">
+
+            <!-- DECODE Logo top right -->
             <div class="logo-placeholder">
                 <img src="images/decode.png" alt="Logo">
             </div>
 
-            <!-- Empty canvas for Lesson 3 -->
-            <div id="lesson3" class="screen active">
+            <!-- Lesson 3 Screen -->
+            <div id="lesson3" class="screen active lesson3-screen">
 
-                <!-- Home Button -->
-                <div class="nav-btn" style="right: auto; left: 25px;" onclick="window.location.href='dafs.html#page11'">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                <!-- Instruction text -->
+                <p class="l1-instruction">
+                    Piliin ang <span class="highlight-yellow">unang</span> tunog ng mga sumusunod na larawan.
+                </p>
+
+                <!-- Content row: key image + answer choices -->
+                <div class="l1-content-row">
+
+                    <!-- Key image area -->
+                    <div class="l1-key-area">
+                        <div class="l1-question-card">
+                            <span class="l1-question-badge">?</span>
+                            <img class="l1-key-img" src="images/mangga.png" alt="Mangga (Mango)">
+                        </div>
+                    </div>
+
+                    <!-- Answer circles -->
+                    <div class="l1-circles-row">
+
+                        <!-- Circle A (wrong) -->
+                        <div class="l1-choice orange" onclick="checkAnswer(this, false)" title="a">
+                            <div class="l1-choice-letter"><span>a</span></div>
+                        </div>
+
+                        <!-- Circle M (correct) -->
+                        <div class="l1-choice green" onclick="checkAnswer(this, true)" title="m">
+                            <div class="l1-choice-letter"><span>m</span></div>
+                        </div>
+
+                        <!-- Circle S (wrong) -->
+                        <div class="l1-choice yellow" onclick="checkAnswer(this, false)" title="s">
+                            <div class="l1-choice-letter"><span>s</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Feedback panel -->
+                <div class="l1-feedback-panel" id="l1-feedback-panel">
+                    <div class="l1-feedback-icon" id="l1-feedback-icon"></div>
+                    <div class="l1-feedback-title" id="l1-feedback-title"></div>
+                    <div class="l1-feedback-sub" id="l1-feedback-sub"></div>
+                </div>
+
+                <!-- House / Home button (bottom right) -->
+                <div class="home-btn" onclick="window.location.href='dafs.html#page11'" title="Go back to lesson menu">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- House body -->
+                        <rect x="18" y="48" width="64" height="45" rx="4" ry="4" fill="#e8c97a" stroke="#b08030"
+                            stroke-width="3" />
+                        <!-- Door -->
+                        <rect x="36" y="68" width="28" height="25" rx="3" ry="3" fill="#a0522d" stroke="#7a3a18"
+                            stroke-width="2" />
+                        <!-- Door knob -->
+                        <circle cx="60" cy="82" r="3" fill="#f0d060" />
+                        <!-- Roof -->
+                        <polygon points="8,52 50,8 92,52" fill="#cc3333" stroke="#992222" stroke-width="3"
+                            stroke-linejoin="round" />
+                        <!-- Chimney -->
+                        <rect x="62" y="16" width="10" height="20" fill="#cc3333" stroke="#992222" stroke-width="2" />
+                        <!-- Windows -->
+                        <rect x="22" y="56" width="18" height="16" rx="2" ry="2" fill="#aaddff" stroke="#7ab0dd"
+                            stroke-width="2" />
+                        <rect x="60" y="56" width="18" height="16" rx="2" ry="2" fill="#aaddff" stroke="#7ab0dd"
+                            stroke-width="2" />
+                        <!-- Window cross bars -->
+                        <line x1="31" y1="56" x2="31" y2="72" stroke="#7ab0dd" stroke-width="1.5" />
+                        <line x1="22" y1="64" x2="40" y2="64" stroke="#7ab0dd" stroke-width="1.5" />
+                        <line x1="69" y1="56" x2="69" y2="72" stroke="#7ab0dd" stroke-width="1.5" />
+                        <line x1="60" y1="64" x2="78" y2="64" stroke="#7ab0dd" stroke-width="1.5" />
                     </svg>
                 </div>
+
             </div>
+
+            <!-- Sound effects -->
+            <audio id="sfx-correct" src="audio/correct.mp3" preload="auto"></audio>
+            <audio id="sfx-wrong" src="audio/wrong.mp3" preload="auto"></audio>
 
         </div>
     </div>
+
+    <script>
+        function checkAnswer(el, isCorrect) {
+            const panel = document.getElementById('l1-feedback-panel');
+            const icon = document.getElementById('l1-feedback-icon');
+            const title = document.getElementById('l1-feedback-title');
+            const sub = document.getElementById('l1-feedback-sub');
+
+            // Reset all circles
+            document.querySelectorAll('.l1-choice').forEach(c => {
+                c.style.outline = 'none';
+                c.style.filter = '';
+            });
+
+            // Play sound
+            const sfx = document.getElementById(isCorrect ? 'sfx-correct' : 'sfx-wrong');
+            sfx.currentTime = 0;
+            sfx.play();
+
+            if (isCorrect) {
+                panel.className = 'l1-feedback-panel correct';
+                icon.textContent = '🌟';
+                title.textContent = 'Tama!';
+                sub.textContent = 'Napakagaling mo!';
+                // Using different outline styling depending on if they are in the rounded container or not
+                el.style.outline = '6px solid #2ecc71';
+                el.style.filter = 'brightness(1.15)';
+            } else {
+                panel.className = 'l1-feedback-panel wrong';
+                icon.textContent = '😊';
+                title.textContent = 'Subukan Muli!';
+                sub.textContent = 'Kaya mo yan, try ulit!';
+                el.style.outline = '6px solid #e74c3c';
+                el.style.filter = 'brightness(0.85)';
+            }
+
+            panel.classList.add('show');
+            setTimeout(() => {
+                panel.classList.remove('show');
+                el.style.outline = 'none';
+                el.style.filter = 'none';
+            }, 2000);
+        }
+    </script>
 </body>
 
 </html>

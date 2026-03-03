@@ -719,7 +719,7 @@ p {
   .tara-head {
     border-top: 60px solid transparent;
     border-bottom: 60px solid transparent;
-    border-left: 60px solid #39ca39;
+    border-left: 60px solid #0099ff;
   }
 }
 
@@ -741,7 +741,7 @@ p {
   }
 }
 
-/* --- LESSON MENU PAGE (SLIDE 11) --- */
+/* --- LESSON MENU PAGE (SLIDE 11) — NOTEBOOK STYLE --- */
 .lesson-menu-container {
   display: flex;
   flex-direction: column;
@@ -757,96 +757,211 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 60px 80px;
-  max-width: 1000px;
+  gap: 50px 70px;
+  max-width: 1100px;
 }
 
+/* ── Anchor wrapper ── */
 .lesson-btn {
-  width: 160px;
-  height: 160px;
-  background-color: #fcae86;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
   text-decoration: none;
+  display: block;
+  transition: transform 0.25s ease, filter 0.25s ease;
 }
 
 .lesson-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform: rotate(-4deg) scale(1.1) translateY(-6px);
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45));
 }
 
-.lesson-circle {
-  width: 120px;
-  height: 120px;
-  border: 3px solid #000000;
-  border-radius: 50%;
+/* ── Notebook shell ── */
+.notebook {
+  position: relative;
+  width: 130px;
+  height: 165px;
+  display: flex;
+  border-radius: 4px 10px 10px 4px;
+  box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* ── Spine (left colored strip) ── */
+.nb-spine {
+  width: 26px;
+  height: 100%;
+  background: #e07830;
+  /* default orange */
+  border-radius: 4px 0 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── Page (right cream area) ── */
+.nb-page {
+  flex: 1;
+  background: #fdf6e3;
+  border-radius: 0 10px 10px 0;
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 80px;
-  font-weight: 400;
-  /* Regular weight, like Fredoka normal */
-  color: #000000;
-  line-height: 1;
 }
 
+/* ── Ruled lines ── */
+.nb-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 14px 0;
+}
+
+.nb-lines span {
+  display: block;
+  height: 1.5px;
+  background: #c8d8e8;
+  margin: 0 8px;
+}
+
+/* ── Big lesson number ── */
+.nb-number {
+  font-size: 68px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1;
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* ── Spiral rings (overlapping the spine/page border) ── */
+.nb-rings {
+  position: absolute;
+  left: 16px;
+  /* centered over spine–page seam */
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.nb-rings span {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #888;
+  border-radius: 50%;
+  background: #1e6345;
+  /* match chalkboard so it looks "punched through" */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Color variants ── */
+.nb-blue .nb-spine {
+  background: #2980b9;
+}
+
+.nb-green .nb-spine {
+  background: #27ae60;
+}
+
+.nb-purple .nb-spine {
+  background: #8e44ad;
+}
+
+.nb-red .nb-spine {
+  background: #c0392b;
+}
+
+/* ── Responsive ── */
 @media (max-width: 1024px) {
   .lesson-grid {
-    gap: 40px 60px;
+    gap: 35px 55px;
   }
 
-  .lesson-btn {
-    width: 140px;
+  .notebook {
+    width: 110px;
     height: 140px;
-    border-radius: 25px;
   }
 
-  .lesson-circle {
-    width: 100px;
-    height: 100px;
-    font-size: 65px;
+  .nb-spine {
+    width: 22px;
+  }
+
+  .nb-number {
+    font-size: 56px;
+  }
+
+  .nb-rings {
+    left: 12px;
+  }
+
+  .nb-rings span {
+    width: 15px;
+    height: 15px;
   }
 }
 
 @media (max-width: 768px) {
   .lesson-grid {
-    gap: 30px 40px;
+    gap: 25px 35px;
   }
 
-  .lesson-btn {
-    width: 110px;
-    height: 110px;
-    border-radius: 20px;
+  .notebook {
+    width: 85px;
+    height: 108px;
   }
 
-  .lesson-circle {
-    width: 80px;
-    height: 80px;
-    font-size: 50px;
+  .nb-spine {
+    width: 17px;
+  }
+
+  .nb-number {
+    font-size: 42px;
+  }
+
+  .nb-rings {
+    left: 9px;
+  }
+
+  .nb-rings span {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
   }
 }
 
 @media (max-width: 480px) {
   .lesson-grid {
-    gap: 20px 25px;
+    gap: 16px 22px;
   }
 
-  .lesson-btn {
-    width: 80px;
+  .notebook {
+    width: 62px;
     height: 80px;
-    border-radius: 15px;
   }
 
-  .lesson-circle {
-    width: 60px;
-    height: 60px;
-    font-size: 40px;
-    border: 2px solid #000000;
+  .nb-spine {
+    width: 13px;
+  }
+
+  .nb-number {
+    font-size: 30px;
+  }
+
+  .nb-rings {
+    left: 6px;
+  }
+
+  .nb-rings span {
+    width: 9px;
+    height: 9px;
+    border-width: 2px;
   }
 }
 

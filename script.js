@@ -40,11 +40,13 @@ function playAudio(audioId, textId) {
 
         const onFirstLetterEnd = function () {
             firstLetter.removeEventListener('animationend', onFirstLetterEnd);
-            letters.forEach(el => {
-                el.classList.remove('pop-animation', 'pop-delayed');
-                void el.offsetWidth;
-                el.classList.add('pop-animation');
-            });
+            setTimeout(() => {
+                letters.forEach(el => {
+                    el.classList.remove('pop-animation', 'pop-delayed');
+                    void el.offsetWidth;
+                    el.classList.add('pop-animation');
+                });
+            }, 500);
         };
 
         firstLetter.addEventListener('animationend', onFirstLetterEnd);
