@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marungko Interactive Chalkboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="frame">
+        <div class="chalkboard">
+            <div class="logo-placeholder">
+                <img src="images/decode.png" alt="Logo">
+            </div>
+
+            <div id="page1" class="screen active">
+                <h1>Marungko</h1>
+                <p><b>DECODE</b> with <span class="highlight">ICT Digitalized Material 3</span></p>
+                <div class="nav-btn" onclick="showPage('page2')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <div id="page2" class="screen">
+                <div class="split-content">
+                    <div class="left-side">
+                        <img class="footprints" src="images/footprints.png" style="filter: invert(1);" size="300px">
+                    </div>
+                    <div class="right-side">
+                        <div class="interactive-group">
+                            <p id="targetLetter" class="letter-wrapper">
+                                <span class="letter-text">Yy</span>
+                            </p>
+                            <svg class="speaker-icon" onclick="playAudio('letterAudio', 'targetLetter')"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+
+                        <div class="interactive-group">
+                            <p id="targetWord" class="word">
+                                <span id="syl1" class="syllable-wrapper"><span
+                                        class="first-letter-in-word letter-y-in-word syllable-text">y</span><span
+                                        class="syllable-text">a</span></span><span id="syl2"
+                                    class="syllable-wrapper"><span class="syllable-text">pak</span></span>
+                            </p>
+                            <svg class="speaker-icon" onclick="playAudio('wordAudio', 'targetWord')"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+                    </div>
+
+
+                    <audio id="letterAudio" src="audio/Letter Y.mp3"></audio>
+                    <audio id="wordAudio" src="audio/YAPAK.mp3"></audio>
+
+                    <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page1')">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="nav-btn" onclick="showPage('page3')">
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page3" class="screen">
+                <div class="split-content">
+                    <div class="left-side">
+                        <img src="images/yelo.png" alt="Yelo"
+                            style="width: 420px; max-width: 100%; filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));">
+                    </div>
+                    <div class="right-side">
+                        <div class="interactive-group">
+                            <p id="targetLetter3" class="letter-wrapper">
+                                <span class="letter-text">Yy</span>
+                            </p>
+                        </div>
+
+                        <div class="interactive-group">
+                            <p id="targetWord3" class="word">
+                                <span id="syl3" class="syllable-wrapper"><span
+                                        class="first-letter-in-word letter-y-in-word syllable-text">y</span><span
+                                        class="syllable-text">e</span></span><span id="syl4"
+                                    class="syllable-wrapper"><span class="syllable-text">lo</span></span>
+                            </p>
+                            <svg class="speaker-icon" onclick="playAudio('wordAudio3', 'targetWord3')"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <audio id="letterAudio3" src="audio/Letter Y.mp3"></audio>
+                    <audio id="wordAudio3" src="audio/YELO.mp3"></audio>
+
+                    <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page2')">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="nav-btn" onclick="showPage('page4')">
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page4" class="screen">
+                <div class="split-content">
+                    <div class="left-side">
+                        <img src="images/chalk.png" alt="Yelo"
+                            style="width: 500px; max-width: 100%; filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));">
+                    </div>
+                    <div class="right-side">
+                        <div class="interactive-group">
+                            <p id="targetLetter4" class="letter-wrapper">
+                                <span class="letter-text">Yy</span>
+                            </p>
+                        </div>
+
+                        <div class="interactive-group">
+                            <p id="targetWord4" class="word">
+                                <span id="syl5" class="syllable-wrapper"><span
+                                        class="first-letter-in-word letter-y-in-word syllable-text">y</span><span
+                                        class="syllable-text">e</span></span><span id="syl6"
+                                    class="syllable-wrapper"><span class="syllable-text">so</span></span>
+                            </p>
+                            <svg class="speaker-icon" onclick="playAudio('wordAudio4', 'targetWord4')"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <audio id="letterAudio4" src="audio/Letter Y.mp3"></audio>
+                    <audio id="wordAudio4" src="audio/YESO.mp3"></audio>
+
+                    <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page3')">
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="nav-btn" onclick="showPage('page5')">
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="page5" class="screen">
+                <div class="blending-container">
+                    <!-- Row a -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio_y_a', 'text_y_a')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text_y_a" class="blend-text">y</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text_a" class="blend-text">a</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_a', 'text_a')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text_ya" class="blend-text result-text">ya</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_ya', 'text_ya')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row e -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio_y_e', 'text_y_e')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text_y_e" class="blend-text">y</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text_e" class="blend-text">e</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_e', 'text_e')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text_ye" class="blend-text result-text">ye</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_ye', 'text_ye')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row i -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio_y_i', 'text_y_i')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text_y_i" class="blend-text">y</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text_i" class="blend-text">i</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_i', 'text_i')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text_yi" class="blend-text result-text">yi</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_yi', 'text_yi')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row o -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio_y_o', 'text_y_o')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text_y_o" class="blend-text">y</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text_o" class="blend-text">o</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_o', 'text_o')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text_yo" class="blend-text result-text">yo</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_yo', 'text_yo')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row u -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio_y_u', 'text_y_u')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text_y_u" class="blend-text">y</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text_u" class="blend-text">u</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_u', 'text_u')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text_yu" class="blend-text result-text">yu</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio_yu', 'text_yu')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <audio id="audio_y_a" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio_a" src="audio/Letter A.mp3"></audio>
+                <audio id="audio_ya" src="audio/YA.mp3"></audio>
+
+                <audio id="audio_y_e" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio_e" src="audio/Letter E.mp3"></audio>
+                <audio id="audio_ye" src="audio/YE.mp3"></audio>
+
+                <audio id="audio_y_i" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio_i" src="audio/Letter I.mp3"></audio>
+                <audio id="audio_yi" src="audio/YI.mp3"></audio>
+
+                <audio id="audio_y_o" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio_o" src="audio/Letter O.mp3"></audio>
+                <audio id="audio_yo" src="audio/YO.mp3"></audio>
+
+                <audio id="audio_y_u" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio_u" src="audio/Letter U.mp3"></audio>
+                <audio id="audio_yu" src="audio/YU.mp3"></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page4')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page6')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <div id="page6" class="screen">
+                <div class="blending-container">
+                    <!-- Row a -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio6_a', 'text6_a')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text6_a" class="blend-text">a</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text6_y_a" class="blend-text">y</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_y_a', 'text6_y_a')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text6_ay" class="blend-text result-text">ay</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_ay', 'text6_ay')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row e -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio6_e', 'text6_e')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text6_e" class="blend-text">e</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text6_y_e" class="blend-text">y</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_y_e', 'text6_y_e')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text6_ey" class="blend-text result-text">ey</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_ey', 'text6_ey')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row i -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio6_i', 'text6_i')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text6_i" class="blend-text">i</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text6_y_i" class="blend-text">y</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_y_i', 'text6_y_i')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text6_iy" class="blend-text result-text">iy</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_iy', 'text6_iy')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row o -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio6_o', 'text6_o')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text6_o" class="blend-text">o</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text6_y_o" class="blend-text">y</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_y_o', 'text6_y_o')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text6_oy" class="blend-text result-text">oy</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_oy', 'text6_oy')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+
+                    <!-- Row u -->
+                    <div class="blend-row">
+                        <svg class="speaker-icon" onclick="playAudio('audio6_u', 'text6_u')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <span id="text6_u" class="blend-text">u</span>
+                        <div class="blend-arrow"><svg width="60" height="24" viewBox="0 0 60 24">
+                                <path d="M0,10 L45,10 L45,4 L60,12 L45,20 L45,14 L0,14 Z" fill="#ffb400" />
+                            </svg></div>
+                        <span id="text6_y_u" class="blend-text">y</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_y_u', 'text6_y_u')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                        <div class="blend-spacer"></div>
+                        <span id="text6_uy" class="blend-text result-text">uy</span>
+                        <svg class="speaker-icon" onclick="playAudio('audio6_uy', 'text6_uy')" viewBox="0 0 24 24">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <audio id="audio6_a" src="audio/Letter A.mp3"></audio>
+                <audio id="audio6_y_a" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_ay" src="audio/AY.mp3"></audio>
+
+                <audio id="audio6_e" src="audio/Letter E.mp3"></audio>
+                <audio id="audio6_y_e" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_ey" src="audio/EY.mp3"></audio>
+
+                <audio id="audio6_i" src="audio/Letter I.mp3"></audio>
+                <audio id="audio6_y_i" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_iy" src="audio/IY.mp3"></audio>
+
+                <audio id="audio6_o" src="audio/Letter O.mp3"></audio>
+                <audio id="audio6_y_o" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_oy" src="audio/OY.mp3"></audio>
+
+                <audio id="audio6_u" src="audio/Letter U.mp3"></audio>
+                <audio id="audio6_y_u" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_uy" src="audio/UY.mp3"></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page5')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page7')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <div id="page7" class="screen">
+                <div class="syllable-grid">
+                    <span class="grid-item">ya</span>
+                    <span class="grid-item">ye</span>
+                    <span class="grid-item">yi</span>
+
+                    <span class="grid-item">yo</span>
+                    <span class="grid-item">ya</span>
+                    <span class="grid-item">yu</span>
+
+                    <span class="grid-item">ya</span>
+                    <span class="grid-item">ye</span>
+                    <span class="grid-item">yi</span>
+
+                    <span class="grid-item">yi</span>
+                    <span class="grid-item">yo</span>
+                    <span class="grid-item">yu</span>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page6')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page8')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <div id="page8" class="screen">
+                <div class="syllable-grid">
+                    <span class="grid-item">ay</span>
+                    <span class="grid-item">iy</span>
+                    <span class="grid-item">oy</span>
+
+                    <span class="grid-item">uy</span>
+                    <span class="grid-item">ey</span>
+                    <span class="grid-item">iy</span>
+
+                    <span class="grid-item">ay</span>
+                    <span class="grid-item">ey</span>
+                    <span class="grid-item">oy</span>
+
+                    <span class="grid-item">uy</span>
+                    <span class="grid-item">ay</span>
+                    <span class="grid-item">uy</span>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page7')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page9')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 9: Subukan Natin -->
+            <div id="page9" class="screen">
+                <div class="subukan-container">
+                    <h1 class="subukan-title">Subukan<br>Natin!</h1>
+
+                    <div class="tara-btn" onclick="showPage('page10')">
+                        <div class="tara-body">Tara</div>
+                        <div class="tara-head"></div>
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page8')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 10: Instruction -->
+            <div id="page10" class="screen">
+                <div class="instruction-container">
+
+                    <svg class="top-left-speaker" onclick="playAudio('instruction_audio', 'instruction_text_1')"
+                        viewBox="0 0 100 100">
+                        <g transform="translate(10, 10) rotate(-25, 40, 40)">
+                            <!-- Speaker body -->
+                            <path d="M 40,5 L 20,25 L 5,25 L 5,55 L 20,55 L 40,75 Z" fill="#8f9d86" stroke="#ffffff"
+                                stroke-width="3" stroke-linejoin="round" />
+                            <!-- Sound waves -->
+                            <path d="M 50,25 Q 60,40 50,55" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 60,15 Q 75,40 60,65" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 70,5 Q 90,40 70,75" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                        </g>
+                    </svg>
+
+                    <p id="instruction_text_1" class="instruction-text">
+                        Pagsasanay 1: Piliin ang <span class="highlight-yellow">unang</span><br>
+                        tunog ng mga sumusunod na<br>
+                        larawan.
+                    </p>
+
+                </div>
+
+                <audio id="instruction_audio" src="audio/PAGSASANAY 1.mp3"></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page9')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page11')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 11: Lesson Menu -->
+            <div id="page11" class="screen">
+                <div class="lesson-menu-container">
+                    <div class="lesson-grid">
+                        <a href="lesson1.html" class="lesson-btn">
+                            <div class="lesson-circle">1</div>
+                        </a>
+                        <a href="lesson2.html" class="lesson-btn">
+                            <div class="lesson-circle">2</div>
+                        </a>
+                        <a href="lesson3.html" class="lesson-btn">
+                            <div class="lesson-circle">3</div>
+                        </a>
+                        <a href="lesson4.html" class="lesson-btn">
+                            <div class="lesson-circle">4</div>
+                        </a>
+                        <a href="lesson5.html" class="lesson-btn">
+                            <div class="lesson-circle">5</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page10')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

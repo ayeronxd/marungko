@@ -1,0 +1,1068 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: "Fredoka", sans-serif;
+}
+
+/* The Wooden Frame */
+.frame {
+  padding: 30px;
+  background: #d2a679;
+  background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.2);
+  border: 4px solid #b38659;
+}
+
+/* The Green Chalkboard */
+.chalkboard {
+  width: 100%;
+  max-width: 1400px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  background-color: #1e6345;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 80%);
+  border-radius: 4px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  color: white;
+  overflow: hidden;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.active {
+  display: flex;
+}
+
+/* Logo in Top Right */
+.logo-placeholder {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  padding: 0;
+  z-index: 10;
+}
+
+.logo-placeholder img {
+  height: 43px;
+  width: auto;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* --- TEXT WRAPPERS (Steady underline & No Gaps) --- */
+.letter-wrapper,
+.syllable-wrapper {
+  display: inline-block;
+  /* Changed from inline-flex to fix the spacing */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  line-height: 1.1;
+  /* Pulls the underline closer to the text */
+}
+
+/* Ensures 'ya' and 'pak' look like one word */
+.word {
+  font-size: 90px;
+  margin: 0;
+  display: block;
+  /* Using block to let inline-blocks sit naturally */
+  letter-spacing: -2px;
+  /* Tightens the joint between syllables */
+}
+
+.letter-wrapper {
+  font-size: 120px;
+  line-height: 1.1;
+}
+
+/* --- ANIMATED TEXT (These jump, the wrapper doesn't) --- */
+.letter-text,
+.syllable-text {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  padding: 0 1px;
+  /* Very small padding to prevent letter clipping */
+}
+
+/* --- TYPOGRAPHY --- */
+h1 {
+  font-size: 130px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -2px;
+  text-shadow: 0 4px 0px rgba(235, 131, 53, 0.8);
+}
+
+p {
+  font-size: 32px;
+  margin-top: 10px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.highlight {
+  color: #ffcc99;
+}
+
+/* --- ANIMATION LOGIC --- */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+    color: #ffcc99;
+  }
+
+  /* Color change happens here */
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Slower duration (0.6s) for a more natural feel */
+.pop-animation {
+  animation: pop 0.6s ease-out forwards;
+}
+
+/* Increased delay (e.g., 1.0s) so 'pak' waits for the audio */
+.pop-delayed {
+  animation: pop 0.6s ease-out 1.0s forwards;
+}
+
+/* --- LAYOUT & ICONS --- */
+.split-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- THE FIX: Aligning Text and Underlines --- */
+/* This keeps the Yy group and the yapak group separated but centered */
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  /* Space between Yy and yapak */
+}
+
+/* This is the key: it stacks the icon directly under its text */
+.interactive-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Fix the gaps between syllables to look like one word */
+.word {
+  font-size: 90px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* The shelf (underline) logic */
+.letter-wrapper,
+.syllable-wrapper {
+  display: inline-block;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.4);
+  line-height: 1;
+  margin: 0;
+}
+
+/* Prevent text from drifting when scaling */
+.letter-text,
+.syllable-text {
+  display: inline-block;
+  padding: 0 2px;
+}
+
+.letter-wrapper {
+  font-size: 155px;
+  /* enlarged ~35px on desktop */
+}
+
+/* The Word Container (desktop) */
+.word {
+  font-size: 125px;
+  /* enlarged ~35px on desktop */
+  margin: 0;
+  display: flex;
+  /* Keeps ya and pak side-by-side */
+  gap: 0;
+  /* Forces them to touch */
+}
+
+/* The Jumping Text */
+.letter-text,
+.syllable-text {
+  display: inline-block;
+  padding: 0 2px;
+}
+
+/* Fix for Yy size (kept consistent with value above) */
+.letter-wrapper {
+  font-size: 155px;
+}
+
+.footprints {
+  width: 340px;
+  /* make footprints a bit bigger on desktop */
+  margin-left: 110px;
+  /* shift toward center of board */
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+}
+
+.speaker-icon {
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  fill: #ccc;
+  transition: 0.2s;
+}
+
+.speaker-icon:hover {
+  transform: scale(1.1);
+  fill: white;
+}
+
+/* --- NAVIGATION --- */
+.nav-btn {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 5px 5px 0;
+  padding: 6px;
+  display: inline-block;
+  transform: rotate(-45deg);
+  margin-left: -6px;
+}
+
+.back-btn .arrow {
+  transform: rotate(135deg);
+  margin-left: 6px;
+}
+
+.nav-btn:hover .arrow {
+  border-color: #1e6345;
+}
+
+/* Larger desktop screens: make chalkboard fill more width */
+@media (min-width: 1024px) {
+  .chalkboard {
+    width: min(80vw, 1400px);
+  }
+}
+
+/* --- RESPONSIVE STYLES --- */
+@media (max-width: 1024px) {
+  body {
+    padding: 10px;
+  }
+
+  .frame {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 90px;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  .letter-wrapper {
+    font-size: 100px;
+  }
+
+  .word {
+    font-size: 70px;
+  }
+
+  .footprints {
+    width: 220px;
+    margin-left: 0;
+    /* no negative shift on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    align-items: center;
+  }
+
+  .frame {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .chalkboard {
+    max-width: 100%;
+    /* Let it fit naturally horizontally, but taller in portrait orientation */
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .chalkboard {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-placeholder {
+    top: 8px;
+    right: 12px;
+  }
+
+  .logo-placeholder img {
+    height: 32px;
+  }
+
+  .split-content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .left-side,
+  .right-side {
+    width: 50%;
+  }
+
+  /* On mobile keep image on the left and Yy/yapak on the right */
+  .left-side {
+    justify-content: center;
+  }
+
+  .right-side {
+    align-items: center;
+    justify-content: space-evenly;
+    padding-left: 0;
+  }
+
+  .interactive-group {
+    align-items: center;
+  }
+
+  .word {
+    justify-content: center;
+  }
+
+  .footprints {
+    width: 180px;
+    margin-left: 0;
+    /* no negative shift on mobile */
+  }
+
+  h1 {
+    font-size: 64px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .letter-wrapper {
+    font-size: 80px;
+  }
+
+  .word {
+    font-size: 52px;
+  }
+
+  .speaker-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .frame {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  /* Make letter and word smaller so they fit comfortably
+     with their speaker buttons inside the chalkboard */
+  .letter-wrapper {
+    font-size: 52px;
+  }
+
+  .word {
+    font-size: 34px;
+  }
+
+  .footprints {
+    width: 140px;
+    margin-left: 0;
+    /* keep centered on very small screens */
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
+/* --- BLENDING CONTAINER (SLIDE 5) --- */
+.blending-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Adjust gap vertically */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.blend-row {
+  display: grid;
+  /* Columns: Sp1, y, Arrow, Vow, Sp2, Spacer, Result, Sp3 */
+  grid-template-columns: 60px 80px 140px 80px 70px 160px 120px 60px;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.blend-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blend-arrow svg {
+  width: 80px;
+  height: 32px;
+}
+
+.blend-spacer {
+  width: 100%;
+}
+
+.blend-text {
+  font-size: 110px;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.2s ease;
+  margin-bottom: 5px;
+  /* Centers text vertically offset */
+}
+
+@media (min-width: 1024px) {
+
+  /* On large screens, scale speaker icons slightly up */
+  .blending-container .speaker-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .blend-row {
+    grid-template-columns: 50px 70px 110px 70px 60px 120px 100px 50px;
+    max-width: 800px;
+  }
+
+  .blend-text {
+    font-size: 80px;
+  }
+
+  .blend-arrow svg {
+    width: 60px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blend-row {
+    grid-template-columns: 40px 50px 80px 50px 40px 80px 80px 40px;
+    max-width: 600px;
+    gap: 0;
+  }
+
+  .blend-text {
+    font-size: 60px;
+  }
+
+  .blend-arrow svg {
+    width: 45px;
+    height: 18px;
+  }
+
+  .speaker-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blend-row {
+    grid-template-columns: 30px 35px 50px 35px 30px 25px 50px 30px;
+    max-width: 100%;
+  }
+
+  .blend-text {
+    font-size: 40px;
+  }
+
+  .blend-arrow svg {
+    width: 30px;
+    height: 12px;
+  }
+
+  .speaker-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* --- SYLLABLE GRID (SLIDE 7) --- */
+.syllable-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px 150px;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  transform: translateY(-30px);
+  /* Moves the grid slightly above center */
+}
+
+.grid-item {
+  font-size: 140px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .syllable-grid {
+    gap: 15px 70px;
+  }
+
+  .grid-item {
+    font-size: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .syllable-grid {
+    gap: 10px 40px;
+  }
+
+  .grid-item {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .syllable-grid {
+    gap: 5px 20px;
+  }
+
+  .grid-item {
+    font-size: 50px;
+  }
+}
+
+/* --- SUBUKAN NATIN (SLIDE 9) --- */
+.subukan-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.subukan-title {
+  font-size: 150px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.1;
+  text-align: center;
+  margin: 0;
+  text-shadow: none;
+  /* No orange shadow like h1 */
+}
+
+.tara-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-top: 20px;
+  /* Use drop-shadow to create an outline around both body and head seamlessly */
+  filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 1)) drop-shadow(3px 3px 0px #b38659) drop-shadow(-3px -3px 0px #b38659) drop-shadow(3px -3px 0px #b38659) drop-shadow(-3px 3px 0px #b38659);
+}
+
+.tara-btn:hover {
+  transform: scale(1.05);
+}
+
+.tara-body {
+  background-color: #0099ff;
+  height: 90px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+  border-radius: 10px 0 0 10px;
+  /* Only round left corners so right edge merges flatly */
+}
+
+.tara-head {
+  width: 0;
+  height: 0;
+  border-top: 80px solid transparent;
+  border-bottom: 80px solid transparent;
+  border-left: 80px solid #0099ff;
+}
+
+@media (max-width: 1024px) {
+  .subukan-title {
+    font-size: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .subukan-title {
+    font-size: 80px;
+  }
+
+  .tara-body {
+    height: 70px;
+    width: 200px;
+    font-size: 40px;
+  }
+
+  .tara-head {
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+    border-left: 60px solid #39ca39;
+  }
+}
+
+@media (max-width: 480px) {
+  .subukan-title {
+    font-size: 50px;
+  }
+
+  .tara-body {
+    height: 50px;
+    width: 140px;
+    font-size: 30px;
+  }
+
+  .tara-head {
+    border-top: 40px solid transparent;
+    border-bottom: 40px solid transparent;
+    border-left: 40px solid #0099ff;
+  }
+}
+
+/* --- LESSON MENU PAGE (SLIDE 11) --- */
+.lesson-menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.lesson-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px 80px;
+  max-width: 1000px;
+}
+
+.lesson-btn {
+  width: 160px;
+  height: 160px;
+  background-color: #fcae86;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.lesson-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.lesson-circle {
+  width: 120px;
+  height: 120px;
+  border: 3px solid #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  font-weight: 400;
+  /* Regular weight, like Fredoka normal */
+  color: #000000;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .lesson-grid {
+    gap: 40px 60px;
+  }
+
+  .lesson-btn {
+    width: 140px;
+    height: 140px;
+    border-radius: 25px;
+  }
+
+  .lesson-circle {
+    width: 100px;
+    height: 100px;
+    font-size: 65px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lesson-grid {
+    gap: 30px 40px;
+  }
+
+  .lesson-btn {
+    width: 110px;
+    height: 110px;
+    border-radius: 20px;
+  }
+
+  .lesson-circle {
+    width: 80px;
+    height: 80px;
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lesson-grid {
+    gap: 20px 25px;
+  }
+
+  .lesson-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+  }
+
+  .lesson-circle {
+    width: 60px;
+    height: 60px;
+    font-size: 40px;
+    border: 2px solid #000000;
+  }
+}
+
+/* --- INSTRUCTION PAGE (SLIDE 10) --- */
+.instruction-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.instruction-text {
+  font-size: 85px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+}
+
+.highlight-yellow {
+  color: #ffb400;
+}
+
+.top-left-speaker {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+}
+
+.top-left-speaker:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+  .instruction-text {
+    font-size: 65px;
+  }
+
+  .top-left-speaker {
+    width: 90px;
+    height: 90px;
+    top: 30px;
+    left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .instruction-text {
+    font-size: 45px;
+  }
+
+  .top-left-speaker {
+    width: 70px;
+    height: 70px;
+    top: 20px;
+    left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .instruction-text {
+    font-size: 32px;
+  }
+
+  .top-left-speaker {
+    width: 50px;
+    height: 50px;
+    top: 15px;
+    left: 15px;
+  }
+}
+
+/* --- COMPACT HEIGHT FIX (Mobile Landscape & Short Screens) --- */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    align-items: center;
+    padding: 0;
+  }
+
+  .frame {
+    padding: 8px;
+    /* Fill almost all the viewport width */
+    width: 96vw;
+    box-sizing: border-box;
+  }
+
+  .chalkboard {
+    width: 100%;
+    height: auto;
+    /* Fill most of the available height: viewport minus frame padding */
+    max-height: calc(96vh - 16px);
+    aspect-ratio: 16 / 9;
+  }
+
+  h1 {
+    font-size: 52px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  .letter-wrapper {
+    font-size: 72px;
+  }
+
+  .word {
+    font-size: 56px;
+  }
+
+  .speaker-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .footprints {
+    width: 130px;
+  }
+
+  .logo-placeholder img {
+    height: 22px;
+  }
+
+  /* Slide 5, 6 */
+  .blending-container {
+    gap: 6px;
+  }
+
+  .blend-row {
+    grid-template-columns: 38px 60px 85px 60px 38px 85px 80px 38px;
+    max-width: 620px;
+  }
+
+  .blend-text {
+    font-size: 62px;
+    margin-bottom: 0;
+  }
+
+  .blend-arrow svg {
+    width: 55px;
+    height: 22px;
+  }
+
+  /* Slide 7, 8 */
+  .syllable-grid {
+    gap: 4px 60px;
+    transform: translateY(-5px);
+  }
+
+  .grid-item {
+    font-size: 60px;
+  }
+
+  /* Slide 9 */
+  .subukan-title {
+    font-size: 72px;
+  }
+
+  .tara-body {
+    height: 54px;
+    width: 160px;
+    font-size: 30px;
+  }
+
+  .tara-head {
+    /* border-top + border-bottom must equal tara-body height for a clean triangle */
+    border-top: 27px solid transparent;
+    border-bottom: 27px solid transparent;
+    border-left: 54px solid #0099ff;
+  }
+
+  /* Slide 10 */
+  .instruction-text {
+    font-size: 28px;
+  }
+
+  .top-left-speaker {
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    left: 12px;
+  }
+
+  /* Slide 11 */
+  .lesson-grid {
+    gap: 12px 25px;
+  }
+
+  .lesson-btn {
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+  }
+
+  .lesson-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 30px;
+    border: 2px solid #000;
+  }
+}
