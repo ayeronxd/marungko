@@ -1,4 +1,19 @@
+// Clear lesson badges from localStorage on hard reload/new session
+if (!sessionStorage.getItem('marungko_session')) {
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.endsWith('_done') || key.endsWith('_wrong'))) {
+            keysToRemove.push(key);
+        }
+    }
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+    sessionStorage.setItem('marungko_session', '1');
+}
+
 function showPage(pageId) {
+    // Stop all audio when navigating between slides
+    document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
     document.querySelectorAll('.screen').forEach(screen => {
         screen.classList.remove('active');
     });
@@ -11,7 +26,57 @@ function showPage(pageId) {
     });
 
     document.getElementById(pageId).classList.add('active');
+
+    // Update completion badges when lesson menu is shown
+    if (pageId === 'page11') updateNotebookBadges('page11');
+    if (pageId === 'page14') updateNotebookBadges('page14');
+
+    // Auto-play instruction audio when navigating to instruction slides
+    if (pageId === 'page10') {
+        const instrAudio = document.getElementById('instruction_audio');
+        if (instrAudio) {
+            instrAudio.currentTime = 0;
+            setTimeout(() => instrAudio.play(), 400);
+        }
+    }
+    if (pageId === 'page12') {
+        const instrAudio2 = document.getElementById('instruction_audio2');
+        if (instrAudio2) {
+            instrAudio2.currentTime = 0;
+            setTimeout(() => instrAudio2.play(), 400);
+        }
+    }
 }
+
+/**
+ * Reads localStorage completion flags and adds/keeps green ✓ badges
+ * on the notebook buttons for completed lessons.
+ */
+function updateNotebookBadges(pageId) {
+    const page = document.getElementById(pageId);
+    if (!page) return;
+    page.querySelectorAll('.lesson-btn[data-lesson]').forEach(btn => {
+        const key = btn.getAttribute('data-lesson');
+        const isDone = localStorage.getItem(key + '_done') === '1';
+        const isWrong = localStorage.getItem(key + '_wrong') === '1';
+
+        // Remove existing badges before re-rendering
+        btn.querySelectorAll('.nb-done-badge, .nb-wrong-badge').forEach(b => b.remove());
+
+        if (isDone) {
+            const badge = document.createElement('div');
+            badge.className = 'nb-done-badge';
+            badge.textContent = '✓';
+            btn.appendChild(badge);
+        } else if (isWrong) {
+            const badge = document.createElement('div');
+            badge.className = 'nb-wrong-badge';
+            badge.textContent = '✕';
+            btn.appendChild(badge);
+        }
+    });
+}
+
 
 function playAudio(audioId, textId) {
     const audio = document.getElementById(audioId);

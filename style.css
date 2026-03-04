@@ -4,8 +4,14 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
   font-family: "Fredoka", sans-serif;
+
+  /* Light blue gradient base */
+  background-color: #ddeeff;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ctext x='10' y='28' font-size='22' opacity='0.18' fill='%235588cc'%3E%E2%98%85%3C/text%3E%3Ctext x='60' y='60' font-size='20' opacity='0.15' fill='%235588cc'%3E%E2%9C%8F%3C/text%3E%3Ctext x='8' y='90' font-size='20' opacity='0.15' fill='%235588cc'%3E%F0%9F%93%96%3C/text%3E%3Ccircle cx='95' cy='20' r='4' opacity='0.12' fill='%235588cc'/%3E%3Ctext x='82' y='100' font-size='18' opacity='0.13' fill='%235588cc'%3E%E2%9C%93%3C/text%3E%3C/svg%3E"),
+    linear-gradient(135deg, #eef6ff 0%, #ddeeff 50%, #c8e4ff 100%);
+  background-size: 120px 120px, cover;
 }
 
 /* The Wooden Frame */
@@ -336,18 +342,175 @@ p {
 @media (max-width: 768px) {
   body {
     align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
   }
 
   .frame {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     box-sizing: border-box;
   }
 
   .chalkboard {
+    width: 100%;
     max-width: 100%;
-    /* Let it fit naturally horizontally, but taller in portrait orientation */
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 3;
+    max-height: 80vw;
+    /* keep it from getting too tall */
+  }
+}
+
+/* Portrait mode — fill screen height better */
+@media (orientation: portrait) {
+  body {
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+
+  .frame {
+    width: 100%;
+    max-width: 600px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .chalkboard {
+    width: 100%;
+    aspect-ratio: unset !important;
+    height: 60vh;
+    max-height: 520px;
+    overflow: hidden !important;
+  }
+
+  /* Subukan Natin — shrink to fit on portrait */
+  .subukan-title {
+    font-size: 60px !important;
+    line-height: 1 !important;
+  }
+
+  .tara-body {
+    height: 55px !important;
+    width: 160px !important;
+    font-size: 30px !important;
+  }
+
+  .tara-head {
+    border-top: 45px solid transparent !important;
+    border-bottom: 45px solid transparent !important;
+    border-left: 45px solid #0099ff !important;
+  }
+
+  .subukan-container {
+    gap: 16px !important;
+  }
+
+  /* Blending grid (page 6/7) — compact columns for portrait board */
+  .blend-row {
+    grid-template-columns: 28px 42px 60px 42px 36px 60px 60px 0px !important;
+    max-width: 100% !important;
+    gap: 0 !important;
+    overflow: hidden;
+  }
+
+  .blend-text {
+    font-size: 38px !important;
+  }
+
+  .blend-arrow svg {
+    width: 36px !important;
+    height: 14px !important;
+  }
+
+  .blending-container .speaker-icon {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .blend-spacer {
+    display: none !important;
+  }
+
+  /* Syllable grid (page 7 & 8) — compact for portrait board */
+  .syllable-grid {
+    gap: 0px 18px !important;
+    transform: none !important;
+    max-width: 100% !important;
+    padding: 0 8px !important;
+  }
+
+  .grid-item {
+    font-size: 42px !important;
+  }
+
+  /* Quiz layout (lesson pages) — stack vertically in portrait */
+  [class*="lesson"][class*="-screen"] {
+    padding: 10px 14px 40px !important;
+  }
+
+  .l1-instruction {
+    font-size: 15px !important;
+    padding-right: 75px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+    line-height: 1.3 !important;
+  }
+
+  .l1-content-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 0 !important;
+    gap: 8px !important;
+    flex: 1 !important;
+  }
+
+  .l1-key-area {
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .l1-key-img {
+    height: 95px !important;
+    width: auto !important;
+  }
+
+  .l1-question-card {
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .l1-question-badge {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 13px !important;
+    top: -10px !important;
+    right: -10px !important;
+  }
+
+  .l1-circles-row {
+    padding-left: 0 !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+  }
+
+  .l1-choice {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .l1-choice-letter {
+    font-size: 36px !important;
+  }
+
+  .l1-choice-letter span {
+    border-bottom-width: 3px !important;
   }
 }
 
@@ -1179,5 +1342,246 @@ p {
     height: 48px;
     font-size: 30px;
     border: 2px solid #000;
+  }
+}
+
+/* Home book button — smaller on mobile */
+@media (max-width: 768px) {
+  .home-btn {
+    width: 44px !important;
+    height: 44px !important;
+    bottom: 10px !important;
+    right: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-btn {
+    width: 36px !important;
+    height: 36px !important;
+    bottom: 8px !important;
+    right: 8px !important;
+  }
+}
+
+/* =====================================================
+   FEEDBACK PANEL — MOBILE RESPONSIVE
+   ===================================================== */
+@media (max-width: 768px) {
+  .l1-feedback-panel {
+    width: 240px !important;
+    padding: 16px 20px !important;
+    gap: 6px !important;
+    border-radius: 14px !important;
+  }
+
+  .l1-feedback-icon {
+    font-size: 40px !important;
+  }
+
+  .l1-feedback-title {
+    font-size: 32px !important;
+  }
+
+  .l1-feedback-sub {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .l1-feedback-panel {
+    width: 190px !important;
+    padding: 12px 16px !important;
+  }
+
+  .l1-feedback-icon {
+    font-size: 30px !important;
+  }
+
+  .l1-feedback-title {
+    font-size: 24px !important;
+  }
+
+  .l1-feedback-sub {
+    font-size: 13px !important;
+  }
+}
+
+/* =====================================================
+   QUIZ PAGES (lesson1–5) — SHARED MOBILE RESPONSIVE
+   !important needed to override per-lesson inline <style> blocks
+   ===================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .l1-instruction {
+    font-size: 36px !important;
+  }
+
+  .l1-key-img {
+    height: 200px !important;
+    width: auto !important;
+  }
+
+  .l1-choice {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .l1-choice-letter {
+    font-size: 78px !important;
+  }
+
+  .l1-circles-row {
+    gap: 30px !important;
+  }
+}
+
+/* Mobile portrait — stack image above circles */
+@media (max-width: 768px) {
+
+  /* Screen padding */
+  [class*="lesson"][class*="-screen"] {
+    padding: 16px 20px 60px !important;
+  }
+
+  .l1-instruction {
+    font-size: 20px !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    padding-right: 80px !important;
+    /* clear the DECODE logo */
+    box-sizing: border-box !important;
+  }
+
+  /* KEY FIX: stack vertically */
+  .l1-content-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 0 !important;
+    gap: 14px !important;
+  }
+
+  .l1-key-area {
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .l1-key-img {
+    height: 130px !important;
+    width: auto !important;
+  }
+
+  .l1-question-card {
+    padding: 10px 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .l1-question-badge {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 16px !important;
+    top: -12px !important;
+    right: -12px !important;
+  }
+
+  .l1-circles-row {
+    padding-left: 0 !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+  }
+
+  .l1-choice {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .l1-choice-letter {
+    font-size: 48px !important;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .l1-instruction {
+    font-size: 15px !important;
+  }
+
+  .l1-key-img {
+    height: 95px !important;
+  }
+
+  .l1-question-card {
+    padding: 7px 10px !important;
+    border-radius: 10px !important;
+  }
+
+  .l1-question-badge {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 12px !important;
+    top: -9px !important;
+    right: -9px !important;
+  }
+
+  .l1-circles-row {
+    gap: 10px !important;
+  }
+
+  .l1-choice {
+    width: 68px !important;
+    height: 68px !important;
+  }
+
+  .l1-choice-letter {
+    font-size: 34px !important;
+  }
+
+  .l1-choice-letter span {
+    border-bottom-width: 3px !important;
+  }
+}
+
+/* Landscape phones — keep side-by-side but compact */
+@media (max-width: 768px) and (orientation: landscape) {
+  .l1-content-row {
+    flex-direction: row !important;
+    padding-bottom: 6px !important;
+    gap: 0 !important;
+  }
+
+  .l1-key-area {
+    padding-right: 14px !important;
+    margin-left: 6px !important;
+  }
+
+  .l1-key-img {
+    height: 90px !important;
+  }
+
+  .l1-question-card {
+    padding: 6px 8px !important;
+  }
+
+  .l1-circles-row {
+    padding-left: 8px !important;
+    gap: 10px !important;
+  }
+
+  .l1-choice {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .l1-choice-letter {
+    font-size: 38px !important;
+  }
+
+  .l1-instruction {
+    font-size: 16px !important;
   }
 }

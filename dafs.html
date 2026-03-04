@@ -8,6 +8,111 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
+    <style>
+        /* ── Notebook completion badge ── */
+        .lesson-btn {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nb-done-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 36px;
+            height: 36px;
+            background: #2ecc71;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            z-index: 20;
+            font-size: 20px;
+            line-height: 1;
+            color: white;
+            animation: badgePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        .nb-wrong-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 36px;
+            height: 36px;
+            background: #e74c3c;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+            z-index: 20;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+            color: white;
+            animation: badgePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+        }
+
+        @keyframes badgePop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.15);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Pagsasanay 2 button — bounce + glow CTA */
+        @keyframes p2Bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes p2Glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 0px rgba(255, 180, 0, 0));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 14px rgba(255, 180, 0, 0.9));
+            }
+        }
+
+        .p2-cta {
+            animation: p2Bounce 1.2s ease-in-out infinite, p2Glow 1.2s ease-in-out infinite;
+        }
+
+        .p2-cta:hover {
+            animation: none;
+            filter: drop-shadow(0 0 16px rgba(255, 180, 0, 1));
+            transform: scale(1.08);
+            transition: transform 0.15s ease;
+        }
+    </style>
 </head>
 
 <body>
@@ -557,7 +662,7 @@
                     <div class="lesson-grid">
 
                         <!-- Notebook 1 -->
-                        <a href="lesson1.html" class="lesson-btn" title="Lesson 1">
+                        <a href="lesson1.html" class="lesson-btn" data-lesson="lesson1" title="Lesson 1">
                             <div class="notebook">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -573,7 +678,7 @@
                         </a>
 
                         <!-- Notebook 2 -->
-                        <a href="lesson2.html" class="lesson-btn" title="Lesson 2">
+                        <a href="lesson2.html" class="lesson-btn" data-lesson="lesson2" title="Lesson 2">
                             <div class="notebook nb-blue">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -589,7 +694,7 @@
                         </a>
 
                         <!-- Notebook 3 -->
-                        <a href="lesson3.html" class="lesson-btn" title="Lesson 3">
+                        <a href="lesson3.html" class="lesson-btn" data-lesson="lesson3" title="Lesson 3">
                             <div class="notebook nb-green">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -605,7 +710,7 @@
                         </a>
 
                         <!-- Notebook 4 -->
-                        <a href="lesson4.html" class="lesson-btn" title="Lesson 4">
+                        <a href="lesson4.html" class="lesson-btn" data-lesson="lesson4" title="Lesson 4">
                             <div class="notebook nb-purple">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -621,7 +726,7 @@
                         </a>
 
                         <!-- Notebook 5 -->
-                        <a href="lesson5.html" class="lesson-btn" title="Lesson 5">
+                        <a href="lesson5.html" class="lesson-btn" data-lesson="lesson5" title="Lesson 5">
                             <div class="notebook nb-red">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -640,6 +745,147 @@
                 </div>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page10')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="p2-cta"
+                    style="position: absolute; bottom: 12px; right: 18px; display: flex; align-items: center; gap: 10px; cursor: pointer;"
+                    onclick="showPage('page13')">
+                    <span
+                        style="color: white; font-family: 'Fredoka', sans-serif; font-size: 22px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.4); white-space: nowrap;">Pagsasanay
+                        2</span>
+                    <div class="nav-btn" style="position: static;">
+                        <div class="arrow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 13: Subukan Natin (Pagsasanay 2) -->
+            <div id="page13" class="screen">
+                <div class="subukan-container">
+                    <h1 class="subukan-title">Subukan<br>Natin!</h1>
+
+                    <div class="tara-btn" onclick="showPage('page12')">
+                        <div class="tara-body">Tara</div>
+                        <div class="tara-head"></div>
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page11')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 12: Pagsasanay 2 Instruction -->
+            <div id="page12" class="screen">
+                <div class="instruction-container">
+
+                    <svg class="top-left-speaker" onclick="playAudio('instruction_audio2', 'instruction_text_2')"
+                        viewBox="0 0 100 100">
+                        <g transform="translate(10, 10) rotate(-25, 40, 40)">
+                            <!-- Speaker body -->
+                            <path d="M 40,5 L 20,25 L 5,25 L 5,55 L 20,55 L 40,75 Z" fill="#8f9d86" stroke="#ffffff"
+                                stroke-width="3" stroke-linejoin="round" />
+                            <!-- Sound waves -->
+                            <path d="M 50,25 Q 60,40 50,55" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 60,15 Q 75,40 60,65" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 70,5 Q 90,40 70,75" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                        </g>
+                    </svg>
+
+                    <p id="instruction_text_2" class="instruction-text">
+                        Pagsasanay 2: Piliin ang <span class="highlight-yellow">huling</span><br>
+                        tunog ng mga sumusunod na<br>
+                        larawan.
+                    </p>
+
+                </div>
+
+                <audio id="instruction_audio2" src="audio/PAGSASANAY 2.mp3"></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page13')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page14')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 14: Pagsasanay 2 Lesson Menu -->
+            <div id="page14" class="screen">
+                <div class="lesson-menu-container">
+                    <div class="lesson-grid">
+
+                        <!-- Notebook 1 -->
+                        <a href="lesson6.html" class="lesson-btn" title="Lesson 6">
+                            <div class="notebook nb-purple">
+                                <div class="nb-spine"></div>
+                                <div class="nb-page">
+                                    <div class="nb-lines">
+                                        <span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="nb-number">1</div>
+                                </div>
+                                <div class="nb-rings">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Notebook 2 -->
+                        <a href="lesson7.html" class="lesson-btn" title="Lesson 7">
+                            <div class="notebook nb-red">
+                                <div class="nb-spine"></div>
+                                <div class="nb-page">
+                                    <div class="nb-lines">
+                                        <span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="nb-number">2</div>
+                                </div>
+                                <div class="nb-rings">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Notebook 3 -->
+                        <a href="lesson8.html" class="lesson-btn" title="Lesson 8">
+                            <div class="notebook nb-green">
+                                <div class="nb-spine"></div>
+                                <div class="nb-page">
+                                    <div class="nb-lines">
+                                        <span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="nb-number">3</div>
+                                </div>
+                                <div class="nb-rings">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Notebook 4 -->
+                        <a href="lesson9.html" class="lesson-btn" title="Lesson 9">
+                            <div class="notebook nb-orange">
+                                <div class="nb-spine"></div>
+                                <div class="nb-page">
+                                    <div class="nb-lines">
+                                        <span></span><span></span><span></span><span></span>
+                                    </div>
+                                    <div class="nb-number">4</div>
+                                </div>
+                                <div class="nb-rings">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page12')">
                     <div class="arrow"></div>
                 </div>
             </div>

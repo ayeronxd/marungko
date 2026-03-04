@@ -218,7 +218,7 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
+            transition: opacity 0.7s ease, transform 0.7s ease;
             z-index: 30;
         }
 
@@ -454,31 +454,38 @@
                 </div>
 
                 <!-- House / Home button (bottom right) -->
+                <!-- Chalk Book / Home button (bottom right) -->
                 <div class="home-btn" onclick="window.location.href='dafs.html#page11'" title="Go back to lesson menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- House body -->
-                        <rect x="18" y="48" width="64" height="45" rx="4" ry="4" fill="#e8c97a" stroke="#b08030"
-                            stroke-width="3" />
-                        <!-- Door -->
-                        <rect x="36" y="68" width="28" height="25" rx="3" ry="3" fill="#a0522d" stroke="#7a3a18"
-                            stroke-width="2" />
-                        <!-- Door knob -->
-                        <circle cx="60" cy="82" r="3" fill="#f0d060" />
-                        <!-- Roof -->
-                        <polygon points="8,52 50,8 92,52" fill="#cc3333" stroke="#992222" stroke-width="3"
-                            stroke-linejoin="round" />
-                        <!-- Chimney -->
-                        <rect x="62" y="16" width="10" height="20" fill="#cc3333" stroke="#992222" stroke-width="2" />
-                        <!-- Windows -->
-                        <rect x="22" y="56" width="18" height="16" rx="2" ry="2" fill="#aaddff" stroke="#7ab0dd"
-                            stroke-width="2" />
-                        <rect x="60" y="56" width="18" height="16" rx="2" ry="2" fill="#aaddff" stroke="#7ab0dd"
-                            stroke-width="2" />
-                        <!-- Window cross bars -->
-                        <line x1="31" y1="56" x2="31" y2="72" stroke="#7ab0dd" stroke-width="1.5" />
-                        <line x1="22" y1="64" x2="40" y2="64" stroke="#7ab0dd" stroke-width="1.5" />
-                        <line x1="69" y1="56" x2="69" y2="72" stroke="#7ab0dd" stroke-width="1.5" />
-                        <line x1="60" y1="64" x2="78" y2="64" stroke="#7ab0dd" stroke-width="1.5" />
+                        <!-- Left page -->
+                        <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
+                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
+                        <!-- Right page -->
+                        <path d="M90,18 Q90,14 86,13 Q70,10 52,15 L52,85 Q70,80 86,83 Q90,84 90,80 Z" fill="#fdf3de"
+                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
+                        <!-- Spine -->
+                        <rect x="46" y="12" width="8" height="74" rx="2" fill="#b08030" />
+                        <!-- Left page lines (chalk marks) -->
+                        <line x1="18" y1="30" x2="44" y2="28" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="18" y1="40" x2="44" y2="38" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="18" y1="50" x2="44" y2="48" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="18" y1="60" x2="44" y2="58" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <!-- Right page lines (chalk marks) -->
+                        <line x1="56" y1="28" x2="82" y2="30" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="56" y1="38" x2="82" y2="40" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
+                            opacity="0.7" />
+                        <!-- Chalk star accent on right page -->
+                        <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
+                            font-family="sans-serif">★</text>
                     </svg>
                 </div>
 
@@ -530,7 +537,9 @@
                 panel.classList.remove('show');
                 el.style.outline = 'none';
                 el.style.filter = 'none';
-            }, 2000);
+                if (isCorrect) { localStorage.setItem('lesson1_done', '1'); window.location.href = 'dafs.html#page11'; }
+                else { localStorage.setItem('lesson1_wrong', '1'); window.location.href = 'dafs.html#page11'; }
+            }, 1800);
         }
     </script>
 </body>
