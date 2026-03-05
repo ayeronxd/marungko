@@ -219,7 +219,7 @@
             <div id="page4" class="screen">
                 <div class="split-content">
                     <div class="left-side">
-                        <img src="images/chalk.png" alt="Yelo"
+                        <img src="images/chalk.png" alt="Yeso"
                             style="width: 500px; max-width: 100%; filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));">
                     </div>
                     <div class="right-side">
@@ -521,23 +521,23 @@
                 </div>
 
                 <audio id="audio6_a" src="audio/Letter A.mp3"></audio>
-                <audio id="audio6_y_a" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_y_a" src="audio/Y.mp3"></audio>
                 <audio id="audio6_ay" src="audio/AY.mp3"></audio>
 
                 <audio id="audio6_e" src="audio/Letter E.mp3"></audio>
-                <audio id="audio6_y_e" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_y_e" src="audio/Y.mp3"></audio>
                 <audio id="audio6_ey" src="audio/EY.mp3"></audio>
 
                 <audio id="audio6_i" src="audio/Letter I.mp3"></audio>
-                <audio id="audio6_y_i" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_y_i" src="audio/Y.mp3"></audio>
                 <audio id="audio6_iy" src="audio/IY.mp3"></audio>
 
                 <audio id="audio6_o" src="audio/Letter O.mp3"></audio>
-                <audio id="audio6_y_o" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_y_o" src="audio/Y.mp3"></audio>
                 <audio id="audio6_oy" src="audio/OY.mp3"></audio>
 
                 <audio id="audio6_u" src="audio/Letter U.mp3"></audio>
-                <audio id="audio6_y_u" src="audio/Letter Y.mp3"></audio>
+                <audio id="audio6_y_u" src="audio/Y.mp3"></audio>
                 <audio id="audio6_uy" src="audio/UY.mp3"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page5')">
@@ -549,6 +549,7 @@
             </div>
 
             <div id="page7" class="screen">
+                <audio id="page7_audio" src="audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
                 <div class="syllable-grid">
                     <span class="grid-item">ya</span>
                     <span class="grid-item">ye</span>
@@ -576,6 +577,7 @@
             </div>
 
             <div id="page8" class="screen">
+                <audio id="page8_audio" src="audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
                 <div class="syllable-grid">
                     <span class="grid-item">ay</span>
                     <span class="grid-item">iy</span>
@@ -819,7 +821,7 @@
                     <div class="lesson-grid">
 
                         <!-- Notebook 1 -->
-                        <a href="lesson6.html" class="lesson-btn" title="Lesson 6">
+                        <a href="lesson6.html" class="lesson-btn" data-lesson="lesson6" title="Lesson 6">
                             <div class="notebook nb-purple">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -835,7 +837,7 @@
                         </a>
 
                         <!-- Notebook 2 -->
-                        <a href="lesson7.html" class="lesson-btn" title="Lesson 7">
+                        <a href="lesson7.html" class="lesson-btn" data-lesson="lesson7" title="Lesson 7">
                             <div class="notebook nb-red">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -851,7 +853,7 @@
                         </a>
 
                         <!-- Notebook 3 -->
-                        <a href="lesson8.html" class="lesson-btn" title="Lesson 8">
+                        <a href="lesson8.html" class="lesson-btn" data-lesson="lesson8" title="Lesson 8">
                             <div class="notebook nb-green">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -867,7 +869,7 @@
                         </a>
 
                         <!-- Notebook 4 -->
-                        <a href="lesson9.html" class="lesson-btn" title="Lesson 9">
+                        <a href="lesson9.html" class="lesson-btn" data-lesson="lesson9" title="Lesson 9">
                             <div class="notebook nb-orange">
                                 <div class="nb-spine"></div>
                                 <div class="nb-page">
@@ -886,6 +888,76 @@
                 </div>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page12')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page15')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 15: Basa Tayo -->
+            <div id="page15" class="screen">
+                <div class="subukan-container">
+                    <h1 class="subukan-title">Basa Tayo!</h1>
+
+                    <div class="tara-btn" onclick="showPage('page16')">
+                        <div class="tara-body">Tara</div>
+                        <div class="tara-head"></div>
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page14')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 16: Blank Chalkboard -->
+            <div id="page16" class="screen">
+
+                <svg class="top-left-speaker" onclick="playAudio('page16_audio')" viewBox="0 0 100 100">
+                    <g transform="translate(10, 10) rotate(-25, 40, 40)">
+                        <!-- Speaker body -->
+                        <path d="M 40,5 L 20,25 L 5,25 L 5,55 L 20,55 L 40,75 Z" fill="#8f9d86" stroke="#ffffff"
+                            stroke-width="3" stroke-linejoin="round" />
+                        <!-- Sound waves -->
+                        <path d="M 50,25 Q 60,40 50,55" fill="none" stroke="#ffffff" stroke-width="4"
+                            stroke-linecap="round" />
+                        <path d="M 60,15 Q 75,40 60,65" fill="none" stroke="#ffffff" stroke-width="4"
+                            stroke-linecap="round" />
+                        <path d="M 70,5 Q 90,40 70,75" fill="none" stroke="#ffffff" stroke-width="4"
+                            stroke-linecap="round" />
+                    </g>
+                </svg>
+                <audio id="page16_audio" src="audio/AKO KAYA.m4a"></audio>
+
+                <!-- Centered image holder -->
+                <div style="
+                    position: absolute;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 75%;
+                    max-height: 80%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                ">
+                    <img src="images/ako_kaya_reading.png" alt="Image" id="page16_img"
+                        style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: block;">
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page15')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17: Blank Chalkboard 2 -->
+            <div id="page17" class="screen">
+                <audio id="page17_audio" src="audio/AKO KAYA.m4a"></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page16')">
                     <div class="arrow"></div>
                 </div>
             </div>

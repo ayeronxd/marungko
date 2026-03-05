@@ -12,12 +12,19 @@ if (!sessionStorage.getItem('marungko_session')) {
 }
 
 function showPage(pageId) {
+    const currentScreen = document.querySelector('.screen.active');
+    const targetScreen = document.getElementById(pageId);
+    
+    if (currentScreen === targetScreen) return;
+
     // Stop all audio when navigating between slides
     document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-    document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
 
+    // Handle fade transition
+    if (currentScreen) {
+        currentScreen.classList.remove('active');
+    }
+    
     // Target the inner text elements for the reset
     const animElements = document.querySelectorAll('.pop-animation, .pop-delayed, .syllable-text, .letter-text, .letter-y-in-word, .first-letter-in-word, .blend-text, .grid-item');
     animElements.forEach(el => {
@@ -25,7 +32,7 @@ function showPage(pageId) {
         void el.offsetWidth;
     });
 
-    document.getElementById(pageId).classList.add('active');
+    targetScreen.classList.add('active');
 
     // Update completion badges when lesson menu is shown
     if (pageId === 'page11') updateNotebookBadges('page11');
@@ -44,6 +51,20 @@ function showPage(pageId) {
         if (instrAudio2) {
             instrAudio2.currentTime = 0;
             setTimeout(() => instrAudio2.play(), 400);
+        }
+    }
+    if (pageId === 'page7') {
+        const page7Audio = document.getElementById('page7_audio');
+        if (page7Audio) {
+            page7Audio.currentTime = 0;
+            setTimeout(() => page7Audio.play(), 400);
+        }
+    }
+    if (pageId === 'page8') {
+        const page8Audio = document.getElementById('page8_audio');
+        if (page8Audio) {
+            page8Audio.currentTime = 0;
+            setTimeout(() => page8Audio.play(), 400);
         }
     }
 }
@@ -105,13 +126,21 @@ function playAudio(audioId, textId) {
 
         const onFirstLetterEnd = function () {
             firstLetter.removeEventListener('animationend', onFirstLetterEnd);
+
+            let delay = 500;
+            if (textId === 'targetWord3') {
+                delay += 200; // yelo
+            } else if (textId === 'targetWord4') {
+                delay += 0; // yeso (no extra delay now)
+            }
+
             setTimeout(() => {
                 letters.forEach(el => {
                     el.classList.remove('pop-animation', 'pop-delayed');
                     void el.offsetWidth;
                     el.classList.add('pop-animation');
                 });
-            }, 500);
+            }, delay);
         };
 
         firstLetter.addEventListener('animationend', onFirstLetterEnd);
