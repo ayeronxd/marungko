@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <style>
-        /* ── Notebook completion badge ── */
+        /* â”€â”€ Notebook completion badge â”€â”€ */
         .lesson-btn {
             position: relative;
             display: inline-block;
@@ -73,7 +73,7 @@
             }
         }
 
-        /* Pagsasanay 2 button — bounce + glow CTA */
+        /* Pagsasanay 2 button â€” bounce + glow CTA */
         @keyframes p2Bounce {
 
             0%,
@@ -955,14 +955,155 @@
 
             <!-- Page 17: Blank Chalkboard 2 -->
             <div id="page17" class="screen">
-                <audio id="page17_audio" src="audio/AKO KAYA.m4a"></audio>
+                <div class="questions-container">
+                    <h1 class="questions-title">Sagutin ang mga tanong:</h1>
+
+                    <div class="question-list">
+                        <!-- Q1 -->
+                        <div class="question-item">
+                            <span class="q-text">1. Ano ang alaga ng kaniyang lolo?</span>
+                            <svg class="q-speaker" onclick="playAudio('p17_q1_audio')" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                <path d="M16 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />
+                            </svg>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-item">
+                            <span class="q-text">2. Ano ang alaga ng kaniyang lola?</span>
+                            <svg class="q-speaker" onclick="playAudio('p17_q2_audio')" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-item">
+                            <span class="q-text">3. Ang kaniyang tatay ay mayroong alagang <span
+                                    style="white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;"><span
+                                        class="q-blank"></span>.<svg class="q-speaker"
+                                        onclick="playAudio('p17_q3_audio')" viewBox="0 0 24 24"
+                                        style="display:inline-block; vertical-align: middle; flex-shrink: 0;">
+                                        <path
+                                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                    </svg></span></span>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="question-item">
+                            <span class="q-text">4. Sino ang mayroong alagang aso?</span>
+                            <svg class="q-speaker" onclick="playAudio('p17_q4_audio')" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="question-item">
+                            <span class="q-text">5. Sino ang mayroong alagang bibe?</span>
+                            <svg class="q-speaker" onclick="playAudio('p17_q5_audio')" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="question-item">
+                            <span class="q-text">6. Gusto ba niyang mag-alaga ng oso?</span>
+                            <svg class="q-speaker" onclick="playAudio('p17_q6_audio')" viewBox="0 0 24 24">
+                                <path
+                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                            </svg>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="question-item">
+                            <span class="q-text">7. Sa palagay mo, bakit ayaw niyang mag-alaga ng oso?<svg
+                                    class="q-speaker" onclick="playAudio('p17_q7_audio')" viewBox="0 0 24 24"
+                                    style="vertical-align: middle; margin-left: 8px;">
+                                    <path
+                                        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                </svg></span>
+                        </div>
+                    </div>
+                </div>
+
+                <audio id="p17_q1_audio" src="audio/TANONG 1.m4a"></audio>
+                <audio id="p17_q2_audio" src="audio/TANONG 2.m4a"></audio>
+                <audio id="p17_q3_audio" src="audio/TANONG 3.m4a"></audio>
+                <audio id="p17_q4_audio" src="audio/TANONG 4.m4a"></audio>
+                <audio id="p17_q5_audio" src="audio/TANONG 5.m4a"></audio>
+                <audio id="p17_q6_audio" src="audio/TANONG 6.m4a"></audio>
+                <audio id="p17_q7_audio" src="audio/TANONG 7.m4a"></audio>
+
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page16')">
                     <div class="arrow"></div>
                 </div>
+                <div class="nav-btn" onclick="showPage('page18')">
+                    <div class="arrow"></div>
+                </div>
             </div>
+
+            <!-- Page 18: Subukan Natin (end of Basa Tayo) -->
+            <div id="page18" class="screen">
+                <div class="subukan-container">
+                    <h1 class="subukan-title">Subukan<br>Natin!</h1>
+
+                    <div class="tara-btn" onclick="showPage('page19')">
+                        <div class="tara-body">Tara</div>
+                        <div class="tara-head"></div>
+                    </div>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 19: Pagsasanay 3 Instruction -->
+            <div id="page19" class="screen">
+                <div class="instruction-container">
+
+                    <svg class="top-left-speaker" onclick="playAudio('instruction_audio3', 'instruction_text_3')"
+                        viewBox="0 0 100 100">
+                        <g transform="translate(10, 10) rotate(-25, 40, 40)">
+                            <!-- Speaker body -->
+                            <path d="M 40,5 L 20,25 L 5,25 L 5,55 L 20,55 L 40,75 Z" fill="#8f9d86" stroke="#ffffff"
+                                stroke-width="3" stroke-linejoin="round" />
+                            <!-- Sound waves -->
+                            <path d="M 50,25 Q 60,40 50,55" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 60,15 Q 75,40 60,65" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                            <path d="M 70,5 Q 90,40 70,75" fill="none" stroke="#ffffff" stroke-width="4"
+                                stroke-linecap="round" />
+                        </g>
+                    </svg>
+
+                    <p id="instruction_text_3" class="instruction-text">
+                        Pagsasanay 3: Piliin ang larawan<br>
+                        ng alaga ng mga tauhan sa<br>
+                        kuwentong ating binasa.
+                    </p>
+
+                </div>
+
+                <audio id="instruction_audio3" src=""></audio>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page18')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="window.location.href='lesson10.html'">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
         </div>
     </div>
+
 </body>
 
 </html>

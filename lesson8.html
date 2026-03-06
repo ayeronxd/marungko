@@ -7,323 +7,9 @@
     <title>Lesson 8 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
-        /* ── Lesson 8 specific styles ── */
-
-        .lesson8-screen {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            position: relative;
-            box-sizing: border-box;
-            padding: 22px 50px 20px 50px;
-        }
-
-        /* ── Top row: sentence + speaker ── */
-        .l8-top-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 22px;
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .l8-sentence {
-            font-size: 70px;
-            font-weight: 600;
-            color: white;
-            margin: 0;
-            line-height: 1.2;
-            font-family: 'Fredoka', sans-serif;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            flex: 1;
-            text-align: center;
-        }
-
-        /* Speaker button */
-        .l8-speaker-btn {
-            width: 90px;
-            height: 90px;
-            cursor: pointer;
-            transition: transform 0.2s ease, filter 0.2s ease;
-            filter: drop-shadow(2px 3px 5px rgba(0, 0, 0, 0.45));
-            flex-shrink: 0;
-        }
-
-        .l8-speaker-btn:hover {
-            transform: scale(1.12);
-            filter: drop-shadow(2px 3px 8px rgba(0, 0, 0, 0.6));
-        }
-
-        .l8-speaker-btn.playing {
-            animation: speakerPulse8 0.5s ease infinite alternate;
-        }
-
-        @keyframes speakerPulse8 {
-            from {
-                transform: scale(1.0);
-            }
-
-            to {
-                transform: scale(1.12);
-            }
-        }
-
-        /* ── Image choices grid ── */
-        .l8-choices-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            width: 100%;
-            flex: 1;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            align-self: center;
-        }
-
-        /* Individual image choice card */
-        .l8-choice-card {
-            background: white;
-            border: 5px solid #e53935;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-            overflow: hidden;
-            flex: 0 0 auto;
-            width: 230px;
-            height: 230px;
-            aspect-ratio: 1 / 1;
-            animation: cardPulse8 2.4s ease-out infinite;
-        }
-
-        .l8-choice-card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .l8-choice-card:nth-child(3) {
-            animation-delay: 0.8s;
-        }
-
-        .l8-choice-card:nth-child(4) {
-            animation-delay: 1.2s;
-        }
-
-        @keyframes cardPulse8 {
-            0% {
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0.5);
-            }
-
-            60% {
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 12px rgba(255, 255, 255, 0);
-            }
-
-            100% {
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0);
-            }
-        }
-
-        .l8-choice-card:hover {
-            transform: translateY(-6px) scale(1.04);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-            border-color: #ff6f00;
-            animation: none;
-        }
-
-        /* Letter label (a. b. c. d.) */
-        .l8-card-label {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 26px;
-            font-weight: 600;
-            color: #222;
-            padding: 2px 7px;
-            line-height: 1.2;
-            position: absolute;
-            top: 4px;
-            left: 6px;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 6px;
-        }
-
-        /* Image inside card */
-        .l8-card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        /* Emoji fallback inside card (if no image) */
-        .l8-card-emoji {
-            font-size: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            width: 100%;
-            padding-bottom: 12px;
-            line-height: 1.1;
-        }
-
-        /* Book / Home button (bottom right) */
-        .home-btn {
-            position: absolute;
-            bottom: 18px;
-            right: 20px;
-            width: 70px;
-            height: 70px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));
-            z-index: 10;
-        }
-
-        .home-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Feedback panel overlay */
-        .l8-feedback-panel {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 380px;
-            max-width: 80%;
-            border-radius: 20px;
-            padding: 28px 36px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.7s ease, transform 0.7s ease;
-            z-index: 30;
-        }
-
-        .l8-feedback-panel.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: all;
-        }
-
-        .l8-feedback-panel.correct {
-            background: linear-gradient(145deg, #2ecc71, #27ae60);
-            border: 4px solid #1e8449;
-        }
-
-        .l8-feedback-panel.wrong {
-            background: linear-gradient(145deg, #e74c3c, #c0392b);
-            border: 4px solid #922b21;
-        }
-
-        .l8-feedback-icon {
-            font-size: 64px;
-            line-height: 1;
-        }
-
-        .l8-feedback-title {
-            font-size: 52px;
-            font-weight: 600;
-            color: white;
-            margin: 0;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .l8-feedback-sub {
-            font-size: 26px;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .l8-sentence {
-                font-size: 46px;
-            }
-
-            .l8-choice-card {
-                width: 160px;
-                height: 160px;
-            }
-
-            .l8-card-label {
-                font-size: 22px;
-            }
-
-            .l8-card-emoji {
-                font-size: 70px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .lesson8-screen {
-                padding: 14px 18px 14px;
-            }
-
-            .l8-sentence {
-                font-size: 32px;
-            }
-
-            .l8-choices-row {
-                gap: 12px;
-            }
-
-            .l8-choice-card {
-                width: 120px;
-                height: 120px;
-            }
-
-            .l8-card-label {
-                font-size: 18px;
-            }
-
-            .l8-card-emoji {
-                font-size: 52px;
-            }
-
-            .l8-speaker-btn {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .l8-sentence {
-                font-size: 22px;
-            }
-
-            .l8-choice-card {
-                width: 85px;
-                height: 85px;
-            }
-
-            .l8-card-label {
-                font-size: 14px;
-            }
-
-            .l8-card-emoji {
-                font-size: 38px;
-            }
-        }
+        /* Internal styles removed - now using unified framework in style.css */
     </style>
 </head>
 
@@ -337,103 +23,85 @@
             </div>
 
             <!-- Lesson 8 Screen -->
-            <div id="lesson8" class="screen active lesson8-screen">
+            <div id="lesson8" class="screen active lesson-screen">
 
                 <!-- Top row: sentence + speaker icon -->
-                <div class="l8-top-row">
+                <div class="lesson-header-row">
                     <!-- Cartoonish speaker SVG button -->
-                    <svg class="l8-speaker-btn" id="l8-speaker" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
-                        onclick="playAudio()" title="Pakinggan">
-                        <!-- Speaker body (chalk white) -->
+                    <svg class="lesson-speaker-btn" id="l8-speaker" viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg" onclick="playAudio()" title="Pakinggan">
                         <rect x="6" y="36" width="26" height="28" rx="7" ry="7" fill="#FFFDE7" stroke="#8D6E63"
                             stroke-width="3" />
-                        <!-- Speaker cone (warm cream) -->
-                        <polygon points="32,29 62,12 62,88 32,71" fill="#FFE0B2" stroke="#8D6E63" stroke-width="3"
-                            stroke-linejoin="round" />
-                        <!-- Shine on body -->
+                        <polygon points="32,29 62,12 62,88 32,71" fill="#FFE0B2" stroke="#8D6E63" stroke-width="3" />
                         <ellipse cx="16" cy="43" rx="5" ry="3" fill="rgba(255,255,255,0.6)"
                             transform="rotate(-10,16,43)" />
-                        <!-- Sound waves (warm white/golden) -->
                         <path d="M69,36 Q80,50 69,64" fill="none" stroke="#FFF9C4" stroke-width="5.5"
                             stroke-linecap="round" />
                         <path d="M76,26 Q93,50 76,74" fill="none" stroke="#FFE082" stroke-width="5"
                             stroke-linecap="round" />
                     </svg>
-                    <p class="l8-sentence">Ang baso ay kay lola.</p>
+                    <p class="lesson-heading">Ang baso ay kay lola.</p>
+                    <div class="header-spacer"></div>
                 </div>
 
                 <!-- Image choices -->
-                <div class="l8-choices-row">
+                <div class="lesson-choices-row">
 
                     <!-- a. Girl with flower (wrong) -->
-                    <div class="l8-choice-card" onclick="checkAnswer(this, false)">
-                        <div class="l8-card-label">a.</div>
-                        <img class="l8-card-img" src="images/girl with flower.png" alt="Girl with flower">
+                    <div class="lesson-choice-card" onclick="checkAnswer(this, false)">
+                        <div class="label">a.</div>
+                        <img src="images/girl with flower.png" alt="Girl with flower">
                     </div>
 
                     <!-- b. Boy with yoyo (wrong) -->
-                    <div class="l8-choice-card" onclick="checkAnswer(this, false)">
-                        <div class="l8-card-label">b.</div>
-                        <img class="l8-card-img" src="images/boy with yoyo.png" alt="Boy with yoyo">
+                    <div class="lesson-choice-card" onclick="checkAnswer(this, false)">
+                        <div class="label">b.</div>
+                        <img src="images/boy with yoyo.png" alt="Boy with yoyo">
                     </div>
 
                     <!-- c. Lola with cup (CORRECT) -->
-                    <div class="l8-choice-card" onclick="checkAnswer(this, true)">
-                        <div class="l8-card-label">c.</div>
-                        <img class="l8-card-img" src="images/lola with cup.png" alt="Lola with cup">
+                    <div class="lesson-choice-card" onclick="checkAnswer(this, true)">
+                        <div class="label">c.</div>
+                        <img src="images/lola with cup.png" alt="Lola with cup">
                     </div>
 
                     <!-- d. Man with book (wrong) -->
-                    <div class="l8-choice-card" onclick="checkAnswer(this, false)">
-                        <div class="l8-card-label">d.</div>
-                        <img class="l8-card-img" src="images/man with book.png" alt="Man with book">
+                    <div class="lesson-choice-card" onclick="checkAnswer(this, false)">
+                        <div class="label">d.</div>
+                        <img src="images/man with book.png" alt="Man with book">
                     </div>
 
                 </div>
 
                 <!-- Feedback panel -->
-                <div class="l8-feedback-panel" id="l8-feedback-panel">
-                    <div class="l8-feedback-icon" id="l8-feedback-icon"></div>
-                    <div class="l8-feedback-title" id="l8-feedback-title"></div>
-                    <div class="l8-feedback-sub" id="l8-feedback-sub"></div>
+                <div class="lesson-feedback-panel" id="l8-feedback-panel">
+                    <div class="icon" id="l8-feedback-icon"></div>
+                    <div class="title" id="l8-feedback-title"></div>
+                    <div class="sub-text" id="l8-feedback-sub"></div>
                 </div>
 
-                <!-- Book / Home button (bottom right) -->
+                <!-- Home button (bottom right) -->
                 <div class="home-btn" onclick="window.location.href='dafs.html#page14'" title="Go back to lesson menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Left page -->
                         <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
-                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
-                        <!-- Right page -->
+                            stroke="#c8a96e" stroke-width="2.5" />
                         <path d="M90,18 Q90,14 86,13 Q70,10 52,15 L52,85 Q70,80 86,83 Q90,84 90,80 Z" fill="#fdf3de"
-                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
-                        <!-- Spine -->
+                            stroke="#c8a96e" stroke-width="2.5" />
                         <rect x="46" y="12" width="8" height="74" rx="2" fill="#b08030" />
-                        <!-- Left page lines -->
-                        <line x1="18" y1="30" x2="44" y2="28" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="40" x2="44" y2="38" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="50" x2="44" y2="48" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="60" x2="44" y2="58" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <!-- Right page lines -->
-                        <line x1="56" y1="28" x2="82" y2="30" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="38" x2="82" y2="40" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <!-- Star accent -->
+                        <line x1="18" y1="30" x2="44" y2="28" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="40" x2="44" y2="38" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="50" x2="44" y2="48" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="60" x2="44" y2="58" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="28" x2="82" y2="30" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="38" x2="82" y2="40" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" />
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
                             font-family="sans-serif">★</text>
                     </svg>
                 </div>
 
-            </div><!-- end lesson8 screen -->
+            </div>
 
             <!-- Sound effects -->
             <audio id="sfx-correct" src="audio/correct.mp3" preload="auto"></audio>
@@ -444,7 +112,6 @@
     </div>
 
     <script>
-        /* ── Play sentence audio ── */
         function playAudio() {
             const audio = document.getElementById('sfx-sentence');
             const btn = document.getElementById('l8-speaker');
@@ -455,33 +122,30 @@
             audio.onended = () => btn.classList.remove('playing');
         }
 
-        /* ── Check answer ── */
         function checkAnswer(el, isCorrect) {
             const panel = document.getElementById('l8-feedback-panel');
             const icon = document.getElementById('l8-feedback-icon');
             const title = document.getElementById('l8-feedback-title');
             const sub = document.getElementById('l8-feedback-sub');
 
-            // Reset all cards
-            document.querySelectorAll('.l8-choice-card').forEach(c => {
+            document.querySelectorAll('.lesson-choice-card').forEach(c => {
                 c.style.outline = 'none';
                 c.style.filter = '';
             });
 
-            // Play sound
             const sfx = document.getElementById(isCorrect ? 'sfx-correct' : 'sfx-wrong');
             sfx.currentTime = 0;
             sfx.play();
 
             if (isCorrect) {
-                panel.className = 'l8-feedback-panel correct';
+                panel.className = 'lesson-feedback-panel show correct';
                 icon.textContent = '🌟';
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
-                panel.className = 'l8-feedback-panel wrong';
+                panel.className = 'lesson-feedback-panel show wrong';
                 icon.textContent = '😊';
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
@@ -489,7 +153,6 @@
                 el.style.filter = 'brightness(0.85)';
             }
 
-            panel.classList.add('show');
             setTimeout(() => {
                 panel.classList.remove('show');
                 el.style.outline = 'none';
@@ -497,10 +160,12 @@
                 if (isCorrect) {
                     localStorage.removeItem('lesson8_wrong');
                     localStorage.setItem('lesson8_done', '1');
+                    localStorage.removeItem('lesson8_wrong');
                     window.location.href = 'dafs.html#page14';
                 } else {
                     localStorage.removeItem('lesson8_done');
                     localStorage.setItem('lesson8_wrong', '1');
+                    localStorage.removeItem('lesson8_done');
                     window.location.href = 'dafs.html#page14';
                 }
             }, 1800);

@@ -7,398 +7,9 @@
     <title>Lesson 5 - Marungko Interactive Chalkboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
-        /* ── Lesson 5 specific styles ── */
-
-        .lesson5-screen {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            position: relative;
-            box-sizing: border-box;
-            padding: 28px 50px 20px 50px;
-        }
-
-        /* Instruction text at the top */
-        .l1-instruction {
-            font-size: 52px;
-            font-weight: 600;
-            color: white;
-            margin: 0 0 0 0;
-            line-height: 1.3;
-            text-align: left;
-            width: 100%;
-        }
-
-        .l1-instruction .highlight-yellow {
-            color: #ffb400;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-
-        /* Main content row: key + circles */
-        .l1-content-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            width: 100%;
-            gap: 0;
-            padding-bottom: 40px;
-        }
-
-        /* Key image area */
-        .l1-key-area {
-            flex: 0 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-right: 30px;
-            margin-left: 20px;
-        }
-
-        /* Question card panel around the key image */
-        .l1-question-card {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.12);
-            border: 4px dashed rgba(255, 255, 255, 0.7);
-            border-radius: 22px;
-            padding: 22px 28px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-        }
-
-        /* Question mark badge in the top-right corner */
-        .l1-question-badge {
-            position: absolute;
-            top: -18px;
-            right: -18px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #ffb400;
-            border: 3px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            font-weight: 700;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-            line-height: 1;
-            z-index: 5;
-        }
-
-        .l1-key-img {
-            height: 290px;
-            width: auto;
-            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.45));
-        }
-
-        /* Pulse glow animation on answer circles */
-        @keyframes circlePulse {
-            0% {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0.45);
-            }
-
-            60% {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 14px rgba(255, 255, 255, 0);
-            }
-
-            100% {
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255, 255, 255, 0);
-            }
-        }
-
-        /* Answer circles container */
-        .l1-circles-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 50px;
-            flex: 0 0 auto;
-            padding-left: 40px;
-        }
-
-        /* Individual answer circle */
-        .l1-choice {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 190px;
-            height: 190px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-            animation: circlePulse 2s ease-out infinite;
-        }
-
-        /* Stagger the pulse so all three don't pulse at once */
-        .l1-choice:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .l1-choice:nth-child(3) {
-            animation-delay: 0.8s;
-        }
-
-        .l1-choice:hover {
-            transform: scale(1.07);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-            animation: none;
-        }
-
-        /* Color variants */
-        .l1-choice.orange {
-            background-color: #e07830;
-        }
-
-        .l1-choice.green {
-            background-color: #5da041;
-        }
-
-        .l1-choice.yellow {
-            background-color: #e6b800;
-        }
-
-        /* Letter inside circle */
-        .l1-choice-letter {
-            font-size: 110px;
-            font-weight: 600;
-            color: white;
-            line-height: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Underline bar below letter inside circle */
-        .l1-choice-letter span {
-            display: inline-block;
-            text-decoration: none;
-            border-bottom: 6px solid rgba(255, 255, 255, 0.9);
-            line-height: 0.8;
-            padding-bottom: 2px;
-        }
-
-        /* Home icon button (bottom right) */
-        .home-btn {
-            position: absolute;
-            bottom: 18px;
-            right: 20px;
-            width: 70px;
-            height: 70px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));
-            z-index: 10;
-        }
-
-        .home-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Feedback panel overlay */
-        .l1-feedback-panel {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 380px;
-            max-width: 80%;
-            border-radius: 20px;
-            padding: 28px 36px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.7s ease, transform 0.7s ease;
-            z-index: 30;
-        }
-
-        .l1-feedback-panel.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: all;
-        }
-
-        .l1-feedback-panel.correct {
-            background: linear-gradient(145deg, #2ecc71, #27ae60);
-            border: 4px solid #1e8449;
-        }
-
-        .l1-feedback-panel.wrong {
-            background: linear-gradient(145deg, #e74c3c, #c0392b);
-            border: 4px solid #922b21;
-        }
-
-        .l1-feedback-icon {
-            font-size: 64px;
-            line-height: 1;
-        }
-
-        .l1-feedback-title {
-            font-size: 52px;
-            font-weight: 600;
-            color: white;
-            margin: 0;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .l1-feedback-sub {
-            font-size: 26px;
-            color: rgba(255, 255, 255, 0.9);
-            margin: 0;
-        }
-
-        @media (max-width: 1024px) {
-            .l1-instruction {
-                font-size: 38px;
-            }
-
-            .l1-choice {
-                width: 145px;
-                height: 145px;
-            }
-
-            .l1-choice-letter {
-                font-size: 82px;
-            }
-
-            .l1-key-img {
-                height: 190px;
-            }
-
-            .l1-question-card {
-                padding: 14px 18px;
-            }
-
-            .l1-question-badge {
-                width: 34px;
-                height: 34px;
-                font-size: 20px;
-                top: -14px;
-                right: -14px;
-            }
-
-            .l1-circles-row {
-                gap: 35px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .lesson5-screen {
-                padding: 18px 24px 14px;
-            }
-
-            .l1-instruction {
-                font-size: 26px;
-            }
-
-            .l1-choice {
-                width: 100px;
-                height: 100px;
-            }
-
-            .l1-choice-letter {
-                font-size: 56px;
-            }
-
-            .l1-key-img {
-                height: 120px;
-            }
-
-            .l1-question-card {
-                padding: 10px 12px;
-                border-radius: 14px;
-            }
-
-            .l1-question-badge {
-                width: 28px;
-                height: 28px;
-                font-size: 16px;
-                top: -11px;
-                right: -11px;
-            }
-
-            .l1-circles-row {
-                gap: 20px;
-                padding-left: 20px;
-            }
-
-            .l1-key-area {
-                padding-right: 10px;
-                margin-left: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .l1-instruction {
-                font-size: 18px;
-            }
-
-            .l1-choice {
-                width: 72px;
-                height: 72px;
-            }
-
-            .l1-choice-letter {
-                font-size: 38px;
-            }
-
-            .l1-key-img {
-                height: 80px;
-            }
-
-            .l1-question-card {
-                padding: 7px 9px;
-                border-radius: 10px;
-            }
-
-            .l1-question-badge {
-                width: 22px;
-                height: 22px;
-                font-size: 12px;
-                top: -9px;
-                right: -9px;
-            }
-
-            .l1-circles-row {
-                gap: 12px;
-                padding-left: 10px;
-            }
-        }
-
-        @media (max-height: 500px) and (orientation: landscape) {
-            .l1-instruction {
-                font-size: 22px;
-            }
-
-            .l1-choice {
-                width: 90px;
-                height: 90px;
-            }
-
-            .l1-choice-letter {
-                font-size: 50px;
-            }
-
-            .l1-key-img {
-                height: 110px;
-            }
-        }
+        /* Internal styles removed - now using unified framework in style.css */
     </style>
 </head>
 
@@ -412,82 +23,70 @@
             </div>
 
             <!-- Lesson 5 Screen -->
-            <div id="lesson5" class="screen active lesson5-screen">
+            <div id="lesson5" class="screen active lesson-screen">
 
                 <!-- Instruction text -->
-                <p class="l1-instruction">
-                    Piliin ang <span class="highlight-yellow">unang</span> tunog ng mga sumusunod na larawan.
-                </p>
+                <div class="lesson-header-row">
+                    <p class="lesson-heading">
+                        Piliin ang <span class="highlight-yellow">unang</span> tunog ng mga sumusunod na larawan.
+                    </p>
+                </div>
 
                 <!-- Content row: key image + answer choices -->
-                <div class="l1-content-row">
+                <div class="lesson-content-row">
 
                     <!-- Key image in question card -->
-                    <div class="l1-key-area">
-                        <div class="l1-question-card">
-                            <span class="l1-question-badge">?</span>
-                            <img class="l1-key-img" src="images/yoyo.png" alt="Yoyo">
+                    <div class="lesson-key-area">
+                        <div class="lesson-question-card">
+                            <span class="lesson-question-badge">❓</span>
+                            <img class="lesson-key-img" src="images/yoyo.png" alt="Yoyo">
                         </div>
                     </div>
 
                     <!-- Answer circles -->
-                    <div class="l1-circles-row">
+                    <div class="lesson-choices-row">
 
                         <!-- Circle R (wrong) -->
-                        <div class="l1-choice orange" onclick="checkAnswer(this, false)" title="r">
-                            <div class="l1-choice-letter"><span>r</span></div>
+                        <div class="lesson-choice-circle orange" onclick="checkAnswer(this, false)" title="r">
+                            <div class="letter"><span>r</span></div>
                         </div>
 
                         <!-- Circle G (wrong) -->
-                        <div class="l1-choice green" onclick="checkAnswer(this, false)" title="g">
-                            <div class="l1-choice-letter"><span>g</span></div>
+                        <div class="lesson-choice-circle green" onclick="checkAnswer(this, false)" title="g">
+                            <div class="letter"><span>g</span></div>
                         </div>
 
                         <!-- Circle Y (correct) -->
-                        <div class="l1-choice yellow" onclick="checkAnswer(this, true)" title="y">
-                            <div class="l1-choice-letter"><span>y</span></div>
+                        <div class="lesson-choice-circle yellow" onclick="checkAnswer(this, true)" title="y">
+                            <div class="letter"><span>y</span></div>
                         </div>
 
                     </div>
                 </div>
 
                 <!-- Feedback panel -->
-                <div class="l1-feedback-panel" id="l1-feedback-panel">
-                    <div class="l1-feedback-icon" id="l1-feedback-icon"></div>
-                    <div class="l1-feedback-title" id="l1-feedback-title"></div>
-                    <div class="l1-feedback-sub" id="l1-feedback-sub"></div>
+                <div class="lesson-feedback-panel" id="l1-feedback-panel">
+                    <div class="icon" id="l1-feedback-icon"></div>
+                    <div class="title" id="l1-feedback-title"></div>
+                    <div class="sub-text" id="l1-feedback-sub"></div>
                 </div>
 
-                <!-- Chalk Book / Home button (bottom right) -->
+                <!-- Home button (bottom right) -->
                 <div class="home-btn" onclick="window.location.href='dafs.html#page11'" title="Go back to lesson menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Left page -->
                         <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
-                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
-                        <!-- Right page -->
+                            stroke="#c8a96e" stroke-width="2.5" />
                         <path d="M90,18 Q90,14 86,13 Q70,10 52,15 L52,85 Q70,80 86,83 Q90,84 90,80 Z" fill="#fdf3de"
-                            stroke="#c8a96e" stroke-width="2.5" stroke-linejoin="round" />
-                        <!-- Spine -->
+                            stroke="#c8a96e" stroke-width="2.5" />
                         <rect x="46" y="12" width="8" height="74" rx="2" fill="#b08030" />
-                        <!-- Left page lines -->
-                        <line x1="18" y1="30" x2="44" y2="28" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="40" x2="44" y2="38" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="50" x2="44" y2="48" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="18" y1="60" x2="44" y2="58" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <!-- Right page lines -->
-                        <line x1="56" y1="28" x2="82" y2="30" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="38" x2="82" y2="40" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round"
-                            opacity="0.7" />
-                        <!-- Star accent -->
+                        <line x1="18" y1="30" x2="44" y2="28" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="40" x2="44" y2="38" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="50" x2="44" y2="48" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="18" y1="60" x2="44" y2="58" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="28" x2="82" y2="30" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="38" x2="82" y2="40" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" />
+                        <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" />
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
                             font-family="sans-serif">★</text>
                     </svg>
@@ -510,25 +109,24 @@
             const sub = document.getElementById('l1-feedback-sub');
 
             // Reset all circles
-            document.querySelectorAll('.l1-choice').forEach(c => {
+            document.querySelectorAll('.lesson-choice-circle').forEach(c => {
                 c.style.outline = 'none';
                 c.style.filter = '';
             });
 
-            // Play sound
             const sfx = document.getElementById(isCorrect ? 'sfx-correct' : 'sfx-wrong');
             sfx.currentTime = 0;
             sfx.play();
 
             if (isCorrect) {
-                panel.className = 'l1-feedback-panel correct';
+                panel.className = 'lesson-feedback-panel show correct';
                 icon.textContent = '🌟';
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
-                panel.className = 'l1-feedback-panel wrong';
+                panel.className = 'lesson-feedback-panel show wrong';
                 icon.textContent = '😊';
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
@@ -536,13 +134,19 @@
                 el.style.filter = 'brightness(0.85)';
             }
 
-            panel.classList.add('show');
             setTimeout(() => {
                 panel.classList.remove('show');
                 el.style.outline = 'none';
                 el.style.filter = 'none';
-                if (isCorrect) { localStorage.setItem('lesson5_done', '1'); window.location.href = 'dafs.html#page11'; }
-                else { localStorage.setItem('lesson5_wrong', '1'); window.location.href = 'dafs.html#page11'; }
+                if (isCorrect) {
+                    localStorage.setItem('lesson5_done', '1');
+                    localStorage.removeItem('lesson5_wrong');
+                    window.location.href = 'dafs.html#page11';
+                } else {
+                    localStorage.setItem('lesson5_wrong', '1');
+                    localStorage.removeItem('lesson5_done');
+                    window.location.href = 'dafs.html#page11';
+                }
             }, 1800);
         }
     </script>
