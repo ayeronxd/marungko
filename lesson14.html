@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 11 - Marungko</title>
+    <title>Lesson 14 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Layout for Lesson 11 */
-        .lesson11-container {
+        /* Layout for Lesson 14 */
+        .lesson14-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -33,36 +33,36 @@
         }
 
         .character-section img {
-            max-height: 450px;
+            max-height: 520px;
             object-fit: contain;
             filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
             margin-bottom: 0px;
-            transform: translateY(-20px); /* Moves the image slightly up */
+            transform: translateY(-20px);
         }
 
         .character-text {
             font-family: 'Fredoka', sans-serif;
-            font-size: 72px;
+            font-size: 84px;
             font-weight: 500;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
             letter-spacing: 2px;
-            margin-top: -30px; /* Pull text slightly up */
+            margin-top: -30px;
         }
 
         /* Right side cards */
         .cards-section {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             align-items: center;
             height: 100%;
         }
 
-        /* Polaroid style card */
-        .pet-card {
-            width: 300px;
+        /* Black bordered Polaroid style card from Lesson 14 image */
+        .choice-card {
+            width: 320px;
             background: white;
-            border: 6px solid #222;
+            border: 6px solid #000;
             display: flex;
             flex-direction: column;
             cursor: pointer;
@@ -71,12 +71,12 @@
             text-align: center;
         }
 
-        .pet-card:hover {
+        .choice-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
 
-        .pet-card-img {
+        .choice-card-img {
             height: 320px;
             display: flex;
             align-items: center;
@@ -85,21 +85,22 @@
             border-bottom: 2px solid #ccc;
         }
 
-        .pet-card-img img {
+        .choice-card-img img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
 
-        .pet-card-text {
-            padding: 20px 0;
+        .choice-card-text {
+            padding: 15px 0;
             font-family: 'Fredoka', sans-serif;
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 500;
             color: black;
             letter-spacing: 1px;
         }
 
+        /* Back button (Bottom Left) */
         .back-btn-custom {
             position: absolute;
             bottom: 25px;
@@ -118,8 +119,8 @@
         }
 
         .back-btn-custom:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
         }
 
         .back-btn-custom::before {
@@ -130,6 +131,12 @@
             padding: 6px;
             transform: rotate(135deg);
             margin-left: 6px;
+        }
+
+        /* Lola with Cane SVG Placeholder */
+        .lola-svg-placeholder svg {
+            width: 400px;
+            height: 480px;
         }
     </style>
 </head>
@@ -144,42 +151,42 @@
             </div>
 
             <!-- Main screen -->
-            <div id="lesson11" class="screen active">
+            <div id="lesson14" class="screen active">
 
-                <div class="lesson11-container">
+                <div class="lesson14-container">
 
-                    <!-- Left Character -->
+                    <!-- Left Character: Lola (PNG) -->
                     <div class="character-section">
-                        <img src="images/kuya.png" alt="Kuya">
-                        <div class="character-text">Kuya</div>
+                        <img src="images/lola.png" alt="Lola">
+                        <div class="character-text">Lola</div>
                     </div>
 
-                    <!-- Right Cards -->
+                    <!-- Right Cards: pusa and itik -->
                     <div class="cards-section">
-                        <!-- Dog Card -->
-                        <div class="pet-card" onclick="checkAnswer(this, true)">
-                            <div class="pet-card-img">
-                                <img src="images/aso.png" alt="Aso">
-                            </div>
-                            <div class="pet-card-text">aso</div>
-                        </div>
-
-                        <!-- Cat Card -->
-                        <div class="pet-card" onclick="checkAnswer(this, false)">
-                            <div class="pet-card-img">
+                        <!-- Pusa Card (Correct Answer) -->
+                        <div class="choice-card" onclick="checkAnswer(this, true)">
+                            <div class="choice-card-img">
                                 <img src="images/pusa.png" alt="Pusa">
                             </div>
-                            <div class="pet-card-text">pusa</div>
+                            <div class="choice-card-text">pusa</div>
+                        </div>
+
+                        <!-- Itik Card (Wrong Answer) -->
+                        <div class="choice-card" onclick="checkAnswer(this, false)">
+                            <div class="choice-card-img">
+                                <img src="images/itik.png" alt="Itik">
+                            </div>
+                            <div class="choice-card-text">itik</div>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- Feedback panel -->
-                <div class="lesson-feedback-panel" id="l11-feedback-panel">
-                    <div class="icon" id="l11-feedback-icon"></div>
-                    <div class="title" id="l11-feedback-title"></div>
-                    <div class="sub-text" id="l11-feedback-sub"></div>
+                <div class="lesson-feedback-panel" id="l14-feedback-panel">
+                    <div class="icon" id="l14-feedback-icon"></div>
+                    <div class="title" id="l14-feedback-title"></div>
+                    <div class="sub-text" id="l14-feedback-sub"></div>
                 </div>
 
                 <!-- Custom back button (bottom left) -->
@@ -196,16 +203,10 @@
 
     <script>
         function checkAnswer(el, isCorrect) {
-            const panel = document.getElementById('l11-feedback-panel');
-            const icon = document.getElementById('l11-feedback-icon');
-            const title = document.getElementById('l11-feedback-title');
-            const sub = document.getElementById('l11-feedback-sub');
-
-            // Reset selection style if any
-            document.querySelectorAll('.pet-card').forEach(c => {
-                c.style.outline = 'none';
-                c.style.filter = '';
-            });
+            const panel = document.getElementById('l14-feedback-panel');
+            const icon = document.getElementById('l14-feedback-icon');
+            const title = document.getElementById('l14-feedback-title');
+            const sub = document.getElementById('l14-feedback-sub');
 
             // Play sound
             const sfx = document.getElementById(isCorrect ? 'sfx-correct' : 'sfx-wrong');
@@ -218,29 +219,25 @@
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
-                el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
                 icon.textContent = '😊';
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';
-                el.style.filter = 'brightness(0.85)';
             }
 
             setTimeout(() => {
                 panel.className = 'lesson-feedback-panel';
                 el.style.outline = 'none';
-                el.style.filter = 'none';
 
-                // Navigation logic (consistent with other lessons)
                 if (isCorrect) {
-                    localStorage.setItem('lesson11_done', '1');
-                    localStorage.removeItem('lesson11_wrong');
+                    localStorage.setItem('lesson14_done', '1');
+                    localStorage.removeItem('lesson14_wrong');
                     window.location.href = 'lesson10.html';
                 } else {
-                    localStorage.setItem('lesson11_wrong', '1');
-                    localStorage.removeItem('lesson11_done');
+                    localStorage.setItem('lesson14_wrong', '1');
+                    localStorage.removeItem('lesson14_done');
                     window.location.href = 'lesson10.html';
                 }
             }, 1800);

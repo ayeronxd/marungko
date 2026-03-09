@@ -143,6 +143,39 @@
             font-size: 20px;
             opacity: 0.85;
         }
+
+        /* Next button (Bottom Right) */
+        .next-btn {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .next-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .next-btn::after {
+            content: '';
+            display: inline-block;
+            border: solid white;
+            border-width: 0 5px 5px 0;
+            padding: 6px;
+            transform: rotate(-45deg);
+            margin-right: 6px;
+        }
     </style>
 </head>
 
@@ -187,7 +220,7 @@
                     <!-- Character 4: Lola (Grandmother) -->
                     <div class="char-item">
                         <div class="char-img-wrap">
-                            <img src="images/lola with cup.png" alt="Lola">
+                            <img src="images/lola.png" alt="Lola">
                         </div>
                         <div class="num-circle" id="btn4" onclick="selectChar(4)">4</div>
                     </div>
@@ -195,7 +228,7 @@
                     <!-- Character 5: Batang Babae (Girl) -->
                     <div class="char-item">
                         <div class="char-img-wrap">
-                            <img src="images/girl with flower.png" alt="Batang Babae">
+                            <img src="images/ate.png" alt="Batang Babae">
                         </div>
                         <div class="num-circle" id="btn5" onclick="selectChar(5)">5</div>
                     </div>
@@ -216,6 +249,9 @@
                     onclick="window.location.href='dafs.html#page19'">
                     <div class="arrow"></div>
                 </div>
+
+                <!-- Next button -->
+                <div class="next-btn" onclick="window.location.href='lesson16.html'"></div>
 
             </div>
 
@@ -265,6 +301,18 @@
             if (num === 1) {
                 // Navigate to lesson11.html immediately
                 window.location.href = 'lesson11.html';
+            } else if (num === 2) {
+                // Navigate to lesson12.html immediately
+                window.location.href = 'lesson12.html';
+            } else if (num === 3) {
+                // Navigate to lesson13.html immediately
+                window.location.href = 'lesson13.html';
+            } else if (num === 4) {
+                // Navigate to lesson14.html immediately
+                window.location.href = 'lesson14.html';
+            } else if (num === 5) {
+                // Navigate to lesson15.html immediately
+                window.location.href = 'lesson15.html';
             }
         }
     </script>
