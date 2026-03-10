@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drawboard - Marungko Interactive Chalkboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .drawboard-screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: stretch;
+            gap: 18px;
+            padding: 22px;
+            box-sizing: border-box;
+        }
+
+        .draw-surface {
+            flex: 1;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        #drawCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            cursor: crosshair;
+        }
+
+        .draw-toolbar {
+            width: 150px;
+            flex-shrink: 0;
+            padding: 14px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.18);
+            border: 2px solid rgba(255, 255, 255, 0.14);
+            box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            gap: 0;
+            text-align: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .toolbar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tool-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .tool-btn {
+            appearance: none;
+            border: 0;
+            border-radius: 12px;
+            padding: 10px 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .tool-btn:hover {
+            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.26);
+        }
+
+        .tool-btn[aria-pressed="true"] {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.34);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+        }
+
+        .tool-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .tool-btn:disabled:hover {
+            transform: none;
+            background: rgba(255, 255, 255, 0.10);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .tool-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        .tool-label {
+            font-size: 14px;
+            line-height: 1;
+            opacity: 0.95;
+        }
+
+        .section-title {
+            font-size: 14px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin: 0;
+        }
+
+        .palette {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .swatch {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.20);
+            background: var(--swatch, #fff);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .swatch:hover {
+            transform: scale(1.04);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .swatch[aria-pressed="true"]::after {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.22);
+        }
+
+        .size-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .size-btn {
+            flex: 1;
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.10);
+            border-radius: 12px;
+            height: 44px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .size-btn:hover {
+            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.26);
+        }
+
+        .size-btn[aria-pressed="true"] {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.34);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+        }
+
+        .size-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.92);
+        }
+
+        .btn-clear {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(231, 76, 60, 0.18);
+            color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 12px 10px;
+            cursor: pointer;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .btn-clear:hover {
+            transform: scale(1.02);
+            background: rgba(231, 76, 60, 0.28);
+            border-color: rgba(255, 255, 255, 0.26);
+        }
+
+        @media (max-width: 768px) {
+            .drawboard-screen {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .draw-toolbar {
+                width: 120px;
+                padding: 12px;
+            }
+
+            .tool-label {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .draw-toolbar {
+                width: 110px;
+                padding: 10px;
+            }
+
+            .tool-btn {
+                border-radius: 10px;
+                padding: 8px 6px;
+            }
+
+            .btn-clear {
+                font-size: 14px;
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="frame">
+        <div class="chalkboard">
+            <div class="drawboard-screen">
+                <aside class="draw-toolbar" aria-label="Drawing tools">
+                    <div class="toolbar-section">
+                        <div class="tool-row" role="group" aria-label="Tools">
+                            <button type="button" class="tool-btn" id="toolDraw" aria-pressed="true">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
+                                </svg>
+                                <span class="tool-label">Draw</span>
+                            </button>
+
+                            <button type="button" class="tool-btn" id="toolErase" aria-pressed="false">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M16.24 3.56a2 2 0 0 0-2.83 0L3 13.97a2 2 0 0 0 0 2.83l3.2 3.2H20v-2H11.41l8.83-8.83a2 2 0 0 0 0-2.83l-4-3.78zM8.41 18l-3.2-3.2 8.9-8.9 3.2 3.2L8.41 18z" />
+                                </svg>
+                                <span class="tool-label">Erase</span>
+                            </button>
+                        </div>
+
+                        <div class="tool-row" role="group" aria-label="History">
+                            <button type="button" class="tool-btn" id="undoBtn" aria-label="Undo" disabled>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6H6v2h6a8 8 0 0 0 0-16z" />
+                                </svg>
+                                <span class="tool-label">Undo</span>
+                            </button>
+
+                            <button type="button" class="tool-btn" id="redoBtn" aria-label="Redo" disabled>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <g transform="translate(24,0) scale(-1,1)">
+                                        <path
+                                            d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6H6v2h6a8 8 0 0 0 0-16z" />
+                                    </g>
+                                </svg>
+                                <span class="tool-label">Redo</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-section">
+                        <div class="section-title">Colors</div>
+                        <div class="palette" role="group" aria-label="Color palette">
+                            <button type="button" class="swatch" data-color="#f8f8f8" style="--swatch:#f8f8f8"
+                                aria-label="White" aria-pressed="true"></button>
+                            <button type="button" class="swatch" data-color="#ffd66b" style="--swatch:#ffd66b"
+                                aria-label="Yellow" aria-pressed="false"></button>
+                            <button type="button" class="swatch" data-color="#ff8f5a" style="--swatch:#ff8f5a"
+                                aria-label="Orange" aria-pressed="false"></button>
+                            <button type="button" class="swatch" data-color="#7be07b" style="--swatch:#7be07b"
+                                aria-label="Green" aria-pressed="false"></button>
+                            <button type="button" class="swatch" data-color="#79c6ff" style="--swatch:#79c6ff"
+                                aria-label="Blue" aria-pressed="false"></button>
+                            <button type="button" class="swatch" data-color="#d9a6ff" style="--swatch:#d9a6ff"
+                                aria-label="Purple" aria-pressed="false"></button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-section">
+                        <div class="section-title">Size</div>
+                        <div class="size-row" role="group" aria-label="Brush size">
+                            <button type="button" class="size-btn" data-size="6" aria-label="Small" aria-pressed="false">
+                                <span class="size-dot" style="width: 6px; height: 6px;"></span>
+                            </button>
+                            <button type="button" class="size-btn" data-size="10" aria-label="Medium" aria-pressed="true">
+                                <span class="size-dot" style="width: 10px; height: 10px;"></span>
+                            </button>
+                            <button type="button" class="size-btn" data-size="16" aria-label="Large" aria-pressed="false">
+                                <span class="size-dot" style="width: 16px; height: 16px;"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="toolbar-section">
+                        <button type="button" class="btn-clear" id="clearBtn">Clear</button>
+                    </div>
+                </aside>
+
+                <div class="draw-surface" aria-label="Drawing area">
+                    <canvas id="drawCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const canvas = document.getElementById('drawCanvas');
+            const surface = canvas.parentElement;
+            const ctx = canvas.getContext('2d', { alpha: true });
+
+            const toolDrawBtn = document.getElementById('toolDraw');
+            const toolEraseBtn = document.getElementById('toolErase');
+            const undoBtn = document.getElementById('undoBtn');
+            const redoBtn = document.getElementById('redoBtn');
+            const clearBtn = document.getElementById('clearBtn');
+
+            const swatches = Array.from(document.querySelectorAll('.swatch[data-color]'));
+            const sizeButtons = Array.from(document.querySelectorAll('.size-btn[data-size]'));
+
+            const history = [null];
+            let historyIndex = 0;
+            let historyBusy = 0;
+            let historyQueue = Promise.resolve();
+            const snapshotCanvas = document.createElement('canvas');
+            const snapshotCtx = snapshotCanvas.getContext('2d', { alpha: true });
+            const MAX_HISTORY = 30;
+
+            let tool = 'draw'; // 'draw' | 'erase'
+            let color = '#f8f8f8';
+            let baseSize = 10;
+
+            let isDrawing = false;
+            let didDraw = false;
+            let last = { x: 0, y: 0 };
+            let dpr = 1;
+            let cssSize = { w: 0, h: 0 };
+
+            function setPressed(el, pressed) {
+                el.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            }
+
+            function updateHistoryButtons() {
+                const canUndo = historyIndex > 0;
+                const canRedo = historyIndex < history.length - 1;
+                const busy = historyBusy > 0;
+
+                undoBtn.disabled = busy || !canUndo;
+                redoBtn.disabled = busy || !canRedo;
+            }
+
+            function pushHistoryState(state) {
+                history.splice(historyIndex + 1);
+                history.push(state);
+
+                if (history.length > MAX_HISTORY) {
+                    history.splice(0, history.length - MAX_HISTORY);
+                }
+
+                historyIndex = history.length - 1;
+                updateHistoryButtons();
+            }
+
+            function clearCanvas() {
+                resizeCanvasIfNeeded();
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
+                ctx.clearRect(0, 0, cssSize.w, cssSize.h);
+            }
+
+            function captureStateBlob() {
+                return new Promise(resolve => {
+                    // Copy synchronously to avoid racing with the main canvas changing.
+                    snapshotCanvas.width = canvas.width;
+                    snapshotCanvas.height = canvas.height;
+                    snapshotCtx.setTransform(1, 0, 0, 1, 0, 0);
+                    snapshotCtx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+                    snapshotCtx.drawImage(canvas, 0, 0);
+
+                    snapshotCanvas.toBlob(blob => resolve(blob), 'image/png');
+                });
+            }
+
+            function restoreState(state) {
+                return new Promise(resolve => {
+                    clearCanvas();
+                    if (!state) return resolve();
+
+                    const url = URL.createObjectURL(state);
+                    const img = new Image();
+                    img.onload = () => {
+                        clearCanvas();
+                        ctx.drawImage(img, 0, 0, cssSize.w, cssSize.h);
+                        URL.revokeObjectURL(url);
+                        resolve();
+                    };
+                    img.onerror = () => {
+                        URL.revokeObjectURL(url);
+                        resolve();
+                    };
+                    img.src = url;
+                });
+            }
+
+            function queueSnapshot() {
+                historyBusy += 1;
+                updateHistoryButtons();
+
+                historyQueue = historyQueue
+                    .then(async () => {
+                        resizeCanvasIfNeeded();
+                        const blob = await captureStateBlob();
+                        if (blob) pushHistoryState(blob);
+                    })
+                    .finally(() => {
+                        historyBusy = Math.max(0, historyBusy - 1);
+                        updateHistoryButtons();
+                    });
+            }
+
+            function queueRestore(nextIndex) {
+                if (nextIndex < 0 || nextIndex >= history.length) return;
+                if (nextIndex === historyIndex) return;
+
+                historyIndex = nextIndex;
+                historyBusy += 1;
+                updateHistoryButtons();
+
+                historyQueue = historyQueue
+                    .then(() => restoreState(history[historyIndex]))
+                    .finally(() => {
+                        historyBusy = Math.max(0, historyBusy - 1);
+                        updateHistoryButtons();
+                    });
+            }
+
+            function setTool(nextTool) {
+                tool = nextTool;
+                setPressed(toolDrawBtn, tool === 'draw');
+                setPressed(toolEraseBtn, tool === 'erase');
+                canvas.style.cursor = tool === 'erase' ? 'cell' : 'crosshair';
+            }
+
+            function setColor(nextColor) {
+                color = nextColor;
+                swatches.forEach(btn => setPressed(btn, btn.dataset.color === nextColor));
+                setTool('draw');
+            }
+
+            function setSize(nextSize) {
+                baseSize = nextSize;
+                sizeButtons.forEach(btn => setPressed(btn, Number(btn.dataset.size) === nextSize));
+            }
+
+            function applyStrokeStyle(pressure) {
+                const p = (typeof pressure === 'number' && pressure > 0) ? pressure : 0.6;
+                const width = baseSize * (tool === 'erase' ? 1.8 : 1) * (0.6 + p * 0.9);
+
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.lineWidth = width;
+
+                if (tool === 'erase') {
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.globalAlpha = 1;
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = 'rgba(0,0,0,1)';
+                    return;
+                }
+
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 0.92;
+                ctx.shadowBlur = 1.25;
+                ctx.shadowColor = 'rgba(255,255,255,0.25)';
+                ctx.strokeStyle = color;
+            }
+
+            function resizeCanvasIfNeeded() {
+                const rect = surface.getBoundingClientRect();
+                const nextW = Math.max(1, Math.round(rect.width));
+                const nextH = Math.max(1, Math.round(rect.height));
+                const nextDpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+
+                const needResize = nextW !== cssSize.w || nextH !== cssSize.h || nextDpr !== dpr;
+                if (!needResize) return;
+
+                const backup = document.createElement('canvas');
+                backup.width = canvas.width;
+                backup.height = canvas.height;
+                const bctx = backup.getContext('2d');
+                if (backup.width && backup.height) {
+                    bctx.drawImage(canvas, 0, 0);
+                }
+
+                cssSize = { w: nextW, h: nextH };
+                dpr = nextDpr;
+                canvas.width = Math.round(cssSize.w * dpr);
+                canvas.height = Math.round(cssSize.h * dpr);
+
+                // Use CSS pixel coordinates for all drawing (scale by DPR).
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                if (backup.width && backup.height) {
+                    // Draw previous content back into the resized canvas.
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.globalAlpha = 1;
+                    ctx.shadowBlur = 0;
+                    ctx.drawImage(backup, 0, 0, backup.width, backup.height, 0, 0, cssSize.w, cssSize.h);
+                }
+            }
+
+            function getPoint(ev) {
+                const rect = surface.getBoundingClientRect();
+                const x = ev.clientX - rect.left;
+                const y = ev.clientY - rect.top;
+                return { x, y };
+            }
+
+            function drawSegment(from, to, pressure) {
+                applyStrokeStyle(pressure);
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.stroke();
+            }
+
+            function onPointerDown(ev) {
+                if (ev.button !== undefined && ev.button !== 0) return;
+                resizeCanvasIfNeeded();
+                canvas.setPointerCapture(ev.pointerId);
+                isDrawing = true;
+                didDraw = false;
+                last = getPoint(ev);
+
+                // Dot on tap/click.
+                drawSegment(last, { x: last.x + 0.01, y: last.y + 0.01 }, ev.pressure);
+                didDraw = true;
+            }
+
+            function onPointerMove(ev) {
+                if (!isDrawing) return;
+                const p = getPoint(ev);
+                drawSegment(last, p, ev.pressure);
+                last = p;
+                didDraw = true;
+            }
+
+            function endStroke(shouldSnapshot) {
+                if (!isDrawing) return;
+                isDrawing = false;
+                if (shouldSnapshot && didDraw) queueSnapshot();
+                didDraw = false;
+            }
+
+            toolDrawBtn.addEventListener('click', () => setTool('draw'));
+            toolEraseBtn.addEventListener('click', () => setTool('erase'));
+            undoBtn.addEventListener('click', () => queueRestore(historyIndex - 1));
+            redoBtn.addEventListener('click', () => queueRestore(historyIndex + 1));
+
+            swatches.forEach(btn => {
+                btn.addEventListener('click', () => setColor(btn.dataset.color));
+            });
+
+            sizeButtons.forEach(btn => {
+                btn.addEventListener('click', () => setSize(Number(btn.dataset.size)));
+            });
+
+            clearBtn.addEventListener('click', () => {
+                clearCanvas();
+                if (history[historyIndex] !== null) pushHistoryState(null);
+            });
+
+            canvas.addEventListener('pointerdown', onPointerDown);
+            canvas.addEventListener('pointermove', onPointerMove);
+            canvas.addEventListener('pointerup', () => endStroke(true));
+            canvas.addEventListener('pointercancel', () => endStroke(true));
+            canvas.addEventListener('pointerleave', () => endStroke(true));
+
+            window.addEventListener('resize', resizeCanvasIfNeeded);
+            resizeCanvasIfNeeded();
+            setTool('draw');
+            setColor(color);
+            setSize(baseSize);
+            updateHistoryButtons();
+        })();
+    </script>
+</body>
+
+</html>

@@ -73,6 +73,39 @@
             margin-left: 6px;
         }
 
+        /* Next button (Bottom Right) */
+        .next-btn-custom {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .next-btn-custom:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .next-btn-custom::before {
+            content: '';
+            display: inline-block;
+            border: solid white;
+            border-width: 0 5px 5px 0;
+            padding: 6px;
+            transform: rotate(-45deg);
+            margin-left: -6px;
+        }
+
     </style>
 </head>
 
@@ -99,6 +132,10 @@
 
                 <!-- Custom back button (bottom left) -->
                 <div class="back-btn-custom" onclick="window.location.href='lesson10.html'"></div>
+
+                <!-- Next button (bottom right) -->
+                <div class="next-btn-custom" onclick="window.location.href='drawboard.html'"
+                    title="Next"></div>
 
             </div>
 

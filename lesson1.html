@@ -70,9 +70,10 @@
                     <div class="sub-text" id="l1-feedback-sub"></div>
                 </div>
 
-                <!-- House / Home button (bottom right) -->
-                <!-- Chalk Book / Home button (bottom right) -->
-                <div class="home-btn" onclick="window.location.href='dafs.html#page11'" title="Go back to lesson menu">
+                <!-- Back button (book) (bottom right) -->
+                <div class="home-btn" role="button" tabindex="0" onclick="goBack()"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();goBack();}"
+                    title="Back to Notebook Menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <!-- Left page -->
                         <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
@@ -116,6 +117,11 @@
     </div>
 
     <script>
+        function goBack() {
+            // Always return to Page 11 so the user can choose another notebook.
+            window.location.href = 'dafs.html#page11';
+        }
+
         function checkAnswer(el, isCorrect) {
             const panel = document.getElementById('l1-feedback-panel');
             const icon = document.getElementById('l1-feedback-icon');

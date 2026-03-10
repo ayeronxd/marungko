@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "file:///C:/Users/User/Desktop/marungko/dafs.html",
+            "url": "file:///C:/Users/User/Desktop/Marungko_M3/dafs.html",
             "webRoot": "${workspaceFolder}"
         }
     ]
