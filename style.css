@@ -67,7 +67,7 @@ body {
 }
 
 .logo-placeholder img {
-  height: 24px;
+  height: clamp(18px, min(5vw, 5vh), 24px);
   width: auto;
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
@@ -558,7 +558,7 @@ p {
   }
 
   .logo-placeholder img {
-    height: 32px;
+    height: clamp(18px, min(5vw, 5vh), 24px);
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   }
 
@@ -1295,7 +1295,7 @@ p {
   }
 
   .logo-placeholder img {
-    height: 22px;
+    height: clamp(18px, 5vh, 22px);
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.6)) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
   }
 

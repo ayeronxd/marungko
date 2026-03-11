@@ -9,13 +9,18 @@
     <link rel="stylesheet" href="style.css" />
     <style>
         .drawboard-screen {
+            --drawboard-pad: clamp(12px, 3vw, 22px);
+            --drawboard-gap: clamp(10px, 2.2vw, 18px);
+
             position: absolute;
             inset: 0;
             display: flex;
             align-items: stretch;
-            gap: 18px;
-            padding: 22px;
+            gap: var(--drawboard-gap);
+            padding: var(--drawboard-pad);
             box-sizing: border-box;
+            min-width: 0;
+            min-height: 0;
         }
 
         .draw-surface {
@@ -26,6 +31,8 @@
             background: transparent;
             border: 0;
             box-shadow: none;
+            min-width: 0;
+            min-height: 0;
         }
 
         #drawCanvas {
@@ -36,10 +43,58 @@
             cursor: crosshair;
         }
 
+        .return-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 14px;
+            line-height: 1;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .return-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .return-btn:hover {
+            transform: scale(1.03);
+            background: rgba(0, 0, 0, 0.36);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .return-btn:active {
+            transform: scale(0.99);
+        }
+
+        .return-btn:focus-visible {
+            outline: 3px solid rgba(255, 255, 255, 0.35);
+            outline-offset: 3px;
+        }
+
         .draw-toolbar {
-            width: 150px;
+            --toolbar-width: clamp(110px, 16vw, 150px);
+            --toolbar-padding: clamp(8px, 2vw, 14px);
+            --toolbar-toggle-width: clamp(24px, 4vw, 28px);
+            --toolbar-toggle-height: clamp(40px, 7vw, 44px);
+            --toolbar-toggle-outset: clamp(8px, 1.6vw, 10px);
+            --toolbar-toggle-gutter: calc(var(--toolbar-toggle-width) - var(--toolbar-toggle-outset));
+
+            width: calc(var(--toolbar-width) + var(--toolbar-toggle-gutter));
             flex-shrink: 0;
-            padding: 14px;
+            padding: var(--toolbar-padding) calc(var(--toolbar-padding) + var(--toolbar-toggle-gutter)) var(--toolbar-padding) var(--toolbar-padding);
             box-sizing: border-box;
             border-radius: 12px;
             background: rgba(0, 0, 0, 0.18);
@@ -47,30 +102,104 @@
             box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            transition: width 0.18s ease, padding 0.18s ease, border-width 0.18s ease, background 0.18s ease;
+            min-width: 0;
+        }
+
+        .draw-toolbar__content {
+            flex: 1;
+            min-height: 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
             justify-content: space-evenly;
             gap: 0;
-            text-align: center;
             overflow-y: auto;
             overflow-x: hidden;
+            transition: opacity 0.18s ease;
+        }
+
+        .toolbar-toggle {
+            appearance: none;
+            border: 1px solid rgba(0, 0, 0, 0.85);
+            background: rgba(255, 255, 255, 0.92);
+            color: rgba(0, 0, 0, 0.82);
+            width: var(--toolbar-toggle-width);
+            height: var(--toolbar-toggle-height);
+            border-radius: 999px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: calc(-1 * var(--toolbar-toggle-outset));
+            transform: translateY(-50%);
+            display: grid;
+            place-items: center;
+            z-index: 20;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .toolbar-toggle:hover {
+            transform: translateY(-50%) scale(1.04);
+            background: rgba(255, 255, 255, 0.98);
+            border-color: rgba(0, 0, 0, 0.95);
+        }
+
+        .toolbar-toggle:active {
+            transform: translateY(-50%) scale(0.98);
+        }
+
+        .toolbar-toggle:focus-visible {
+            outline: 3px solid rgba(255, 255, 255, 0.35);
+            outline-offset: 3px;
+        }
+
+        .toolbar-toggle svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform 0.18s ease;
+        }
+
+        .drawboard-screen.toolbar-collapsed {
+            gap: 12px;
+        }
+
+        .drawboard-screen.toolbar-collapsed .draw-toolbar {
+            width: 0;
+            padding: 0;
+            border-width: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .drawboard-screen.toolbar-collapsed .draw-toolbar__content {
+            display: none;
+        }
+
+        .drawboard-screen.toolbar-collapsed .toolbar-toggle svg {
+            transform: rotate(180deg);
         }
 
         .toolbar-section {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
         }
 
         .tool-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
         }
 
         .tool-btn {
             appearance: none;
             border: 0;
-            border-radius: 12px;
-            padding: 10px 8px;
+            border-radius: clamp(10px, 2vw, 12px);
+            padding: clamp(6px, 1.4vw, 10px) clamp(4px, 1.2vw, 8px);
             cursor: pointer;
             background: rgba(255, 255, 255, 0.10);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -79,7 +208,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: clamp(4px, 1vw, 6px);
             transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
             font-family: 'Fredoka', sans-serif;
         }
@@ -108,13 +237,13 @@
         }
 
         .tool-btn svg {
-            width: 22px;
-            height: 22px;
+            width: clamp(16px, 2.5vw, 22px);
+            height: clamp(16px, 2.5vw, 22px);
             fill: currentColor;
         }
 
         .tool-label {
-            font-size: 14px;
+            font-size: clamp(11px, 1.6vw, 14px);
             line-height: 1;
             opacity: 0.95;
         }
@@ -130,7 +259,7 @@
         .palette {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
         }
 
         .swatch {
@@ -161,7 +290,7 @@
         .size-row {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
         }
 
         .size-btn {
@@ -170,7 +299,7 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(255, 255, 255, 0.10);
             border-radius: 12px;
-            height: 44px;
+            height: clamp(36px, 7vw, 44px);
             cursor: pointer;
             position: relative;
             transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
@@ -203,10 +332,10 @@
             background: rgba(231, 76, 60, 0.18);
             color: rgba(255, 255, 255, 0.95);
             border-radius: 12px;
-            padding: 12px 10px;
+            padding: clamp(10px, 2vw, 12px) clamp(8px, 1.8vw, 10px);
             cursor: pointer;
             font-family: 'Fredoka', sans-serif;
-            font-size: 16px;
+            font-size: clamp(13px, 1.8vw, 16px);
             transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
         }
 
@@ -218,123 +347,217 @@
 
         @media (max-width: 768px) {
             .drawboard-screen {
-                padding: 14px;
-                gap: 12px;
-            }
-
-            .draw-toolbar {
-                width: 120px;
-                padding: 12px;
-            }
-
-            .tool-label {
-                font-size: 13px;
+                --drawboard-pad: clamp(10px, 2.6vw, 14px);
+                --drawboard-gap: clamp(8px, 2vw, 12px);
             }
         }
 
-        @media (max-width: 480px) {
+        /* Tall phones (e.g., Galaxy S20 Ultra) - move toolbar below canvas */
+        @media (max-width: 430px) and (min-height: 800px) and (orientation: portrait) {
+            .drawboard-screen {
+                --drawboard-pad: clamp(8px, 2.4vw, 12px);
+                --drawboard-gap: clamp(8px, 2.2vw, 12px);
+                flex-direction: column;
+            }
+
+            .draw-surface {
+                order: 1;
+            }
+
             .draw-toolbar {
-                width: 110px;
-                padding: 10px;
+                order: 2;
+                width: 100%;
+                --toolbar-padding: clamp(8px, 2vw, 10px);
+                padding: var(--toolbar-padding) calc(var(--toolbar-padding) + var(--toolbar-toggle-width) + 6px) var(--toolbar-padding) var(--toolbar-padding);
+            }
+
+            .toolbar-toggle {
+                right: 0;
+            }
+
+            .draw-toolbar__content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: clamp(10px, 3vw, 14px);
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 2px;
+            }
+
+            .toolbar-section {
+                flex-direction: row;
+                align-items: center;
+                gap: clamp(8px, 2.6vw, 12px);
+                flex: 0 0 auto;
+            }
+
+            .tool-row {
+                display: flex;
+                gap: clamp(6px, 2.2vw, 10px);
             }
 
             .tool-btn {
-                border-radius: 10px;
-                padding: 8px 6px;
+                flex-direction: row;
+                gap: 6px;
+                padding: 6px 10px;
+            }
+
+            .tool-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .tool-label {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 11px;
+                letter-spacing: 0.25px;
+            }
+
+            .palette {
+                display: flex;
+                gap: 6px;
+            }
+
+            .swatch {
+                width: clamp(30px, 7.5vw, 38px);
+                height: clamp(30px, 7.5vw, 38px);
+                aspect-ratio: auto;
+                border-radius: 12px;
+            }
+
+            .swatch[aria-pressed="true"]::after {
+                inset: 4px;
+                border-width: 2px;
+            }
+
+            .size-row {
+                gap: 6px;
+            }
+
+            .size-btn {
+                flex: 0 0 auto;
+                width: clamp(32px, 8vw, 40px);
+                height: clamp(32px, 8vw, 40px);
+                border-radius: 12px;
             }
 
             .btn-clear {
-                font-size: 14px;
-                padding: 10px 8px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .drawboard-screen.toolbar-collapsed .draw-toolbar {
+                width: 100%;
+                height: var(--toolbar-toggle-height);
             }
         }
     </style>
 </head>
 
-<body>
-    <div class="frame">
-        <div class="chalkboard">
+    <body>
+        <div class="frame">
+            <div class="chalkboard">
             <div class="drawboard-screen">
                 <aside class="draw-toolbar" aria-label="Drawing tools">
-                    <div class="toolbar-section">
-                        <div class="tool-row" role="group" aria-label="Tools">
-                            <button type="button" class="tool-btn" id="toolDraw" aria-pressed="true">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
-                                </svg>
-                                <span class="tool-label">Draw</span>
-                            </button>
+                    <button type="button" class="toolbar-toggle" id="toolbarToggle" aria-expanded="true"
+                        aria-controls="drawToolbarContent" aria-label="Hide tools" title="Hide tools">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        </svg>
+                    </button>
 
-                            <button type="button" class="tool-btn" id="toolErase" aria-pressed="false">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M16.24 3.56a2 2 0 0 0-2.83 0L3 13.97a2 2 0 0 0 0 2.83l3.2 3.2H20v-2H11.41l8.83-8.83a2 2 0 0 0 0-2.83l-4-3.78zM8.41 18l-3.2-3.2 8.9-8.9 3.2 3.2L8.41 18z" />
-                                </svg>
-                                <span class="tool-label">Erase</span>
-                            </button>
-                        </div>
+                    <div class="draw-toolbar__content" id="drawToolbarContent">
+                        <div class="toolbar-section">
+                            <div class="tool-row" role="group" aria-label="Tools">
+                                <button type="button" class="tool-btn" id="toolDraw" aria-pressed="true">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" />
+                                    </svg>
+                                    <span class="tool-label">Draw</span>
+                                </button>
 
-                        <div class="tool-row" role="group" aria-label="History">
-                            <button type="button" class="tool-btn" id="undoBtn" aria-label="Undo" disabled>
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6H6v2h6a8 8 0 0 0 0-16z" />
-                                </svg>
-                                <span class="tool-label">Undo</span>
-                            </button>
+                                <button type="button" class="tool-btn" id="toolErase" aria-pressed="false">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                            d="M16.24 3.56a2 2 0 0 0-2.83 0L3 13.97a2 2 0 0 0 0 2.83l3.2 3.2H20v-2H11.41l8.83-8.83a2 2 0 0 0 0-2.83l-4-3.78zM8.41 18l-3.2-3.2 8.9-8.9 3.2 3.2L8.41 18z" />
+                                    </svg>
+                                    <span class="tool-label">Erase</span>
+                                </button>
+                            </div>
 
-                            <button type="button" class="tool-btn" id="redoBtn" aria-label="Redo" disabled>
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <g transform="translate(24,0) scale(-1,1)">
+                            <div class="tool-row" role="group" aria-label="History">
+                                <button type="button" class="tool-btn" id="undoBtn" aria-label="Undo" disabled>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
                                         <path
                                             d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6H6v2h6a8 8 0 0 0 0-16z" />
-                                    </g>
-                                </svg>
-                                <span class="tool-label">Redo</span>
-                            </button>
-                        </div>
-                    </div>
+                                    </svg>
+                                    <span class="tool-label">Undo</span>
+                                </button>
 
-                    <div class="toolbar-section">
-                        <div class="section-title">Colors</div>
-                        <div class="palette" role="group" aria-label="Color palette">
-                            <button type="button" class="swatch" data-color="#f8f8f8" style="--swatch:#f8f8f8"
-                                aria-label="White" aria-pressed="true"></button>
-                            <button type="button" class="swatch" data-color="#ffd66b" style="--swatch:#ffd66b"
-                                aria-label="Yellow" aria-pressed="false"></button>
-                            <button type="button" class="swatch" data-color="#ff8f5a" style="--swatch:#ff8f5a"
-                                aria-label="Orange" aria-pressed="false"></button>
-                            <button type="button" class="swatch" data-color="#7be07b" style="--swatch:#7be07b"
-                                aria-label="Green" aria-pressed="false"></button>
-                            <button type="button" class="swatch" data-color="#79c6ff" style="--swatch:#79c6ff"
-                                aria-label="Blue" aria-pressed="false"></button>
-                            <button type="button" class="swatch" data-color="#d9a6ff" style="--swatch:#d9a6ff"
-                                aria-label="Purple" aria-pressed="false"></button>
+                                <button type="button" class="tool-btn" id="redoBtn" aria-label="Redo" disabled>
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <g transform="translate(24,0) scale(-1,1)">
+                                            <path
+                                                d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6H6v2h6a8 8 0 0 0 0-16z" />
+                                        </g>
+                                    </svg>
+                                    <span class="tool-label">Redo</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="toolbar-section">
-                        <div class="section-title">Size</div>
-                        <div class="size-row" role="group" aria-label="Brush size">
-                            <button type="button" class="size-btn" data-size="6" aria-label="Small" aria-pressed="false">
-                                <span class="size-dot" style="width: 6px; height: 6px;"></span>
-                            </button>
-                            <button type="button" class="size-btn" data-size="10" aria-label="Medium" aria-pressed="true">
-                                <span class="size-dot" style="width: 10px; height: 10px;"></span>
-                            </button>
-                            <button type="button" class="size-btn" data-size="16" aria-label="Large" aria-pressed="false">
-                                <span class="size-dot" style="width: 16px; height: 16px;"></span>
-                            </button>
+                        <div class="toolbar-section">
+                            <div class="section-title">Colors</div>
+                            <div class="palette" role="group" aria-label="Color palette">
+                                <button type="button" class="swatch" data-color="#f8f8f8" style="--swatch:#f8f8f8"
+                                    aria-label="White" aria-pressed="true"></button>
+                                <button type="button" class="swatch" data-color="#ffd66b" style="--swatch:#ffd66b"
+                                    aria-label="Yellow" aria-pressed="false"></button>
+                                <button type="button" class="swatch" data-color="#ff8f5a" style="--swatch:#ff8f5a"
+                                    aria-label="Orange" aria-pressed="false"></button>
+                                <button type="button" class="swatch" data-color="#7be07b" style="--swatch:#7be07b"
+                                    aria-label="Green" aria-pressed="false"></button>
+                                <button type="button" class="swatch" data-color="#79c6ff" style="--swatch:#79c6ff"
+                                    aria-label="Blue" aria-pressed="false"></button>
+                                <button type="button" class="swatch" data-color="#d9a6ff" style="--swatch:#d9a6ff"
+                                    aria-label="Purple" aria-pressed="false"></button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="toolbar-section">
-                        <button type="button" class="btn-clear" id="clearBtn">Clear</button>
+                        <div class="toolbar-section">
+                            <div class="section-title">Size</div>
+                            <div class="size-row" role="group" aria-label="Brush size">
+                                <button type="button" class="size-btn" data-size="6" aria-label="Small" aria-pressed="false">
+                                    <span class="size-dot" style="width: 6px; height: 6px;"></span>
+                                </button>
+                                <button type="button" class="size-btn" data-size="10" aria-label="Medium" aria-pressed="true">
+                                    <span class="size-dot" style="width: 10px; height: 10px;"></span>
+                                </button>
+                                <button type="button" class="size-btn" data-size="16" aria-label="Large" aria-pressed="false">
+                                    <span class="size-dot" style="width: 16px; height: 16px;"></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="toolbar-section">
+                            <button type="button" class="btn-clear" id="clearBtn">Clear</button>
+                        </div>
                     </div>
                 </aside>
 
                 <div class="draw-surface" aria-label="Drawing area">
+                    <a class="return-btn" href="lesson16.html" aria-label="Return to Pagsasanay 4" title="Return to Pagsasanay 4">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M20 11H7.83l5.58-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                        </svg>
+                        <span>Return</span>
+                    </a>
                     <canvas id="drawCanvas"></canvas>
                 </div>
             </div>
@@ -352,7 +575,9 @@
             const undoBtn = document.getElementById('undoBtn');
             const redoBtn = document.getElementById('redoBtn');
             const clearBtn = document.getElementById('clearBtn');
-
+            const toolbarToggle = document.getElementById('toolbarToggle');
+            const drawboardScreen = document.querySelector('.drawboard-screen');
+ 
             const swatches = Array.from(document.querySelectorAll('.swatch[data-color]'));
             const sizeButtons = Array.from(document.querySelectorAll('.size-btn[data-size]'));
 
@@ -373,9 +598,28 @@
             let last = { x: 0, y: 0 };
             let dpr = 1;
             let cssSize = { w: 0, h: 0 };
+            let toolbarCollapsed = false;
+            let persistToolbarCollapsed = false;
 
             function setPressed(el, pressed) {
                 el.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            }
+
+            function applyToolbarCollapsedState() {
+                if (!drawboardScreen || !toolbarToggle) return;
+
+                drawboardScreen.classList.toggle('toolbar-collapsed', toolbarCollapsed);
+                toolbarToggle.setAttribute('aria-expanded', toolbarCollapsed ? 'false' : 'true');
+                toolbarToggle.setAttribute('aria-label', toolbarCollapsed ? 'Show tools' : 'Hide tools');
+                toolbarToggle.title = toolbarCollapsed ? 'Show tools' : 'Hide tools';
+
+                if (persistToolbarCollapsed) {
+                    try {
+                        localStorage.setItem('drawboard:toolbarCollapsed', toolbarCollapsed ? '1' : '0');
+                    } catch (err) { /* ignore */ }
+                }
+
+                resizeCanvasIfNeeded();
             }
 
             function updateHistoryButtons() {
@@ -610,6 +854,28 @@
                 if (history[historyIndex] !== null) pushHistoryState(null);
             });
 
+            if (drawboardScreen && toolbarToggle) {
+                let storedToolbarCollapsed = null;
+                try {
+                    const stored = localStorage.getItem('drawboard:toolbarCollapsed');
+                    if (stored === '1' || stored === '0') storedToolbarCollapsed = stored === '1';
+                } catch (err) { /* ignore */ }
+
+                if (storedToolbarCollapsed !== null) {
+                    toolbarCollapsed = storedToolbarCollapsed;
+                    persistToolbarCollapsed = true;
+                } else {
+                    toolbarCollapsed = false;
+                }
+
+                applyToolbarCollapsedState();
+                toolbarToggle.addEventListener('click', () => {
+                    persistToolbarCollapsed = true;
+                    toolbarCollapsed = !toolbarCollapsed;
+                    applyToolbarCollapsedState();
+                });
+            }
+
             canvas.addEventListener('pointerdown', onPointerDown);
             canvas.addEventListener('pointermove', onPointerMove);
             canvas.addEventListener('pointerup', () => endStroke(true));
@@ -617,6 +883,7 @@
             canvas.addEventListener('pointerleave', () => endStroke(true));
 
             window.addEventListener('resize', resizeCanvasIfNeeded);
+            window.addEventListener('orientationchange', resizeCanvasIfNeeded);
             resizeCanvasIfNeeded();
             setTool('draw');
             setColor(color);
