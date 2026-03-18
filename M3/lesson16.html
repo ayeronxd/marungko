@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,6 +26,7 @@
         .text-content {
             text-align: center;
             max-width: 90%;
+            margin-top: 120px;
         }
 
         .text-content p {
@@ -36,6 +37,19 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
             line-height: 1.4;
             text-align: center;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .pagsasanay-title {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 75px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
             letter-spacing: 1px;
             margin: 0;
         }
@@ -115,20 +129,33 @@
 
             <!-- DECODE Logo top right -->
             <div class="logo-placeholder">
-                <img src="images/decode.png" alt="Logo">
+                <img src="../images/decode.png" alt="Logo">
+            </div>
+
+            <div class="doodle-layer" aria-hidden="true">
+                <span class="doodle cloud" style="--x: 12%; --y: 18%; --w: 180px; --h: 80px; --t: 28s;"></span>
+                <span class="doodle cloud" style="--x: 70%; --y: 12%; --w: 160px; --h: 70px; --t: 26s;"></span>
+                <span class="doodle cloud" style="--x: 86%; --y: 62%; --w: 200px; --h: 90px; --t: 30s;"></span>
+                <span class="doodle blob" style="--x: 20%; --y: 70%; --w: 140px; --h: 100px; --t: 24s;"></span>
+                <span class="doodle blob" style="--x: 56%; --y: 36%; --w: 120px; --h: 90px; --t: 22s;"></span>
+                <span class="doodle sparkle" style="--x: 32%; --y: 22%; --size: 16px; --t: 5.5s;"></span>
+                <span class="doodle sparkle" style="--x: 62%; --y: 18%; --size: 12px; --t: 6.5s;"></span>
+                <span class="doodle sparkle" style="--x: 78%; --y: 40%; --size: 14px; --t: 7s;"></span>
+                <span class="doodle sparkle" style="--x: 42%; --y: 80%; --size: 10px; --t: 6s;"></span>
             </div>
 
             <!-- Main screen -->
             <div id="lesson16" class="screen active">
 
-                <div class="lesson16-container">
+            <div class="lesson16-container">
 
-                    <!-- Text content -->
-                    <div class="text-content">
-                        <p>Pagsasanay 4: Gumuhit ng hayop na gusto mong alagaan. Ibahagi sa klase ang iyong gawa. Sabihin sa buong klase kung ano ito at kung bakit ito ang iyong gustong alagaan.</p>
-                    </div>
-
+                <!-- Text content -->
+                <p class="pagsasanay-title">Pagsasanay 4:</p>
+                <div class="text-content">
+                    <p>Gumuhit ng hayop nagusto mong alagaan. Sabihin kung ano ito at kung bakit ito ang iyong gustong alagaan.</p>
                 </div>
+
+            </div>
 
                 <!-- Custom back button (bottom left) -->
                 <div class="back-btn-custom" onclick="window.location.href='lesson10.html'"></div>

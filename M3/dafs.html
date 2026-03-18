@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,7 +22,7 @@
             width: 36px;
             height: 36px;
             background: #2ecc71;
-            border: 3px solid #fff; 
+            border: 3px solid #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -112,6 +112,274 @@
             transform: scale(1.08);
             transition: transform 0.15s ease;
         }
+
+        /* ── Pantig star (pages 7 & 8) ── */
+        .grid-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .pantig-star {
+            cursor: pointer;
+            font-size: 0.85em;
+            color: #FFCC44;
+            -webkit-text-stroke: 2px #000;
+            text-shadow: 0 2px 6px rgba(255, 180, 0, 0.5);
+            transition: color 0.2s, transform 0.2s, text-shadow 0.2s;
+            user-select: none;
+            flex-shrink: 0;
+            line-height: 1;
+            animation: starBounce 1.8s ease-in-out infinite;
+        }
+
+        @keyframes starBounce {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            40% {
+                transform: translateY(-3px) scale(1.08);
+            }
+
+            60% {
+                transform: translateY(-1px) scale(1.04);
+            }
+        }
+
+        .pantig-star:hover {
+            color: #FFE600;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 1), 0 0 22px rgba(255, 160, 0, 0.7);
+            animation: none;
+            transform: scale(1.25) rotate(-12deg);
+        }
+
+        .pantig-star.active {
+            color: #FFE600;
+            text-shadow: 0 0 12px rgba(255, 230, 0, 1), 0 0 28px rgba(255, 140, 0, 0.8);
+            animation: starGlow 0.9s ease-in-out infinite;
+        }
+
+        @keyframes starGlow {
+
+            0%,
+            100% {
+                transform: scale(1.15);
+                text-shadow: 0 0 10px rgba(255, 220, 0, 0.8), 0 0 20px rgba(255, 140, 0, 0.5);
+            }
+
+            50% {
+                transform: scale(1.25);
+                text-shadow: 0 0 18px rgba(255, 230, 0, 1), 0 0 34px rgba(255, 160, 0, 0.8);
+            }
+        }
+
+        .pantig-text {
+            display: inline-block;
+            transition: color 0.25s;
+            transform-origin: left center;
+        }
+
+        .pantig-text.active {
+            color: #FFD700;
+            animation: pantigPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes pantigPop {
+            0% {
+                transform: scale(1);
+            }
+
+            55% {
+                transform: scale(1.35);
+            }
+
+            100% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* ── Single Question Reveal System ── */
+        .single-question-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .single-question-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 75px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+            line-height: 1.4;
+            display: inline-block;
+        }
+
+        .single-question-text svg {
+            width: 60px !important;
+            height: 60px !important;
+            vertical-align: middle;
+            margin-left: 20px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .single-question-text svg:hover {
+            transform: scale(1.1);
+        }
+
+        .reveal-icon {
+            width: 160px;
+            height: 160px;
+            cursor: pointer;
+            transition: transform 0.2s, filter 0.2s;
+            margin-bottom: 40px;
+        }
+
+        .reveal-icon:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+
+        .reveal-answer {
+            font-size: 56px;
+            color: #FFD700;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+            line-height: 1.4;
+            max-width: 90%;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .reveal-answer.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Mahusay Celebration ── */
+        .mahusay-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mahusay-title {
+            font-size: 160px;
+            font-weight: 600;
+            color: #FFD700;
+            text-align: center;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.6);
+            animation: mahusayPop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, mahusayFloat 3s ease-in-out infinite alternate;
+            z-index: 10;
+        }
+
+        @keyframes mahusayPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes mahusayFloat {
+            0% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+
+            100% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        /* Mobile responsive Mahusay */
+        @media (max-width: 768px) {
+            .mahusay-title {
+                font-size: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mahusay-title {
+                font-size: 65px;
+            }
+        }
+
+        /* CSS Confetti */
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #f2d74e;
+            opacity: 0;
+            top: -20px;
+            animation: confettiFall 4s ease-in infinite;
+        }
+
+        .confetti:nth-child(2n) {
+            background-color: #95c3de;
+            width: 12px;
+            height: 12px;
+            animation-duration: 3s;
+            animation-delay: 1.5s;
+        }
+
+        .confetti:nth-child(3n) {
+            background-color: #ff9a91;
+            width: 18px;
+            height: 18px;
+            animation-duration: 5s;
+            animation-delay: 0.5s;
+        }
+
+        .confetti:nth-child(4n) {
+            background-color: #2ecc71;
+            width: 10px;
+            height: 25px;
+            animation-duration: 3.5s;
+            animation-delay: 2s;
+        }
+
+        .confetti:nth-child(5n) {
+            background-color: #f39c12;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            animation-duration: 4.5s;
+            animation-delay: 1s;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(800px) rotate(720deg);
+            }
+        }
     </style>
 </head>
 
@@ -120,9 +388,19 @@
     <div class="frame">
         <div class="chalkboard">
             <div class="logo-placeholder">
-                <img src="images/decode.png" alt="Logo">
+                <img src="../images/decode.png" alt="Logo">
             </div>
-
+            <div class="doodle-layer" aria-hidden="true">
+                <span class="doodle cloud" style="--x: 12%; --y: 18%; --w: 180px; --h: 80px; --t: 28s;"></span>
+                <span class="doodle cloud" style="--x: 70%; --y: 12%; --w: 160px; --h: 70px; --t: 26s;"></span>
+                <span class="doodle cloud" style="--x: 86%; --y: 62%; --w: 200px; --h: 90px; --t: 30s;"></span>
+                <span class="doodle blob" style="--x: 20%; --y: 70%; --w: 140px; --h: 100px; --t: 24s;"></span>
+                <span class="doodle blob" style="--x: 56%; --y: 36%; --w: 120px; --h: 90px; --t: 22s;"></span>
+                <span class="doodle sparkle" style="--x: 32%; --y: 22%; --size: 16px; --t: 5.5s;"></span>
+                <span class="doodle sparkle" style="--x: 62%; --y: 18%; --size: 12px; --t: 6.5s;"></span>
+                <span class="doodle sparkle" style="--x: 78%; --y: 40%; --size: 14px; --t: 7s;"></span>
+                <span class="doodle sparkle" style="--x: 42%; --y: 80%; --size: 10px; --t: 6s;"></span>
+            </div>
             <div id="page1" class="screen active">
                 <h1>Marungko</h1>
                 <p><b>DECODE</b> with <span class="highlight">ICT Digitalized Material 3</span></p>
@@ -134,7 +412,7 @@
             <div id="page2" class="screen">
                 <div class="split-content">
                     <div class="left-side">
-                        <img class="footprints" src="images/footprints.png" style="filter: invert(1);" size="300px">
+                        <img class="footprints" src="../images/footprints.png" style="filter: invert(1);" size="300px">
                     </div>
                     <div class="right-side">
                         <div class="interactive-group">
@@ -164,8 +442,8 @@
                     </div>
 
 
-                    <audio id="letterAudio" src="audio/Letter Y.mp3"></audio>
-                    <audio id="wordAudio" src="audio/YAPAK.mp3"></audio>
+                    <audio id="letterAudio" src="../audio/LETTER Y.mp3"></audio>
+                    <audio id="wordAudio" src="../audio/YAPAK.m4a"></audio>
 
                     <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page1')">
                         <div class="arrow"></div>
@@ -179,7 +457,7 @@
             <div id="page3" class="screen">
                 <div class="split-content">
                     <div class="left-side">
-                        <img src="images/yelo.png" alt="Yelo"
+                        <img src="../images/yelo.png" alt="Yelo"
                             style="width: 420px; max-width: 100%; filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));">
                     </div>
                     <div class="right-side">
@@ -204,8 +482,8 @@
                         </div>
                     </div>
 
-                    <audio id="letterAudio3" src="audio/Letter Y.mp3"></audio>
-                    <audio id="wordAudio3" src="audio/YELO.mp3"></audio>
+                    <audio id="letterAudio3" src="../audio/Letter Y.mp3"></audio>
+                    <audio id="wordAudio3" src="../audio/YELO.m4a"></audio>
 
                     <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page2')">
                         <div class="arrow"></div>
@@ -219,7 +497,7 @@
             <div id="page4" class="screen">
                 <div class="split-content">
                     <div class="left-side">
-                        <img src="images/chalk.png" alt="Yeso"
+                        <img src="../images/chalk.png" alt="Yeso"
                             style="width: 500px; max-width: 100%; filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));">
                     </div>
                     <div class="right-side">
@@ -244,8 +522,8 @@
                         </div>
                     </div>
 
-                    <audio id="letterAudio4" src="audio/Letter Y.mp3"></audio>
-                    <audio id="wordAudio4" src="audio/YESO.mp3"></audio>
+                    <audio id="letterAudio4" src="../audio/Letter Y.mp3"></audio>
+                    <audio id="wordAudio4" src="../audio/YESO.mp3"></audio>
 
                     <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page3')">
                         <div class="arrow"></div>
@@ -374,25 +652,25 @@
                     </div>
                 </div>
 
-                <audio id="audio_y_a" src="audio/Y.mp3"></audio>
-                <audio id="audio_a" src="audio/Letter A.mp3"></audio>
-                <audio id="audio_ya" src="audio/YA.mp3"></audio>
+                <audio id="audio_y_a" src="../audio/Y.m4a"></audio>
+                <audio id="audio_a" src="../audio/LETTER A.m4a"></audio>
+                <audio id="audio_ya" src="../audio/YA.m4a"></audio>
 
-                <audio id="audio_y_e" src="audio/Y.mp3"></audio>
-                <audio id="audio_e" src="audio/Letter E.mp3"></audio>
-                <audio id="audio_ye" src="audio/YE.mp3"></audio>
+                <audio id="audio_y_e" src="../audio/Y.m4a"></audio>
+                <audio id="audio_e" src="../audio/LETTER E.m4a"></audio>
+                <audio id="audio_ye" src="../audio/YE.m4a"></audio>
 
-                <audio id="audio_y_i" src="audio/Y.mp3"></audio>
-                <audio id="audio_i" src="audio/Letter I.mp3"></audio>
-                <audio id="audio_yi" src="audio/YI.mp3"></audio>
+                <audio id="audio_y_i" src="../audio/Y.m4a"></audio>
+                <audio id="audio_i" src="../audio/LETTER I.m4a"></audio>
+                <audio id="audio_yi" src="../audio/YI.m4a"></audio>
 
-                <audio id="audio_y_o" src="audio/Y.mp3"></audio>
-                <audio id="audio_o" src="audio/Letter O.mp3"></audio>
-                <audio id="audio_yo" src="audio/YO.mp3"></audio>
+                <audio id="audio_y_o" src="../audio/Y.m4a"></audio>
+                <audio id="audio_o" src="../audio/LETTER O.m4a"></audio>
+                <audio id="audio_yo" src="../audio/YO.mp3"></audio>
 
-                <audio id="audio_y_u" src="audio/Y.mp3"></audio>
-                <audio id="audio_u" src="audio/Letter U.mp3"></audio>
-                <audio id="audio_yu" src="audio/YU.mp3"></audio>
+                <audio id="audio_y_u" src="../audio/Y.m4a"></audio>
+                <audio id="audio_u" src="../audio/LETTER U.m4a"></audio>
+                <audio id="audio_yu" src="../audio/YU.m4a"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page4')">
                     <div class="arrow"></div>
@@ -520,25 +798,25 @@
                     </div>
                 </div>
 
-                <audio id="audio6_a" src="audio/Letter A.mp3"></audio>
-                <audio id="audio6_y_a" src="audio/Y.mp3"></audio>
-                <audio id="audio6_ay" src="audio/AY.mp3"></audio>
+                <audio id="audio6_a" src="../audio/LETTER A.m4a"></audio>
+                <audio id="audio6_y_a" src="../audio/Y.m4a"></audio>
+                <audio id="audio6_ay" src="../audio/AY.m4a"></audio>
 
-                <audio id="audio6_e" src="audio/Letter E.mp3"></audio>
-                <audio id="audio6_y_e" src="audio/Y.mp3"></audio>
-                <audio id="audio6_ey" src="audio/EY.mp3"></audio>
+                <audio id="audio6_e" src="../audio/LETTER E.m4a"></audio>
+                <audio id="audio6_y_e" src="../audio/Y.m4a"></audio>
+                <audio id="audio6_ey" src="../audio/EY.m4a"></audio>
 
-                <audio id="audio6_i" src="audio/Letter I.mp3"></audio>
-                <audio id="audio6_y_i" src="audio/Y.mp3"></audio>
-                <audio id="audio6_iy" src="audio/IY.mp3"></audio>
+                <audio id="audio6_i" src="../audio/LETTER I.m4a"></audio>
+                <audio id="audio6_y_i" src="../audio/Y.m4a"></audio>
+                <audio id="audio6_iy" src="../audio/IY.m4a"></audio>
 
-                <audio id="audio6_o" src="audio/Letter O.mp3"></audio>
-                <audio id="audio6_y_o" src="audio/Y.mp3"></audio>
-                <audio id="audio6_oy" src="audio/OY.mp3"></audio>
+                <audio id="audio6_o" src="../audio/LETTER O.m4a"></audio>
+                <audio id="audio6_y_o" src="../audio/Y.m4a"></audio>
+                <audio id="audio6_oy" src="../audio/OY.m4a"></audio>
 
-                <audio id="audio6_u" src="audio/Letter U.mp3"></audio>
-                <audio id="audio6_y_u" src="audio/Y.mp3"></audio>
-                <audio id="audio6_uy" src="audio/UY.mp3"></audio>
+                <audio id="audio6_u" src="../audio/LETTER U.m4a"></audio>
+                <audio id="audio6_y_u" src="../audio/Y.m4a"></audio>
+                <audio id="audio6_uy" src="../audio/UY.m4a"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page5')">
                     <div class="arrow"></div>
@@ -549,23 +827,35 @@
             </div>
 
             <div id="page7" class="screen">
-                <audio id="page7_audio" src="audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
+                <audio id="page7_audio" src="../audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
                 <div class="syllable-grid">
-                    <span class="grid-item">ya</span>
-                    <span class="grid-item">ye</span>
-                    <span class="grid-item">yi</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_ya')">★</span><span class="pantig-text">ya</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_ye')">★</span><span class="pantig-text">ye</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yi')">★</span><span class="pantig-text">yi</span></span>
 
-                    <span class="grid-item">yo</span>
-                    <span class="grid-item">ya</span>
-                    <span class="grid-item">yu</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yo')">★</span><span class="pantig-text">yo</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_ya')">★</span><span class="pantig-text">ya</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yu')">★</span><span class="pantig-text">yu</span></span>
 
-                    <span class="grid-item">ya</span>
-                    <span class="grid-item">ye</span>
-                    <span class="grid-item">yi</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_ya')">★</span><span class="pantig-text">ya</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_ye')">★</span><span class="pantig-text">ye</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yi')">★</span><span class="pantig-text">yi</span></span>
 
-                    <span class="grid-item">yi</span>
-                    <span class="grid-item">yo</span>
-                    <span class="grid-item">yu</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yi')">★</span><span class="pantig-text">yi</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yo')">★</span><span class="pantig-text">yo</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio_yu')">★</span><span class="pantig-text">yu</span></span>
                 </div>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page6')">
@@ -577,26 +867,64 @@
             </div>
 
             <div id="page8" class="screen">
-                <audio id="page8_audio" src="audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
+                <audio id="page8_audio" src="../audio/SUBUKANG BASAHIN ANG MGA SUMUSUNOD NA PANTIG.m4a"></audio>
                 <div class="syllable-grid">
-                    <span class="grid-item">ay</span>
-                    <span class="grid-item">iy</span>
-                    <span class="grid-item">oy</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_ay')">★</span><span class="pantig-text">ay</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_iy')">★</span><span class="pantig-text">iy</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_oy')">★</span><span class="pantig-text">oy</span></span>
 
-                    <span class="grid-item">uy</span>
-                    <span class="grid-item">ey</span>
-                    <span class="grid-item">iy</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_uy')">★</span><span class="pantig-text">uy</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_ey')">★</span><span class="pantig-text">ey</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_iy')">★</span><span class="pantig-text">iy</span></span>
 
-                    <span class="grid-item">ay</span>
-                    <span class="grid-item">ey</span>
-                    <span class="grid-item">oy</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_ay')">★</span><span class="pantig-text">ay</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_ey')">★</span><span class="pantig-text">ey</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_oy')">★</span><span class="pantig-text">oy</span></span>
 
-                    <span class="grid-item">uy</span>
-                    <span class="grid-item">ay</span>
-                    <span class="grid-item">uy</span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_uy')">★</span><span class="pantig-text">uy</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_ay')">★</span><span class="pantig-text">ay</span></span>
+                    <span class="grid-item"><span class="pantig-star"
+                            onclick="selectPantig(this,'audio6_uy')">★</span><span class="pantig-text">uy</span></span>
                 </div>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page7')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page8_5')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 8.5: Mahusay Celebration -->
+            <div id="page8_5" class="screen">
+                <audio id="mahusay_audio" src="../audio/MAHUSAY.m4a"></audio>
+                <audio id="trumpet_audio" src="../audio/trumpet.mp3"></audio>
+                <div class="mahusay-container">
+                    <div class="confetti" style="left: 10%;"></div>
+                    <div class="confetti" style="left: 20%; animation-delay: 0.2s;"></div>
+                    <div class="confetti" style="left: 30%;"></div>
+                    <div class="confetti" style="left: 40%; animation-delay: 1.2s;"></div>
+                    <div class="confetti" style="left: 50%;"></div>
+                    <div class="confetti" style="left: 60%; animation-delay: 0.7s;"></div>
+                    <div class="confetti" style="left: 70%;"></div>
+                    <div class="confetti" style="left: 80%; animation-delay: 0.4s;"></div>
+                    <div class="confetti" style="left: 90%;"></div>
+
+                    <h1 class="mahusay-title">MAHUSAY!</h1>
+                </div>
+
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page8')">
                     <div class="arrow"></div>
                 </div>
                 <div class="nav-btn" onclick="showPage('page9')">
@@ -606,16 +934,17 @@
 
             <!-- Page 9: Subukan Natin -->
             <div id="page9" class="screen">
+                <audio id="subukan_natin_audio" src="../audio/SUBUKAN_NATIN.m4a"></audio>
                 <div class="subukan-container">
                     <h1 class="subukan-title">Subukan<br>Natin!</h1>
 
-                    <div class="tara-btn" onclick="showPage('page10')">
+                    <div class="tara-btn" onclick="playWithDelay('subukan_natin_audio', 'page10', 2000)">
                         <div class="tara-body">Tara</div>
                         <div class="tara-head"></div>
                     </div>
                 </div>
 
-                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page8')">
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page8_5')">
                     <div class="arrow"></div>
                 </div>
             </div>
@@ -648,7 +977,7 @@
 
                 </div>
 
-                <audio id="instruction_audio" src="audio/PAGSASANAY 1.mp3"></audio>
+                <audio id="instruction_audio" src="../audio/PAGSASANAY 1.mp3"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page9')">
                     <div class="arrow"></div>
@@ -763,10 +1092,11 @@
 
             <!-- Page 13: Subukan Natin (Pagsasanay 2) -->
             <div id="page13" class="screen">
+                <audio id="subukan_natin_audio_2" src="../audio/SUBUKAN_NATIN.m4a"></audio>
                 <div class="subukan-container">
                     <h1 class="subukan-title">Subukan<br>Natin!</h1>
 
-                    <div class="tara-btn" onclick="showPage('page12')">
+                    <div class="tara-btn" onclick="playWithDelay('subukan_natin_audio_2', 'page12', 2000)">
                         <div class="tara-body">Tara</div>
                         <div class="tara-head"></div>
                     </div>
@@ -805,7 +1135,7 @@
 
                 </div>
 
-                <audio id="instruction_audio2" src="audio/PAGSASANAY 2.mp3"></audio>
+                <audio id="instruction_audio2" src="../audio/PAGSASANAY 2.mp3"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page13')">
                     <div class="arrow"></div>
@@ -928,7 +1258,7 @@
                             stroke-linecap="round" />
                     </g>
                 </svg>
-                <audio id="page16_audio" src="audio/AKO KAYA.m4a"></audio>
+                <audio id="page16_audio" src="../audio/AKO KAYA.m4a"></audio>
 
                 <!-- Centered image holder -->
                 <div style="
@@ -941,105 +1271,482 @@
                     align-items: center;
                     justify-content: center;
                 ">
-                    <img src="images/ako_kaya_reading.png" alt="Image" id="page16_img"
+                    <img src="../images/ako_kaya_reading.png" alt="Image" id="page16_img"
                         style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: block;">
                 </div>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page15')">
                     <div class="arrow"></div>
                 </div>
-                <div class="nav-btn" onclick="showPage('page17')">
+                <div class="nav-btn" onclick="showPage('page17_1')">
                     <div class="arrow"></div>
                 </div>
             </div>
 
-            <!-- Page 17: Blank Chalkboard 2 -->
-            <div id="page17" class="screen">
-                <div class="questions-container">
-                    <h1 class="questions-title">Sagutin ang mga tanong:</h1>
-
-                    <div class="question-list">
-                        <!-- Q1 -->
-                        <div class="question-item">
-                            <span class="q-text">1. Ano ang alaga ng kaniyang lolo?</span>
-                            <svg class="q-speaker" onclick="playAudio('p17_q1_audio')" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                                <path d="M16 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />
-                            </svg>
-                        </div>
-
-                        <!-- Q2 -->
-                        <div class="question-item">
-                            <span class="q-text">2. Ano ang alaga ng kaniyang lola?</span>
-                            <svg class="q-speaker" onclick="playAudio('p17_q2_audio')" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                            </svg>
-                        </div>
-
-                        <!-- Q3 -->
-                        <div class="question-item">
-                            <span class="q-text">3. Ang kaniyang tatay ay mayroong alagang <span
-                                    style="white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;"><span
-                                        class="q-blank"></span>.<svg class="q-speaker"
-                                        onclick="playAudio('p17_q3_audio')" viewBox="0 0 24 24"
-                                        style="display:inline-block; vertical-align: middle; flex-shrink: 0;">
-                                        <path
-                                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                                    </svg></span></span>
-                        </div>
-
-                        <!-- Q4 -->
-                        <div class="question-item">
-                            <span class="q-text">4. Sino ang mayroong alagang aso?</span>
-                            <svg class="q-speaker" onclick="playAudio('p17_q4_audio')" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                            </svg>
-                        </div>
-
-                        <!-- Q5 -->
-                        <div class="question-item">
-                            <span class="q-text">5. Sino ang mayroong alagang bibe?</span>
-                            <svg class="q-speaker" onclick="playAudio('p17_q5_audio')" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                            </svg>
-                        </div>
-
-                        <!-- Q6 -->
-                        <div class="question-item">
-                            <span class="q-text">6. Gusto ba niyang mag-alaga ng oso?</span>
-                            <svg class="q-speaker" onclick="playAudio('p17_q6_audio')" viewBox="0 0 24 24">
-                                <path
-                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                            </svg>
-                        </div>
-
-                        <!-- Q7 -->
-                        <div class="question-item">
-                            <span class="q-text">7. Sa palagay mo, bakit ayaw niyang mag-alaga ng oso?<svg
-                                    class="q-speaker" onclick="playAudio('p17_q7_audio')" viewBox="0 0 24 24"
-                                    style="vertical-align: middle; margin-left: 8px;">
-                                    <path
-                                        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                                </svg></span>
-                        </div>
+            <!-- Page 17.1 -->
+            <div id="page17_1" class="screen">
+                <audio id="p17_q1_audio" src="../audio/TANONG 1.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        1. Ano ang alaga ng kaniyang lolo?
+                        <svg class="q-speaker" onclick="playAudio('p17_q1_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
                     </div>
+                    <!-- Reveal Icon SVG -->
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Ang maya, ang alaga ng kaniyang lolo."</div>
                 </div>
-
-                <audio id="p17_q1_audio" src="audio/TANONG 1.m4a"></audio>
-                <audio id="p17_q2_audio" src="audio/TANONG 2.m4a"></audio>
-                <audio id="p17_q3_audio" src="audio/TANONG 3.m4a"></audio>
-                <audio id="p17_q4_audio" src="audio/TANONG 4.m4a"></audio>
-                <audio id="p17_q5_audio" src="audio/TANONG 5.m4a"></audio>
-                <audio id="p17_q6_audio" src="audio/TANONG 6.m4a"></audio>
-                <audio id="p17_q7_audio" src="audio/TANONG 7.m4a"></audio>
-
-
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page16')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_2')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.2 -->
+            <div id="page17_2" class="screen">
+                <audio id="p17_q2_audio" src="../audio/TANONG 2.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        2. Ano ang alaga ng kaniyang lola?
+                        <svg class="q-speaker" onclick="playAudio('p17_q2_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <!-- Reveal Icon SVG -->
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Ang itik, ang alaga ng kanyang lola."</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_1')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_3')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.3 -->
+            <div id="page17_3" class="screen">
+                <audio id="p17_q3_audio" src="../audio/TANONG 3.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        3. Ang kaniyang tatay ay mayroong alagang <span class="q-blank" style="margin: 0 10px;"></span>.
+                        <svg class="q-speaker" onclick="playAudio('p17_q3_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"baboy"</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_2')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_4')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.4 -->
+            <div id="page17_4" class="screen">
+                <audio id="p17_q4_audio" src="../audio/TANONG 4.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        4. Sino ang mayroong alagang aso?
+                        <svg class="q-speaker" onclick="playAudio('p17_q4_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Si kuya ang may alaga ng aso."</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_3')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_5')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.5 -->
+            <div id="page17_5" class="screen">
+                <audio id="p17_q5_audio" src="../audio/TANONG 5.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        5. Sino ang mayroong alagang bibe?
+                        <svg class="q-speaker" onclick="playAudio('p17_q5_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Si ate ang may alaga ng bibe."</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_4')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_6')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.6 -->
+            <div id="page17_6" class="screen">
+                <audio id="p17_q6_audio" src="../audio/TANONG 6.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        6. Gusto ba niyang mag-alaga ng oso?
+                        <svg class="q-speaker" onclick="playAudio('p17_q6_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Hindi po niya gustong mag-alaga ng oso."</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_5')">
+                    <div class="arrow"></div>
+                </div>
+                <div class="nav-btn" onclick="showPage('page17_7')">
+                    <div class="arrow"></div>
+                </div>
+            </div>
+
+            <!-- Page 17.7 -->
+            <div id="page17_7" class="screen">
+                <audio id="p17_q7_audio" src="../audio/TANONG 7.m4a"></audio>
+                <div class="single-question-container">
+                    <div class="single-question-text">
+                        7. Sa palagay mo, bakit ayaw niyang mag-alaga ng oso?
+                        <svg class="q-speaker" onclick="playAudio('p17_q7_audio')" viewBox="0 0 24 24"
+                            style="width: 40px; height: 40px;">
+                            <path
+                                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </div>
+                    <svg viewBox="0 0 512 512" class="reveal-icon" onclick="showAnswer(this)">
+                        <!-- Trailing Arc Lines -->
+                        <path d="M256,236 V140" fill="none" stroke="#000" stroke-width="24" stroke-linecap="round" />
+                        <path d="M200,230 Q180,140 100,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+                        <path d="M312,230 Q332,140 412,150" fill="none" stroke="#000" stroke-width="24"
+                            stroke-linecap="round" />
+
+                        <!-- Center Red Star -->
+                        <path d="M256,20 L280,95 L360,95 L296,140 L320,215 L256,170 L192,215 L216,140 L152,95 L232,95 Z"
+                            fill="#eb6b69" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Left Green Star -->
+                        <path d="M55,100 L70,145 L115,145 L80,175 L95,220 L55,190 L15,220 L30,175 L-5,145 L40,145 Z"
+                            fill="#88c382" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Right Blue Star -->
+                        <path
+                            d="M457,100 L472,145 L517,145 L482,175 L497,220 L457,190 L417,220 L432,175 L397,145 L442,145 Z"
+                            fill="#72a5de" stroke="#000" stroke-width="24" stroke-linejoin="round" />
+
+                        <!-- Box Back Flap -->
+                        <path d="M256,230 L390,260 L256,290 L122,260 Z" fill="#d0ae62" />
+
+                        <!-- Box Inside Shadow -->
+                        <path d="M256,260 L242,260 L242,246 L270,246 L270,274 L256,274 Z" fill="#000" />
+
+                        <!-- Box Body -->
+                        <path d="M120,315 v145 l136,35 v-155 Z" fill="#d0ae62" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+                        <path d="M256,340 v155 l136,-35 v-145 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Left Flap -->
+                        <path d="M120,315 L50,335 L120,260 L256,340 Z" fill="#d4b46c" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Right Flap -->
+                        <path d="M392,315 L462,335 L392,260 L256,340 Z" fill="#c49b49" stroke="#000" stroke-width="24"
+                            stroke-linejoin="round" />
+
+                        <!-- Flap outlines (re-drawn over fill to ensure sharp corners) -->
+                        <path d="M50,335 L120,260 L256,340 L392,260 L462,335" fill="none" stroke="#000"
+                            stroke-width="24" stroke-linejoin="round" />
+                    </svg>
+                    <div class="reveal-answer">"Dahil malaki ang oso."</div>
+                </div>
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_6')">
                     <div class="arrow"></div>
                 </div>
                 <div class="nav-btn" onclick="showPage('page18')">
@@ -1058,7 +1765,7 @@
                     </div>
                 </div>
 
-                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17')">
+                <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page17_7')">
                     <div class="arrow"></div>
                 </div>
             </div>
@@ -1091,7 +1798,7 @@
 
                 </div>
 
-                <audio id="instruction_audio3" src="audio/PAGSASANAY 3.m4a"></audio>
+                <audio id="instruction_audio3" src="../audio/PAGSASANAY 3.m4a"></audio>
 
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;" onclick="showPage('page18')">
                     <div class="arrow"></div>
@@ -1104,6 +1811,42 @@
         </div>
     </div>
 
+    <script>
+        function selectPantig(starEl, audioId) {
+            // Find the closest page screen
+            const page = starEl.closest('.screen');
+
+            // Deactivate all stars and texts in this page
+            page.querySelectorAll('.pantig-star').forEach(s => s.classList.remove('active'));
+            page.querySelectorAll('.pantig-text').forEach(t => {
+                t.classList.remove('active');
+                // Reset animation so it can replay
+                void t.offsetWidth;
+            });
+
+            // Activate the clicked star and its sibling text
+            starEl.classList.add('active');
+            const textEl = starEl.nextElementSibling;
+            if (textEl) {
+                textEl.classList.remove('active');
+                void textEl.offsetWidth; // force reflow to replay animation
+                textEl.classList.add('active');
+            }
+
+            if (audioId) {
+                const audio = document.getElementById(audioId);
+                if (audio) { audio.currentTime = 0; audio.play(); }
+            }
+        }
+
+        // Show answer reveal text when clicking the SVG icon
+        function showAnswer(iconEl) {
+            const answerEl = iconEl.nextElementSibling;
+            if (answerEl && answerEl.classList.contains('reveal-answer')) {
+                answerEl.classList.add('show');
+            }
+        }
+    </script>
 </body>
 
 </html>

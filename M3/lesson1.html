@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,7 +18,19 @@
 
             <!-- DECODE Logo top right -->
             <div class="logo-placeholder">
-                <img src="images/decode.png" alt="Logo">
+                <img src="../images/decode.png" alt="Logo">
+            </div>
+
+            <div class="doodle-layer" aria-hidden="true">
+                <span class="doodle cloud" style="--x: 12%; --y: 18%; --w: 180px; --h: 80px; --t: 28s;"></span>
+                <span class="doodle cloud" style="--x: 70%; --y: 12%; --w: 160px; --h: 70px; --t: 26s;"></span>
+                <span class="doodle cloud" style="--x: 86%; --y: 62%; --w: 200px; --h: 90px; --t: 30s;"></span>
+                <span class="doodle blob" style="--x: 20%; --y: 70%; --w: 140px; --h: 100px; --t: 24s;"></span>
+                <span class="doodle blob" style="--x: 56%; --y: 36%; --w: 120px; --h: 90px; --t: 22s;"></span>
+                <span class="doodle sparkle" style="--x: 32%; --y: 22%; --size: 16px; --t: 5.5s;"></span>
+                <span class="doodle sparkle" style="--x: 62%; --y: 18%; --size: 12px; --t: 6.5s;"></span>
+                <span class="doodle sparkle" style="--x: 78%; --y: 40%; --size: 14px; --t: 7s;"></span>
+                <span class="doodle sparkle" style="--x: 42%; --y: 80%; --size: 10px; --t: 6s;"></span>
             </div>
 
             <!-- Lesson 1 Screen -->
@@ -37,8 +49,8 @@
                     <!-- Key image in question card -->
                     <div class="lesson-key-area">
                         <div class="lesson-question-card">
-                            <div class="lesson-question-badge">❓</div>
-                            <img class="lesson-key-img" src="images/susi.png" alt="Susi (Key)">
+                            <div class="lesson-question-badge">â“</div>
+                            <img class="lesson-key-img" src="../images/susi.png" alt="Susi (Key)">
                         </div>
                     </div>
 
@@ -103,15 +115,15 @@
                             opacity="0.7" />
                         <!-- Chalk star accent on right page -->
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
-                            font-family="sans-serif">★</text>
+                            font-family="sans-serif">â˜…</text>
                     </svg>
                 </div>
 
             </div>
 
             <!-- Sound effects -->
-            <audio id="sfx-correct" src="audio/correct.mp3" preload="auto"></audio>
-            <audio id="sfx-wrong" src="audio/wrong.mp3" preload="auto"></audio>
+            <audio id="sfx-correct" src="../audio/correct.mp3" preload="auto"></audio>
+            <audio id="sfx-wrong" src="../audio/wrong.mp3" preload="auto"></audio>
 
         </div>
     </div>
@@ -141,14 +153,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = '🌟';
+                icon.textContent = 'ðŸŒŸ';
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = '😊';
+                icon.textContent = 'ðŸ˜Š';
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

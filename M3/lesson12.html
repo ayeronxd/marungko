@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,7 +33,7 @@
         }
 
         .character-section img {
-            max-height: 450px;
+            max-height: 500px;
             object-fit: contain;
             filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
             margin-bottom: 0px;
@@ -77,7 +77,7 @@
         }
 
         .choice-card-img {
-            height: 320px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -141,7 +141,19 @@
 
             <!-- DECODE Logo top right -->
             <div class="logo-placeholder">
-                <img src="images/decode.png" alt="Logo">
+                <img src="../images/decode.png" alt="Logo">
+            </div>
+
+            <div class="doodle-layer" aria-hidden="true">
+                <span class="doodle cloud" style="--x: 12%; --y: 18%; --w: 180px; --h: 80px; --t: 28s;"></span>
+                <span class="doodle cloud" style="--x: 70%; --y: 12%; --w: 160px; --h: 70px; --t: 26s;"></span>
+                <span class="doodle cloud" style="--x: 86%; --y: 62%; --w: 200px; --h: 90px; --t: 30s;"></span>
+                <span class="doodle blob" style="--x: 20%; --y: 70%; --w: 140px; --h: 100px; --t: 24s;"></span>
+                <span class="doodle blob" style="--x: 56%; --y: 36%; --w: 120px; --h: 90px; --t: 22s;"></span>
+                <span class="doodle sparkle" style="--x: 32%; --y: 22%; --size: 16px; --t: 5.5s;"></span>
+                <span class="doodle sparkle" style="--x: 62%; --y: 18%; --size: 12px; --t: 6.5s;"></span>
+                <span class="doodle sparkle" style="--x: 78%; --y: 40%; --size: 14px; --t: 7s;"></span>
+                <span class="doodle sparkle" style="--x: 42%; --y: 80%; --size: 10px; --t: 6s;"></span>
             </div>
 
             <!-- Main screen -->
@@ -151,7 +163,7 @@
 
                     <!-- Left Character: Tatay -->
                     <div class="character-section">
-                        <img src="images/tatay.png" alt="Tatay">
+                        <img src="../images/tatay.png" alt="Tatay">
                         <div class="character-text">Tatay</div>
                     </div>
 
@@ -160,7 +172,7 @@
                         <!-- Itik Card (Correct Answer) -->
                         <div class="choice-card" onclick="checkAnswer(this, true)">
                             <div class="choice-card-img">
-                                <img src="images/itik.png" alt="Itik">
+                                <img src="../images/itik.png" alt="Itik">
                             </div>
                             <div class="choice-card-text">itik</div>
                         </div>
@@ -168,7 +180,7 @@
                         <!-- Baboy Card (Wrong Answer) -->
                         <div class="choice-card" onclick="checkAnswer(this, false)">
                             <div class="choice-card-img">
-                                <img src="images/baboy.png" alt="Baboy">
+                                <img src="../images/baboy.png" alt="Baboy">
                             </div>
                             <div class="choice-card-text">baboy</div>
                         </div>
@@ -189,8 +201,8 @@
             </div>
 
             <!-- Sound effects -->
-            <audio id="sfx-correct" src="audio/correct.mp3" preload="auto"></audio>
-            <audio id="sfx-wrong" src="audio/wrong.mp3" preload="auto"></audio>
+            <audio id="sfx-correct" src="../audio/correct.mp3" preload="auto"></audio>
+            <audio id="sfx-wrong" src="../audio/wrong.mp3" preload="auto"></audio>
 
         </div>
     </div>
@@ -215,14 +227,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = '🌟';
+                icon.textContent = 'ðŸŒŸ';
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = '😊';
+                icon.textContent = 'ðŸ˜Š';
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

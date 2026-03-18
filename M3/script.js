@@ -67,6 +67,24 @@ function showPage(pageId) {
             setTimeout(() => page8Audio.play(), 400);
         }
     }
+    if (pageId === 'page8_5') {
+        const mahusayAudio = document.getElementById('mahusay_audio');
+        const trumpetAudio = document.getElementById('trumpet_audio');
+        if (trumpetAudio) {
+            trumpetAudio.currentTime = 0;
+            trumpetAudio.onended = () => {
+                trumpetAudio.onended = null;
+                if (mahusayAudio) {
+                    mahusayAudio.currentTime = 0;
+                    setTimeout(() => mahusayAudio.play(), 200);
+                }
+            };
+            trumpetAudio.play().catch(e => console.warn("Audio play blocked:", e));
+        } else if (mahusayAudio) {
+            mahusayAudio.currentTime = 0;
+            setTimeout(() => mahusayAudio.play(), 400);
+        }
+    }
 }
 
 /**
@@ -173,3 +191,27 @@ document.addEventListener('DOMContentLoaded', () => {
         history.replaceState(null, '', window.location.pathname);
     }
 });
+
+/**
+ * Plays an audio element, disables interaction, limits gameplay from breaking, 
+ * and waits for a specific delay before navigating to the next screen.
+ */
+function playWithDelay(audioId, targetPageId, delayMs) {
+    const audioEl = document.getElementById(audioId);
+    
+    if (audioEl) {
+        // Stop any currently playing audio before starting this one
+        document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
+        
+        audioEl.currentTime = 0;
+        audioEl.play().catch(e => console.warn("Audio play blocked:", e));
+    }
+    
+    // Disable interactions temporarily
+    document.body.style.pointerEvents = 'none';
+    
+    setTimeout(() => {
+        document.body.style.pointerEvents = 'auto'; // Re-enable interactions
+        showPage(targetPageId);
+    }, delayMs);
+}
