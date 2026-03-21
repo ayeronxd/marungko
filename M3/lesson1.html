@@ -7,6 +7,7 @@
     <title>Lesson 1 - Marungko Interactive Chalkboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         /* Internal styles removed - now using unified framework in style.css */
     </style>
@@ -131,7 +132,7 @@
     <script>
         function goBack() {
             // Always return to Page 11 so the user can choose another notebook.
-            window.location.href = 'dafs.html#page11';
+            navigateWithSlide('dafs.html#page11', 'back');
         }
 
         function checkAnswer(el, isCorrect) {
@@ -175,11 +176,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson1_done', '1');
                     localStorage.removeItem('lesson1_wrong');
-                    window.location.href = 'dafs.html#page11';
+                    goBack();
                 } else {
                     localStorage.setItem('lesson1_wrong', '1');
                     localStorage.removeItem('lesson1_done');
-                    window.location.href = 'dafs.html#page11';
+                    goBack();
                 }
             }, 1800);
         }

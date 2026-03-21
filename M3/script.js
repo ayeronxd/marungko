@@ -1,3 +1,125 @@
+const PAGE_TRANSITION_KEY = 'marungko_page_transition_direction';
+const PAGE_SLIDE_DURATION_MS = 420;
+const PAGE_SLIDE_DISTANCE_PX = 96;
+const SCREEN_SLIDE_DURATION_MS = 420;
+const SCREEN_SLIDE_DISTANCE_PX = 140;
+const TRANSITION_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const prefersReducedMotion = typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let isScreenTransitionRunning = false;
+
+function animateElement(element, keyframes, options) {
+    if (!element || typeof element.animate !== 'function' || prefersReducedMotion) {
+        return null;
+    }
+
+    try {
+        return element.animate(keyframes, options);
+    } catch (error) {
+        console.warn('Animation skipped:', error);
+        return null;
+    }
+}
+
+function getPageEnterOffset(direction) {
+    return direction === 'back' ? -PAGE_SLIDE_DISTANCE_PX : PAGE_SLIDE_DISTANCE_PX;
+}
+
+function getPageExitOffset(direction) {
+    return direction === 'back' ? PAGE_SLIDE_DISTANCE_PX : -PAGE_SLIDE_DISTANCE_PX;
+}
+
+function getScreenEnterOffset(direction) {
+    return direction === 'back' ? -SCREEN_SLIDE_DISTANCE_PX : SCREEN_SLIDE_DISTANCE_PX;
+}
+
+function getScreenExitOffset(direction) {
+    return direction === 'back' ? SCREEN_SLIDE_DISTANCE_PX : -SCREEN_SLIDE_DISTANCE_PX;
+}
+
+function applyEntryPageTransition() {
+    let direction = '';
+
+    try {
+        direction = sessionStorage.getItem(PAGE_TRANSITION_KEY) || '';
+        sessionStorage.removeItem(PAGE_TRANSITION_KEY);
+    } catch (error) {
+        console.warn('Page transition state unavailable:', error);
+    }
+
+    if (!direction) return;
+
+    const frame = document.querySelector('.frame');
+    const entryAnimation = animateElement(
+        frame,
+        [
+            { opacity: 0, transform: `translateX(${getPageEnterOffset(direction)}px)` },
+            { opacity: 1, transform: 'translateX(0)' }
+        ],
+        {
+            duration: PAGE_SLIDE_DURATION_MS,
+            easing: TRANSITION_EASING,
+            fill: 'both'
+        }
+    );
+
+    if (entryAnimation) {
+        entryAnimation.finished.catch(() => { });
+    }
+}
+
+function navigateWithSlide(url, direction = 'next') {
+    if (!url) return;
+
+    const safeDirection = direction === 'back' ? 'back' : 'next';
+    const frame = document.querySelector('.frame');
+    let hasNavigated = false;
+    const finishNavigation = () => {
+        if (hasNavigated) return;
+        hasNavigated = true;
+        window.location.href = url;
+    };
+
+    try {
+        sessionStorage.setItem(PAGE_TRANSITION_KEY, safeDirection);
+    } catch (error) {
+        console.warn('Page transition state unavailable:', error);
+    }
+
+    if (window.__marungkoNavigating || prefersReducedMotion || !frame || typeof frame.animate !== 'function') {
+        finishNavigation();
+        return;
+    }
+
+    window.__marungkoNavigating = true;
+    document.body.style.pointerEvents = 'none';
+
+    const exitAnimation = frame.animate(
+        [
+            { opacity: 1, transform: 'translateX(0)' },
+            { opacity: 0, transform: `translateX(${getPageExitOffset(safeDirection)}px)` }
+        ],
+        {
+            duration: PAGE_SLIDE_DURATION_MS,
+            easing: TRANSITION_EASING,
+            fill: 'forwards'
+        }
+    );
+
+    const fallbackTimer = window.setTimeout(finishNavigation, PAGE_SLIDE_DURATION_MS + 120);
+
+    exitAnimation.finished
+        .catch(() => { })
+        .finally(() => {
+            window.clearTimeout(fallbackTimer);
+            finishNavigation();
+        });
+}
+
+window.navigateWithSlide = navigateWithSlide;
+applyEntryPageTransition();
+
 // Clear lesson badges from localStorage on hard reload/new session
 if (!sessionStorage.getItem('marungko_session')) {
     const keysToRemove = [];
@@ -11,34 +133,28 @@ if (!sessionStorage.getItem('marungko_session')) {
     sessionStorage.setItem('marungko_session', '1');
 }
 
-function showPage(pageId) {
-    const currentScreen = document.querySelector('.screen.active');
-    const targetScreen = document.getElementById(pageId);
-    
-    if (currentScreen === targetScreen) return;
+function stopAllAudio() {
+    document.querySelectorAll('audio').forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+}
 
-    // Stop all audio when navigating between slides
-    document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
+function resetAnimatedTextElements() {
+    const animElements = document.querySelectorAll(
+        '.pop-animation, .pop-delayed, .syllable-text, .letter-text, .letter-y-in-word, .first-letter-in-word, .blend-text, .grid-item'
+    );
 
-    // Handle fade transition
-    if (currentScreen) {
-        currentScreen.classList.remove('active');
-    }
-    
-    // Target the inner text elements for the reset
-    const animElements = document.querySelectorAll('.pop-animation, .pop-delayed, .syllable-text, .letter-text, .letter-y-in-word, .first-letter-in-word, .blend-text, .grid-item');
     animElements.forEach(el => {
         el.classList.remove('pop-animation', 'pop-delayed');
         void el.offsetWidth;
     });
+}
 
-    targetScreen.classList.add('active');
-
-    // Update completion badges when lesson menu is shown
+function handlePageArrival(pageId) {
     if (pageId === 'page11') updateNotebookBadges('page11');
     if (pageId === 'page14') updateNotebookBadges('page14');
 
-    // Auto-play instruction audio when navigating to instruction slides
     if (pageId === 'page10') {
         const instrAudio = document.getElementById('instruction_audio');
         if (instrAudio) {
@@ -46,6 +162,7 @@ function showPage(pageId) {
             setTimeout(() => instrAudio.play(), 400);
         }
     }
+
     if (pageId === 'page12') {
         const instrAudio2 = document.getElementById('instruction_audio2');
         if (instrAudio2) {
@@ -53,6 +170,7 @@ function showPage(pageId) {
             setTimeout(() => instrAudio2.play(), 400);
         }
     }
+
     if (pageId === 'page7') {
         const page7Audio = document.getElementById('page7_audio');
         if (page7Audio) {
@@ -60,6 +178,7 @@ function showPage(pageId) {
             setTimeout(() => page7Audio.play(), 400);
         }
     }
+
     if (pageId === 'page8') {
         const page8Audio = document.getElementById('page8_audio');
         if (page8Audio) {
@@ -67,9 +186,11 @@ function showPage(pageId) {
             setTimeout(() => page8Audio.play(), 400);
         }
     }
+
     if (pageId === 'page8_5') {
         const mahusayAudio = document.getElementById('mahusay_audio');
         const trumpetAudio = document.getElementById('trumpet_audio');
+
         if (trumpetAudio) {
             trumpetAudio.currentTime = 0;
             trumpetAudio.onended = () => {
@@ -79,7 +200,7 @@ function showPage(pageId) {
                     setTimeout(() => mahusayAudio.play(), 200);
                 }
             };
-            trumpetAudio.play().catch(e => console.warn("Audio play blocked:", e));
+            trumpetAudio.play().catch(e => console.warn('Audio play blocked:', e));
         } else if (mahusayAudio) {
             mahusayAudio.currentTime = 0;
             setTimeout(() => mahusayAudio.play(), 400);
@@ -87,20 +208,110 @@ function showPage(pageId) {
     }
 }
 
+function inferScreenDirection(currentScreen, targetScreen) {
+    if (!currentScreen || !targetScreen || currentScreen.parentElement !== targetScreen.parentElement) {
+        return 'next';
+    }
+
+    const siblingScreens = Array.from(currentScreen.parentElement.querySelectorAll('.screen'));
+    return siblingScreens.indexOf(targetScreen) < siblingScreens.indexOf(currentScreen) ? 'back' : 'next';
+}
+
+function cleanupScreenTransition(screen) {
+    if (!screen) return;
+
+    screen.classList.remove('transitioning');
+    screen.style.opacity = '';
+    screen.style.transform = '';
+    screen.style.zIndex = '';
+}
+
+function showPage(pageId, options = {}) {
+    const targetScreen = document.getElementById(pageId);
+    const currentScreen = document.querySelector('.screen.active');
+
+    if (!targetScreen || currentScreen === targetScreen) return;
+    if (isScreenTransitionRunning && !options.immediate) return;
+
+    stopAllAudio();
+    resetAnimatedTextElements();
+
+    const direction = options.direction || inferScreenDirection(currentScreen, targetScreen);
+    const shouldAnimate = !options.immediate
+        && !prefersReducedMotion
+        && !isScreenTransitionRunning
+        && currentScreen
+        && typeof currentScreen.animate === 'function'
+        && typeof targetScreen.animate === 'function';
+
+    if (!shouldAnimate) {
+        if (currentScreen) currentScreen.classList.remove('active');
+        targetScreen.classList.add('active');
+        handlePageArrival(pageId);
+        return;
+    }
+
+    isScreenTransitionRunning = true;
+
+    currentScreen.classList.add('transitioning');
+    targetScreen.classList.add('active', 'transitioning');
+    currentScreen.style.zIndex = '3';
+    targetScreen.style.zIndex = '4';
+
+    const enterKeyframes = [
+        { opacity: 0, transform: `translateX(${getScreenEnterOffset(direction)}px)` },
+        { opacity: 1, transform: 'translateX(0)' }
+    ];
+
+    const exitKeyframes = [
+        { opacity: 1, transform: 'translateX(0)' },
+        { opacity: 0, transform: `translateX(${getScreenExitOffset(direction)}px)` }
+    ];
+
+    const animationOptions = {
+        duration: SCREEN_SLIDE_DURATION_MS,
+        easing: TRANSITION_EASING,
+        fill: 'forwards'
+    };
+
+    const enterAnimation = targetScreen.animate(enterKeyframes, animationOptions);
+    const exitAnimation = currentScreen.animate(exitKeyframes, animationOptions);
+
+    let cleanedUp = false;
+    const finishTransition = () => {
+        if (cleanedUp) return;
+        cleanedUp = true;
+
+        enterAnimation.cancel();
+        exitAnimation.cancel();
+
+        currentScreen.classList.remove('active');
+        cleanupScreenTransition(currentScreen);
+        cleanupScreenTransition(targetScreen);
+
+        isScreenTransitionRunning = false;
+        handlePageArrival(pageId);
+    };
+
+    window.setTimeout(finishTransition, SCREEN_SLIDE_DURATION_MS + 80);
+
+    Promise.allSettled([enterAnimation.finished, exitAnimation.finished]).then(finishTransition);
+}
+
 /**
- * Reads localStorage completion flags and adds/keeps green ✓ badges
+ * Reads localStorage completion flags and adds/keeps green check badges
  * on the notebook buttons for completed lessons.
  */
 function updateNotebookBadges(pageId) {
     const page = document.getElementById(pageId);
     if (!page) return;
+
     page.querySelectorAll('.lesson-btn[data-lesson]').forEach(btn => {
         const key = btn.getAttribute('data-lesson');
         const isDone = localStorage.getItem(key + '_done') === '1';
         const isWrong = localStorage.getItem(key + '_wrong') === '1';
 
-        // Remove existing badges before re-rendering
-        btn.querySelectorAll('.nb-done-badge, .nb-wrong-badge').forEach(b => b.remove());
+        btn.querySelectorAll('.nb-done-badge, .nb-wrong-badge').forEach(badge => badge.remove());
 
         if (isDone) {
             const badge = document.createElement('div');
@@ -116,7 +327,6 @@ function updateNotebookBadges(pageId) {
     });
 }
 
-
 function playAudio(audioId, textId) {
     const audio = document.getElementById(audioId);
     if (audio) {
@@ -128,7 +338,6 @@ function playAudio(audioId, textId) {
     if (!textEl) return;
 
     if (textEl.classList.contains('word')) {
-        // Word: pop first letter, then pop the whole word (letters only)
         const firstLetter = textEl.querySelector('.first-letter-in-word') || textEl.querySelector('.letter-y-in-word');
         const letters = textEl.querySelectorAll('.syllable-text');
 
@@ -147,9 +356,9 @@ function playAudio(audioId, textId) {
 
             let delay = 500;
             if (textId === 'targetWord3') {
-                delay += 200; // yelo
+                delay += 200;
             } else if (textId === 'targetWord4') {
-                delay += 0; // yeso (no extra delay now)
+                delay += 0;
             }
 
             setTimeout(() => {
@@ -180,38 +389,50 @@ function playAudio(audioId, textId) {
     }
 }
 
+document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || link.target === '_blank' || link.hasAttribute('download')) return;
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (/^(mailto:|tel:|javascript:)/i.test(href)) return;
+
+    event.preventDefault();
+
+    const direction = link.dataset.transitionDirection
+        || (link.classList.contains('return-btn') || link.classList.contains('back-btn') ? 'back' : 'next');
+
+    navigateWithSlide(link.href, direction);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if there is a hash in the URL (e.g., #page11)
     if (window.location.hash) {
         const pageId = window.location.hash.substring(1);
         if (document.getElementById(pageId)) {
-            showPage(pageId);
+            showPage(pageId, { immediate: true });
         }
-        // Clear the hash from the URL so that a page reload always returns to page1
         history.replaceState(null, '', window.location.pathname);
     }
 });
 
 /**
- * Plays an audio element, disables interaction, limits gameplay from breaking, 
+ * Plays an audio element, disables interaction, limits gameplay from breaking,
  * and waits for a specific delay before navigating to the next screen.
  */
 function playWithDelay(audioId, targetPageId, delayMs) {
     const audioEl = document.getElementById(audioId);
-    
+
     if (audioEl) {
-        // Stop any currently playing audio before starting this one
-        document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
-        
+        stopAllAudio();
         audioEl.currentTime = 0;
-        audioEl.play().catch(e => console.warn("Audio play blocked:", e));
+        audioEl.play().catch(e => console.warn('Audio play blocked:', e));
     }
-    
-    // Disable interactions temporarily
+
     document.body.style.pointerEvents = 'none';
-    
+
     setTimeout(() => {
-        document.body.style.pointerEvents = 'auto'; // Re-enable interactions
+        document.body.style.pointerEvents = 'auto';
         showPage(targetPageId);
     }, delayMs);
 }

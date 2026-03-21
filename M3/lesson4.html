@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Home button (bottom right) -->
-                <div class="home-btn" onclick="window.location.href='dafs.html#page11'" title="Go back to lesson menu">
+                <div class="home-btn" onclick="navigateWithSlide('dafs.html#page11', 'back')" title="Go back to lesson menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
                             stroke="#c8a96e" stroke-width="2.5" />
@@ -154,11 +154,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson4_done', '1');
                     localStorage.removeItem('lesson4_wrong');
-                    window.location.href = 'dafs.html#page11';
+                    navigateWithSlide('dafs.html#page11', 'back');
                 } else {
                     localStorage.setItem('lesson4_wrong', '1');
                     localStorage.removeItem('lesson4_done');
-                    window.location.href = 'dafs.html#page11';
+                    navigateWithSlide('dafs.html#page11', 'back');
                 }
             }, 1800);
         }

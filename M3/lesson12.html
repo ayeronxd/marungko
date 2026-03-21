@@ -7,6 +7,7 @@
     <title>Lesson 12 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         /* Layout for Lesson 12 */
         .lesson12-container {
@@ -196,7 +197,7 @@
                 </div>
 
                 <!-- Custom back button (bottom left) -->
-                <div class="back-btn-custom" onclick="window.location.href='lesson10.html'"></div>
+                <div class="back-btn-custom" onclick="navigateWithSlide('lesson10.html', 'back')"></div>
 
             </div>
 
@@ -250,11 +251,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson12_done', '1');
                     localStorage.removeItem('lesson12_wrong');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 } else {
                     localStorage.setItem('lesson12_wrong', '1');
                     localStorage.removeItem('lesson12_done');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 }
             }, 1800);
         }
