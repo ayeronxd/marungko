@@ -7,6 +7,7 @@
     <title>Lesson 1 - Marungko Interactive Chalkboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         /* Internal styles removed - now using unified framework in style.css */
     </style>
@@ -49,7 +50,7 @@
                     <!-- Key image in question card -->
                     <div class="lesson-key-area">
                         <div class="lesson-question-card">
-                            <div class="lesson-question-badge">â“</div>
+                            <div class="lesson-question-badge">&#10067;</div>
                             <img class="lesson-key-img" src="../images/susi.png" alt="Susi (Key)">
                         </div>
                     </div>
@@ -115,7 +116,7 @@
                             opacity="0.7" />
                         <!-- Chalk star accent on right page -->
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
-                            font-family="sans-serif">â˜…</text>
+                            font-family="sans-serif">&#9733;</text>
                     </svg>
                 </div>
 
@@ -131,7 +132,7 @@
     <script>
         function goBack() {
             // Always return to Page 11 so the user can choose another notebook.
-            window.location.href = 'dafs.html#page11';
+            navigateWithSlide('dafs.html#page11', 'back');
         }
 
         function checkAnswer(el, isCorrect) {
@@ -153,14 +154,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';
@@ -175,11 +176,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson1_done', '1');
                     localStorage.removeItem('lesson1_wrong');
-                    window.location.href = 'dafs.html#page11';
+                    goBack();
                 } else {
                     localStorage.setItem('lesson1_wrong', '1');
                     localStorage.removeItem('lesson1_done');
-                    window.location.href = 'dafs.html#page11';
+                    goBack();
                 }
             }, 1800);
         }

@@ -7,6 +7,7 @@
     <title>Lesson 10 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         .char-row {
             position: absolute;
@@ -259,12 +260,12 @@
 
                 <!-- Back button -->
                 <div class="nav-btn back-btn" style="right: auto; left: 25px;"
-                    onclick="window.location.href='dafs.html#page19'">
+                    onclick="navigateWithSlide('dafs.html#page19', 'back')">
                     <div class="arrow"></div>
                 </div>
 
                 <!-- Next button -->
-                <div class="next-btn" onclick="window.location.href='lesson16.html'"></div>
+                <div class="next-btn" onclick="navigateWithSlide('lesson16.html')"></div>
 
             </div>
 
@@ -294,7 +295,7 @@
                 if (btn) {
                     const badge = document.createElement('div');
                     badge.className = `num-badge ${isDone ? 'check' : 'x'}`;
-                    badge.innerHTML = isDone ? 'âœ”' : 'âœ–';
+                    badge.textContent = isDone ? '\u2713' : '\u2715';
                     btn.appendChild(badge);
                 }
             }
@@ -313,19 +314,19 @@
 
             if (num === 1) {
                 // Navigate to lesson11.html immediately
-                window.location.href = 'lesson11.html';
+                navigateWithSlide('lesson11.html');
             } else if (num === 2) {
                 // Navigate to lesson12.html immediately
-                window.location.href = 'lesson12.html';
+                navigateWithSlide('lesson12.html');
             } else if (num === 3) {
                 // Navigate to lesson13.html immediately
-                window.location.href = 'lesson13.html';
+                navigateWithSlide('lesson13.html');
             } else if (num === 4) {
                 // Navigate to lesson14.html immediately
-                window.location.href = 'lesson14.html';
+                navigateWithSlide('lesson14.html');
             } else if (num === 5) {
                 // Navigate to lesson15.html immediately
-                window.location.href = 'lesson15.html';
+                navigateWithSlide('lesson15.html');
             }
         }
     </script>

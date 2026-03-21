@@ -93,7 +93,7 @@
                 </div>
 
                 <!-- Home button (bottom right) -->
-                <div class="home-btn" onclick="window.location.href='dafs.html#page14'" title="Go back to lesson menu">
+                <div class="home-btn" onclick="navigateWithSlide('dafs.html#page14', 'back')" title="Go back to lesson menu">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10,18 Q10,14 14,13 Q30,10 48,15 L48,85 Q30,80 14,83 Q10,84 10,80 Z" fill="#f5e6c8"
                             stroke="#c8a96e" stroke-width="2.5" />
@@ -109,7 +109,7 @@
                         <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" />
                         <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" />
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
-                            font-family="sans-serif">â˜…</text>
+                            font-family="sans-serif">&#9733;</text>
                     </svg>
                 </div>
 
@@ -151,14 +151,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';
@@ -173,12 +173,12 @@
                     localStorage.removeItem('lesson6_wrong');
                     localStorage.setItem('lesson6_done', '1');
                     localStorage.removeItem('lesson6_wrong');
-                    window.location.href = 'dafs.html#page14';
+                    navigateWithSlide('dafs.html#page14', 'back');
                 } else {
                     localStorage.removeItem('lesson6_done');
                     localStorage.setItem('lesson6_wrong', '1');
                     localStorage.removeItem('lesson6_done');
-                    window.location.href = 'dafs.html#page14';
+                    navigateWithSlide('dafs.html#page14', 'back');
                 }
             }, 1800);
         }

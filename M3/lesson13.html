@@ -7,6 +7,7 @@
     <title>Lesson 13 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         /* Layout for Lesson 13 */
         .lesson13-container {
@@ -198,7 +199,7 @@
                 </div>
 
                 <!-- Custom back button (bottom left) -->
-                <div class="back-btn-custom" onclick="window.location.href='lesson10.html'"></div>
+                <div class="back-btn-custom" onclick="navigateWithSlide('lesson10.html', 'back')"></div>
 
             </div>
 
@@ -229,14 +230,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';
@@ -252,11 +253,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson13_done', '1');
                     localStorage.removeItem('lesson13_wrong');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 } else {
                     localStorage.setItem('lesson13_wrong', '1');
                     localStorage.removeItem('lesson13_done');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 }
             }, 1800);
         }

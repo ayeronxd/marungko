@@ -7,6 +7,7 @@
     <title>Lesson 15 - Marungko</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <style>
         /* Layout for Lesson 15 */
         .lesson15-container {
@@ -197,7 +198,7 @@
                 </div>
 
                 <!-- Custom back button (bottom left) -->
-                <div class="back-btn-custom" onclick="window.location.href='lesson10.html'"></div>
+                <div class="back-btn-custom" onclick="navigateWithSlide('lesson10.html', 'back')"></div>
 
             </div>
 
@@ -222,13 +223,13 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';
@@ -241,11 +242,11 @@
                 if (isCorrect) {
                     localStorage.setItem('lesson15_done', '1');
                     localStorage.removeItem('lesson15_wrong');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 } else {
                     localStorage.setItem('lesson15_wrong', '1');
                     localStorage.removeItem('lesson15_done');
-                    window.location.href = 'lesson10.html';
+                    navigateWithSlide('lesson10.html', 'back');
                 }
             }, 1800);
         }
