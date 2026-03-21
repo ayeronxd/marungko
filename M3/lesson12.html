@@ -169,16 +169,16 @@
 
                     <!-- Right Cards: itik and baboy -->
                     <div class="cards-section">
-                        <!-- Itik Card (Correct Answer) -->
-                        <div class="choice-card" onclick="checkAnswer(this, true)">
+                        <!-- Itik Card (Wrong Answer) -->
+                        <div class="choice-card" onclick="checkAnswer(this, false)">
                             <div class="choice-card-img">
                                 <img src="../images/itik.png" alt="Itik">
                             </div>
                             <div class="choice-card-text">itik</div>
                         </div>
 
-                        <!-- Baboy Card (Wrong Answer) -->
-                        <div class="choice-card" onclick="checkAnswer(this, false)">
+                        <!-- Baboy Card (Correct Answer) -->
+                        <div class="choice-card" onclick="checkAnswer(this, true)">
                             <div class="choice-card-img">
                                 <img src="../images/baboy.png" alt="Baboy">
                             </div>
@@ -227,14 +227,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

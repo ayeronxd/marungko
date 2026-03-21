@@ -2240,13 +2240,14 @@ p {
 
 @media (max-width: 768px) {
   .lesson-screen {
-    padding: 15px 20px 60px;
+    padding: 24px 14px 56px;
+    gap: 10px;
   }
 
   .lesson-header-row {
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 5px;
+    gap: 8px;
+    margin-bottom: 0;
   }
 
   .header-spacer {
@@ -2254,19 +2255,42 @@ p {
   }
 
   .lesson-heading {
-    font-size: 28px;
+    font-size: clamp(24px, 6vw, 30px);
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
   }
 
   .lesson-content-row {
     flex-direction: column;
-    gap: 15px;
-    padding-bottom: 10px;
+    justify-content: flex-start;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 6px;
   }
 
   .lesson-choices-row {
-    gap: 12px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 10px 12px;
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .lesson-content-row .lesson-choices-row {
+    width: auto;
+    flex-wrap: nowrap;
+  }
+
+  .lesson-screen>.lesson-choices-row {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .lesson-screen>.lesson-choices-row .lesson-choice-card {
+    width: calc(50% - 6px);
+    max-width: 150px;
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
 
   .lesson-choice-circle {
@@ -2310,11 +2334,16 @@ p {
   }
 
   /* Key Area fixes */
+  .lesson-key-area {
+    width: 100%;
+  }
+
   .lesson-question-card {
-    width: 138px;
-    height: 160px;
+    width: clamp(128px, 35vw, 150px);
+    height: clamp(148px, 41vw, 174px);
     padding: 12px 16px;
     border-radius: 14px;
+    margin: 0 auto;
   }
 
   .lesson-question-badge {
@@ -2332,13 +2361,18 @@ p {
 }
 
 @media (max-width: 480px) {
+  .lesson-screen {
+    padding: 22px 12px 52px;
+    gap: 8px;
+  }
+
   .lesson-heading {
-    font-size: 20px;
+    font-size: clamp(18px, 5.4vw, 22px);
   }
 
   .lesson-choice-circle {
-    width: 72px;
-    height: 72px;
+    width: 74px;
+    height: 74px;
   }
 
   .lesson-choice-circle .letter {
@@ -2346,17 +2380,29 @@ p {
   }
 
   .lesson-choice-card {
-    width: 95px;
-    height: 95px;
+    width: 110px;
+    height: 110px;
   }
 
   .lesson-choice-card .label {
     font-size: 14px;
   }
 
+  .lesson-screen>.lesson-choices-row {
+    max-width: 290px;
+    gap: 8px;
+  }
+
+  .lesson-screen>.lesson-choices-row .lesson-choice-card {
+    width: calc(50% - 4px);
+    max-width: none;
+  }
+
   .lesson-question-card {
-    width: 103px;
-    height: 120px;
+    width: 124px;
+    height: 144px;
+    padding: 12px 14px;
+    margin: 0 auto;
   }
 
   .lesson-key-img {

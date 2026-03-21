@@ -91,6 +91,17 @@
             object-fit: contain;
         }
 
+        .choice-card-img.choice-card-img--zoomed {
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .choice-card-img.choice-card-img--zoomed img {
+            max-width: 130%;
+            max-height: 130%;
+            transform: scale(1.25);
+        }
+
         .choice-card-text {
             padding: 20px 0;
             font-family: 'Fredoka', sans-serif;
@@ -172,7 +183,7 @@
                     <div class="cards-section">
                         <!-- Bibe Card (Correct Answer) -->
                         <div class="choice-card" onclick="checkAnswer(this, true)">
-                            <div class="choice-card-img">
+                            <div class="choice-card-img choice-card-img--zoomed">
                                 <img src="../images/bibe.png" alt="Bibe">
                             </div>
                             <div class="choice-card-text">bibe</div>
@@ -222,13 +233,13 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

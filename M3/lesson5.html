@@ -50,7 +50,7 @@
                     <!-- Key image in question card -->
                     <div class="lesson-key-area">
                         <div class="lesson-question-card">
-                            <div class="lesson-question-badge">â“</div>
+                            <div class="lesson-question-badge">&#10067;</div>
                             <img class="lesson-key-img lesson-key-img--yoyo" src="../images/yoyo.png" alt="Yoyo">
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         <line x1="56" y1="48" x2="82" y2="50" stroke="#c8a96e" stroke-width="1.8" />
                         <line x1="56" y1="58" x2="82" y2="60" stroke="#c8a96e" stroke-width="1.8" />
                         <text x="65" y="78" font-size="16" text-anchor="middle" fill="#e07830"
-                            font-family="sans-serif">â˜…</text>
+                            font-family="sans-serif">&#9733;</text>
                     </svg>
                 </div>
 
@@ -132,14 +132,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

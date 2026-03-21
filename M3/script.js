@@ -105,12 +105,12 @@ function updateNotebookBadges(pageId) {
         if (isDone) {
             const badge = document.createElement('div');
             badge.className = 'nb-done-badge';
-            badge.textContent = '✓';
+            badge.textContent = '\u2713';
             btn.appendChild(badge);
         } else if (isWrong) {
             const badge = document.createElement('div');
             badge.className = 'nb-wrong-badge';
-            badge.textContent = '✕';
+            badge.textContent = '\u2715';
             btn.appendChild(badge);
         }
     });

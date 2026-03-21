@@ -226,14 +226,14 @@
 
             if (isCorrect) {
                 panel.className = 'lesson-feedback-panel show correct';
-                icon.textContent = 'ðŸŒŸ';
+                icon.textContent = String.fromCodePoint(0x1f31f);
                 title.textContent = 'Tama!';
                 sub.textContent = 'Napakagaling mo!';
                 el.style.outline = '6px solid #2ecc71';
                 el.style.filter = 'brightness(1.15)';
             } else {
                 panel.className = 'lesson-feedback-panel show wrong';
-                icon.textContent = 'ðŸ˜Š';
+                icon.textContent = String.fromCodePoint(0x1f60a);
                 title.textContent = 'Subukan Muli!';
                 sub.textContent = 'Kaya mo yan, try ulit!';
                 el.style.outline = '6px solid #e74c3c';

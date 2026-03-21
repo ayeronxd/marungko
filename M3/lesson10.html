@@ -294,7 +294,7 @@
                 if (btn) {
                     const badge = document.createElement('div');
                     badge.className = `num-badge ${isDone ? 'check' : 'x'}`;
-                    badge.innerHTML = isDone ? 'âœ”' : 'âœ–';
+                    badge.textContent = isDone ? '\u2713' : '\u2715';
                     btn.appendChild(badge);
                 }
             }
